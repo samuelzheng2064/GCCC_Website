@@ -1,5 +1,7 @@
 export type Language = 'en' | 'zh';
 
+export type Page = 'home' | 'about' | 'sermons' | 'fellowships' | 'calendar' | 'contact';
+
 export interface SiteSettings {
   churchName: { [key in Language]: string };
   tagline: { [key in Language]: string };
@@ -20,7 +22,18 @@ export interface Sermon {
   date: string;
   series?: { [key in Language]: string };
   youtubeLink?: string;
-  audioLink?: string;
+  englishYoutubeLink?: string;
+}
+
+export interface Activity {
+  id: string;
+  fellowship: { [key in Language]: string };
+  title: { [key in Language]: string };
+  description?: { [key in Language]: string };
+  date: string;       // YYYY-MM-DD
+  time?: string;      // e.g. "6:30 PM"
+  location?: { [key in Language]: string };
+  photos: string[];   // first photo is the hero
 }
 
 export interface Fellowship {

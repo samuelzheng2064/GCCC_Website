@@ -7,7 +7,7 @@
  * Migration status: static fixtures kept as fallback.
  * Live fetch functions are exported from src/lib/cms.ts.
  */
-import { Sermon, Fellowship, SiteSettings } from "./types";
+import { Sermon, Fellowship, SiteSettings, Activity } from "./types";
 
 export const siteSettings: SiteSettings = {
   churchName: {
@@ -42,79 +42,45 @@ export const siteSettings: SiteSettings = {
 export const currentSermons: Sermon[] = [
   {
     id: "sermon-1",
-    title: {
-      en: "Abiding in the Vine: True Spiritual Fruitfulness",
-      zh: "常在葡萄樹上：結出豐盛的生命果子",
-    },
-    speaker: {
-      en: "Pastor Samuel Cheng",
-      zh: "鄭牧師",
-    },
-    scripture: "John 15:1-8 (約翰福音 15:1-8)",
+    title: { en: "The Kingdom of God", zh: "神国" },
+    speaker: { en: "", zh: "" },
+    scripture: "",
     date: "2026-06-14",
-    series: {
-      en: "The Gospel of John",
-      zh: "約翰福音系列",
-    },
-    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Demo link
-    audioLink: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    youtubeLink: "https://www.youtube.com/embed/8abEVKXjFiU",
+    englishYoutubeLink: "https://www.youtube.com/embed/3TxEmfIqXrI",
   },
   {
     id: "sermon-2",
-    title: {
-      en: "Foundations of Faith: Hearing and Doing",
-      zh: "信仰的根基：聽道與行道",
-    },
-    speaker: {
-      en: "Elder David Jiang",
-      zh: "蔣長老",
-    },
-    scripture: "James 1:22-25 (雅各書 1:22-25)",
-    date: "2026-06-07",
-    series: {
-      en: "Walking in Wisdom",
-      zh: "智慧中行事",
-    },
-    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    audioLink: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    title: { en: "Let Us Renew Our Strength", zh: "让我们重新得力" },
+    speaker: { en: "", zh: "" },
+    scripture: "",
+    date: "2026-05-31",
+    youtubeLink: "https://www.youtube.com/embed/0WNz27xGa7A",
+    englishYoutubeLink: "https://www.youtube.com/embed/EFF1TP7drfw",
   },
   {
     id: "sermon-3",
-    title: {
-      en: "A Call to True Discipleship",
-      zh: "真實門徒的召喚與奉獻",
-    },
-    speaker: {
-      en: "Rev. Matthew Wu",
-      zh: "吳牧師",
-    },
-    scripture: "Luke 9:23-26 (路加福音 9:23-26)",
-    date: "2026-05-31",
-    series: {
-      en: "Following Jesus",
-      zh: "跟隨耶穌的腳步",
-    },
-    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    audioLink: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    title: { en: "Free from Inner Turmoil", zh: "让我能不再内耗" },
+    speaker: { en: "Deacon Alex Lu", zh: "陸尊恩 傳道" },
+    scripture: "",
+    date: "2026-05-29",
+    youtubeLink: "https://www.youtube.com/embed/VjqQbFt_xoc",
   },
+];
+
+export const activitiesData: Activity[] = [
   {
-    id: "sermon-4",
-    title: {
-      en: "The Peace That Transcends Understanding",
-      zh: "出人意外的平安",
+    id: "activity-1",
+    fellowship: { en: "Alpha Fellowship", zh: "Alpha 團契" },
+    title: { en: "He vs. She Cooking Competition", zh: "男女廚藝大比拼" },
+    description: {
+      en: "Brothers and sisters go head-to-head in a friendly cooking showdown. Come hungry, vote for your favorite dish, and enjoy an evening of laughter and fellowship!",
+      zh: "兄弟與姊妹們一較廚藝高下！帶著空腹來，為你最愛的菜投票，享受一個充滿歡笑與團契的美好夜晚！",
     },
-    speaker: {
-      en: "Pastor Samuel Cheng",
-      zh: "鄭牧師",
-    },
-    scripture: "Philippians 4:4-7 (腓立比書 4:4-7)",
-    date: "2026-05-24",
-    series: {
-      en: "Joy in All Circumstance",
-      zh: "逆境中的喜樂",
-    },
-    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    audioLink: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+    date: "2026-06-19",
+    time: "6:30 PM",
+    location: { en: "Church Fellowship Hall", zh: "教會團契廳" },
+    photos: ["/src/assets/images/alpha.JPG"],
   },
 ];
 
