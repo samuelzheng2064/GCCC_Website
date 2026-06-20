@@ -31,8 +31,7 @@ export default function Header({
   const t = {
     navHome: { en: "Home", zh: "首頁" },
     navAbout: { en: "About Us", zh: "關於我們" },
-    navSermons: { en: "Sermons", zh: "主日講道" },
-    navFellowships: { en: "Fellowships", zh: "團契生活" },
+    navFellowships: { en: "Ministry", zh: "團契生活" },
     navCalendar: { en: "Schedule", zh: "聚會日程" },
     navContact: { en: "Contact Us", zh: "聯絡我們" },
     wordmarkZh: "甘城華人教會",
@@ -42,7 +41,6 @@ export default function Header({
   const navItems: { label: { en: string; zh: string }; page: Page }[] = [
     { label: t.navHome, page: "home" },
     { label: t.navAbout, page: "about" },
-    { label: t.navSermons, page: "sermons" },
     { label: t.navFellowships, page: "fellowships" },
     { label: t.navCalendar, page: "calendar" },
     { label: t.navContact, page: "contact" },
@@ -89,7 +87,7 @@ export default function Header({
               <button
                 key={item.page}
                 onClick={() => handleNav(item.page)}
-                className={`font-sans text-sm font-medium px-3 py-2 rounded-md transition-colors relative group ${
+                className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group ${
                   currentPage === item.page
                     ? "text-[#9A2B27]"
                     : "text-[#33271E] hover:text-[#9A2B27]"

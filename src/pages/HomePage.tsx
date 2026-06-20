@@ -1,19 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Language, Page } from "../types";
 import GcccMark from "../components/GcccMark";
 import SermonPlayer from "../components/SermonPlayer";
-import { Info, ChevronRight } from "lucide-react";
+import { Info, ChevronRight, X, ChevronLeft } from "lucide-react";
 
 interface HomePageProps {
   currentLang: Language;
   onNavigateTo: (page: Page) => void;
 }
 
-export default function HomePage({
-  currentLang,
-  onNavigateTo,
-}: HomePageProps) {
+const cookingPhotos = [
+  "/src/assets/images/cooking competion/27d94bc0-8dad-44c7-a6ab-1e6f8e8a3ead.JPG",
+  "/src/assets/images/cooking competion/573ebce7-ca0f-4bf5-850c-40f19f5d0cad.JPG",
+  "/src/assets/images/cooking competion/IMG_2842.JPG",
+  "/src/assets/images/cooking competion/IMG_2843.JPG",
+  "/src/assets/images/cooking competion/IMG_2847.JPG",
+  "/src/assets/images/cooking competion/IMG_2848.JPG",
+];
+
+export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
   const [transitMode, setTransitMode] = useState<"walk" | "bus" | "car">("bus");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const openLightbox = (i: number) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevPhoto = () => setLightboxIndex(i => i === null ? null : (i - 1 + cookingPhotos.length) % cookingPhotos.length);
+  const nextPhoto = () => setLightboxIndex(i => i === null ? null : (i + 1) % cookingPhotos.length);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") prevPhoto();
+      if (e.key === "ArrowRight") nextPhoto();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightboxIndex]);
 
   const t = {
     heroScheduleSentence: {
@@ -32,9 +55,18 @@ export default function HomePage({
       en: "Getting to GCCC from UF",
       zh: "從佛羅里達大學 (UF) 前往教會",
     },
-    directionsWalk: { en: "15 min walk from SW Recreation", zh: "從西南體育館步行約 15 分鐘" },
-    directionsBus: { en: "Take RTS Bus 9, 34, or 35", zh: "搭乘甘城公交 9, 34 或 35 路" },
-    directionsCar: { en: "5 mins drive down SW 2nd Ave", zh: "自 SW 2nd Ave 驅車僅 5 分鐘" },
+    directionsWalk: {
+      en: "15 min walk from SW Recreation",
+      zh: "從西南體育館步行約 15 分鐘",
+    },
+    directionsBus: {
+      en: "Take RTS Bus 9, 34, or 35",
+      zh: "搭乘甘城公交 9, 34 或 35 路",
+    },
+    directionsCar: {
+      en: "5 mins drive down SW 2nd Ave",
+      zh: "自 SW 2nd Ave 驅車僅 5 分鐘",
+    },
   };
 
   return (
@@ -65,11 +97,120 @@ export default function HomePage({
         </div>
       </section>
 
+      {/* SUNDAY SERVICE */}
+      <section
+        id="sunday-service"
+        className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
+        <div className="flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl border border-[#E7B7A0]/20">
+          {/* Image panel */}
+          <div className="lg:w-1/2 shrink-0">
+            <img
+              src="/src/assets/images/sundayservice.JPG"
+              alt="Sunday Service at GCCC"
+              className="w-full h-auto block"
+            />
+          </div>
+
+          {/* Content panel */}
+          <div className="bg-[#33271E] px-8 py-10 lg:px-10 flex flex-col justify-between gap-5 lg:w-1/2">
+            <div>
+              <span className="font-mono text-[10px] text-[#E7B7A0] uppercase tracking-[3px] font-bold block mb-2">
+                {currentLang === "en"
+                  ? "You Are Welcome Here"
+                  : "歡迎你來到我們中間"}
+              </span>
+              <h2 className="font-serif text-3xl md:text-4xl text-[#FBF7EF] font-bold tracking-tight leading-snug">
+                {currentLang === "en" ? "Sunday Service" : "主日崇拜"}
+              </h2>
+              <div className="h-1 w-12 bg-[#9A2B27] mt-3" />
+            </div>
+
+            <p className="text-sm text-[#FBF7EF]/70 font-serif leading-relaxed">
+              {currentLang === "en"
+                ? "Every Sunday we gather as one family — in English and Mandarin — to worship, learn from God's Word, and encourage one another. Whether you're visiting for the first time or returning home, there is a place for you."
+                : "每主日，我們以中英雙語齊聚一堂，敬拜讚美、聆聽神話語、彼此相扶。無論你是第一次來訪，還是尋覓屬靈的家，這裡都有你的位置。"}
+            </p>
+
+            {/* Schedule items */}
+            <div className="divide-y divide-[#E7B7A0]/10">
+              {[
+                {
+                  time: currentLang === "en" ? "9:30 AM" : "上午 9:30",
+                  label: currentLang === "en" ? "Sunday School" : "主日學",
+                  sub:
+                    currentLang === "en" ? "Children & Adults" : "兒童及成人班",
+                },
+                {
+                  time: currentLang === "en" ? "10:50 AM" : "上午 10:50",
+                  label:
+                    currentLang === "en"
+                      ? "Bilingual Worship Service"
+                      : "中英雙語主日崇拜",
+                  sub:
+                    currentLang === "en"
+                      ? "In-Person & YouTube Live"
+                      : "實體聚會 & YouTube 同步直播",
+                },
+              ].map((item) => (
+                <div key={item.time} className="flex items-baseline gap-6 py-4">
+                  <span className="font-mono text-sm text-[#E7B7A0] font-bold whitespace-nowrap w-24 shrink-0">
+                    {item.time}
+                  </span>
+                  <div>
+                    <p className="font-serif text-base text-[#FBF7EF] font-semibold leading-snug">
+                      {item.label}
+                    </p>
+                    <p className="font-mono text-xs text-[#FBF7EF]/40 tracking-wide mt-1">
+                      {item.sub}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA + address */}
+            <div>
+              <div className="flex flex-wrap gap-3 mb-4">
+                <a
+                  href="https://www.youtube.com/@gccc_gainesville"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-[#FBF7EF] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-[#9A2B27]/30"
+                >
+                  {currentLang === "en" ? "Watch Live" : "線上直播"}
+                  <ChevronRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={() => onNavigateTo("contact")}
+                  className="inline-flex items-center gap-2 border border-[#E7B7A0]/25 hover:border-[#E7B7A0]/50 text-[#E7B7A0] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
+                >
+                  {currentLang === "en" ? "Find Us" : "前往教會"}
+                  <Info className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="border-t border-[#E7B7A0]/10 pt-4">
+                <p className="font-mono text-[10px] text-[#FBF7EF]/35 uppercase tracking-widest">
+                  {currentLang === "en"
+                    ? "3420 SW 2nd Ave, Gainesville, FL 32607"
+                    : "3420 SW 2nd Ave, 佛州甘城 FL 32607"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SERMONS — inline on home page for easy visitor access */}
-      <section id="sermons" className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section
+        id="sermons"
+        className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
         <div className="mb-8">
           <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-widest font-bold block mb-1">
-            {currentLang === "en" ? "Spiritual Nourishment" : "主日神話語的造就"}
+            {currentLang === "en"
+              ? "Spiritual Nourishment"
+              : "主日神話語的造就"}
           </span>
           <h2 className="font-serif text-3xl md:text-4xl text-[#33271E] font-bold tracking-tight">
             {currentLang === "en" ? "Recent Sermons" : "近期主日講道"}
@@ -78,156 +219,141 @@ export default function HomePage({
         <SermonPlayer currentLang={currentLang} />
       </section>
 
-      {/* ABOUT — history & proclamation of faith */}
-      <section id="about" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-16">
-
-          {/* Left: image + proclamation */}
-          <div className="flex flex-col gap-8">
-            <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
-                <img
-                  src="/src/assets/images/gccc_sermon_1781744456768.jpg"
-                  alt="Holy Bible on altar table"
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-1/2 h-1/2 bg-[#E7B7A0]/40 rounded-2xl z-0" />
-              <div className="absolute top-4 -left-4 w-20 h-20 border-t-4 border-l-4 border-[#9A2B27] z-0" />
-            </div>
-
-            {/* Proclamation of Faith */}
-            <div className="bg-[#33271E] text-[#FBF7EF] rounded-2xl p-6 border border-[#E7B7A0]/10 shadow-xl">
-              <span className="font-mono text-[10px] text-[#E7B7A0] uppercase tracking-[3px] font-bold block mb-4">
-                {currentLang === "en" ? "Proclamation of Faith" : "信仰宣告"}
-              </span>
-              <div className="space-y-3 font-serif text-xs text-[#FBF7EF]/85 italic leading-relaxed">
-                {currentLang === "en" ? (
-                  <>
-                    <p>I believe in God, the Father Almighty, Creator of heaven and earth.</p>
-                    <p>I believe in Jesus Christ, God's only Son, our Lord; who was conceived by the Holy Spirit, born of the Virgin Mary; suffered under Pontius Pilate, was crucified, died, and was buried; he descended to the dead; on the third day he rose again; he ascended into heaven, he is seated at the right hand of the Father; and he will come again to judge the living and the dead.</p>
-                    <p>I believe in the Holy Spirit; the holy catholic church, the communion of saints; the forgiveness of sins, the resurrection of the body; and the life everlasting. Amen.</p>
-                  </>
-                ) : (
-                  <>
-                    <p>我信上帝，全能的父，創造天地的主。</p>
-                    <p>我信我主耶穌基督，上帝的獨生子；因著聖靈感孕，從童貞女馬利亞所生；在本丟彼拉多手下受難，被釘在十字架上，受死，埋葬；降在陰間；第三天從死里復活；祂升天，坐在全能父上帝的右邊；將來必從那里降臨，審判活人，死人。</p>
-                    <p>我信聖靈；我信聖而公之教會；我信聖徒相通；我信罪得赦免；我信身體復活；我信永生。阿們！</p>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Right: full church history */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            <div>
-              <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-[3px] font-bold block mb-2">
-                {currentLang === "en" ? "Who We Are" : "關於我們"}
-              </span>
-              <h2 className="font-serif text-3xl md:text-4xl text-[#33271E] font-bold tracking-tight">
-                {currentLang === "en" ? "History of Our Church" : "本教會歷史"}
-              </h2>
-            </div>
-            <div className="h-1 w-16 bg-[#9A2B27]" />
-            <div className="space-y-4 text-sm text-[#6F685B] font-serif leading-relaxed">
-              {currentLang === "en" ? (
-                <>
-                  <p>In September 1970, several Chinese Christians started the Gainesville Chinese Bible Study Group. They met every Friday night at the Baptist Student Center — to fellowship through Bible study, prayer, and sharing, and to share the gospel with the Chinese community. Numbers grew from a little over 10 to 60–70 by the late 1980s.</p>
-                  <p>In 1979, the First Baptist Church started an international Sunday school whose members were mainly from the Bible study group. In October 1988, Chinese Sunday worship service began at the First Baptist Church chapel, and in February 1989, GCCC was officially established. By the grace of God, we moved into our own church building in 2002, with adult attendance growing from about 40 to over 100.</p>
-                  <p>Our congregation consists of people of all walks of life — mostly first- and second-generation Chinese immigrants, college students, graduate students, and their families. About five percent are non-Chinese and about one-third are second-generation Chinese immigrants more fluent in English. The adult worship service is conducted bilingually in Chinese and English.</p>
-                  <p>This church has deep roots in Bible study. From that single Bible study group over fifty years ago, we now have four Sunday morning study groups, six on Friday nights, five fellowships, and a Bible Training Center for Pastors. We are students of the Holy Bible and disciples of Jesus Christ.</p>
-                </>
-              ) : (
-                <>
-                  <p>一九七零年九月，數位愛主的華人基督徒開始佛州大學的中文查經班。每週五晚上，在浸信會學生中心聚會，聯繫弟兄姊妹查經、禱告、分享，並傳揚福音給同胞同學。聚會人數從起初的十幾人到八十年代末已增至六、七十人。</p>
-                  <p>一九七九年第一浸信教會開始以華人為主的國際主日學，成員都是查經班的弟兄姊妹。一九八八年十月，在第一浸信教會副堂開始中文主日崇拜；次年二月正式成立教會。蒙神的恩典，教會於二零零二年搬進自建教堂，成人崇拜人數由起初四十幾人增加到現在一百多人。</p>
-                  <p>本教會會眾包含社會各階層及各年齡層，大部份是第一代及第二代華人移民、大學生、研究生及其眷屬。約有百份之五的非華人及三份之一說英語較流利的第二代移民，成人主日崇拜採中英雙語進行。</p>
-                  <p>本教會的基礎深植於查經班。從五十多年前那一個查經班開始，現在主日有四個查經班、週五有六個查經班、五個團契及聖經牧訓班。我們是聖經的學生，是耶穌基督的門徒。</p>
-                </>
-              )}
-            </div>
-            <button
-              onClick={() => onNavigateTo("fellowships")}
-              className="mt-2 self-start inline-flex items-center gap-2 bg-[#9A2B27]/10 hover:bg-[#9A2B27]/20 text-[#9A2B27] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all border border-[#9A2B27]/20"
-            >
-              <span>{currentLang === "en" ? "Explore Our Fellowships" : "瞭解各團契生活"}</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+      {/* ACTIVITIES */}
+      <section
+        id="activities"
+        className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
+        <div className="mb-10">
+          <span className="font-mono text-xs text-brand-red uppercase tracking-widest font-bold block mb-1">
+            {currentLang === "en" ? "Life Together" : "教會生活"}
+          </span>
+          <h2 className="font-serif text-3xl md:text-4xl text-brand-brown-dark font-bold tracking-tight">
+            {currentLang === "en" ? "Recent Activities" : "近期活動"}
+          </h2>
         </div>
-      </section>
 
-      {/* UF CAMPUS BILLBOARD */}
-      <section className="bg-[#211E18] text-[#FBF7EF] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#9A2B27]/10 rounded-full blur-3xl translate-x-24 -translate-y-24" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#E7B7A0]/5 rounded-full blur-3xl -translate-x-24 translate-y-24" />
-        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-7 flex flex-col gap-4">
-            <span className="font-mono text-xs text-[#E7B7A0] uppercase tracking-widest font-semibold block">
-              ⭐ {t.UFStudentSectionTitle[currentLang]}
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug">
-              {currentLang === "zh"
-                ? "支持佛羅里達大學學子的溫暖港灣，伴您留學歲月"
-                : "Serving Gators with love and hospitality just steps from campus"}
-            </h3>
-            <p className="text-sm sm:text-base text-neutral-300 font-serif leading-relaxed max-w-3xl">
-              {t.UFStudentSectionDesc[currentLang]}
-            </p>
-            <div className="bg-[#33271E] rounded-xl p-4 border border-white/5 mt-3 max-w-xl">
-              <span className="text-xs font-mono tracking-wider text-[#E7B7A0] font-bold block mb-2 uppercase">
-                📍 {t.directionsTitle[currentLang]}
-              </span>
-              <div className="flex border-b border-white/10 mb-3">
-                {(["walk", "bus", "car"] as const).map((mode) => (
-                  <button
-                    key={mode}
-                    onClick={() => setTransitMode(mode)}
-                    className={`pb-2 px-3 text-xs font-medium border-b-2 transition-all ${transitMode === mode ? "border-[#9A2B27] text-white" : "border-transparent text-neutral-400 hover:text-white"}`}
-                  >
-                    {mode === "walk" && `🚶 ${currentLang === "en" ? "On foot" : "步行"}`}
-                    {mode === "bus" && `🚌 ${currentLang === "en" ? "RTS Bus" : "搭乘公交"}`}
-                    {mode === "car" && `🚗 ${currentLang === "en" ? "By Car" : "開車自駕"}`}
-                  </button>
+        <div className="grid grid-cols-1 gap-8">
+          {/* Activity Card: Cooking Competition */}
+          <div className="group rounded-3xl overflow-hidden shadow-xl border border-brand-tan/20 bg-white hover:shadow-2xl transition-all duration-300 flex flex-col lg:flex-row">
+            {/* Image grid */}
+            <div className="grid grid-cols-3 grid-rows-2 lg:w-3/5 shrink-0 h-72 lg:h-96">
+              <img
+                src={cookingPhotos[0]}
+                alt="He and She Fellowship cooking competition group"
+                className="w-full h-full object-cover col-span-2 row-span-2 cursor-pointer"
+                onClick={() => openLightbox(0)}
+              />
+              <img
+                src={cookingPhotos[2]}
+                alt="Cooking competition kitchen prep"
+                className="w-full h-full object-cover border-l-2 border-b border-white cursor-pointer"
+                onClick={() => openLightbox(2)}
+              />
+              <img
+                src={cookingPhotos[4]}
+                alt="Cooking competition serving"
+                className="w-full h-full object-cover border-l-2 border-t border-white cursor-pointer"
+                onClick={() => openLightbox(4)}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="p-8 lg:p-10 flex flex-col justify-between gap-6 lg:w-2/5">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-[10px] text-brand-red uppercase tracking-widest font-bold bg-brand-red/8 px-3 py-1 rounded-full">
+                    {currentLang === "en" ? "Fellowship" : "團契活動"}
+                  </span>
+                  <span className="font-mono text-[10px] text-[#6F685B]/60 tracking-wide">
+                    {currentLang === "en" ? "Jun 2025" : "2025 年 6 月"}
+                  </span>
+                </div>
+
+                <p className="font-mono text-xs text-brand-red uppercase tracking-widest font-bold mb-1">
+                  Alpha Fellowship
+                </p>
+                <h3 className="font-serif text-2xl md:text-3xl text-brand-brown-dark font-bold leading-snug mb-4">
+                  {currentLang === "en"
+                    ? "He & She Fellowship Cooking Competition"
+                    : "弟兄姊妹團契廚藝大賽"}
+                </h3>
+                <div className="h-0.5 w-10 bg-brand-red mb-5" />
+                <p className="font-serif text-base text-[#6F685B] leading-relaxed">
+                  {currentLang === "en"
+                    ? "Brothers and sisters from Alpha Fellowship put their culinary skills to the test in a friendly cooking competition — a joyful evening celebrating community, creativity, and delicious food together."
+                    : "Alpha 團契的弟兄姊妹各展廚藝，在歡樂的廚藝競賽中切磋交流，共享美食，彼此相連，溫馨難忘。"}
+                </p>
+              </div>
+
+              {/* Thumbnail strip — click any to open lightbox */}
+              <div className="flex gap-2 flex-wrap">
+                {cookingPhotos.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`Photo ${i + 1}`}
+                    onClick={() => openLightbox(i)}
+                    className="w-14 h-14 rounded-lg object-cover shadow cursor-pointer hover:ring-2 hover:ring-brand-red transition-all"
+                  />
                 ))}
               </div>
-              <div className="text-xs text-[#FBF7EF] flex items-center gap-2">
-                <Info className="w-4 h-4 text-[#E7B7A0] shrink-0" />
-                <span>
-                  {transitMode === "walk" && t.directionsWalk[currentLang]}
-                  {transitMode === "bus" && t.directionsBus[currentLang]}
-                  {transitMode === "car" && t.directionsCar[currentLang]}
-                </span>
-              </div>
-            </div>
-            <button
-              onClick={() => onNavigateTo("fellowships")}
-              className="mt-2 self-start inline-flex items-center gap-2 bg-[#E7B7A0]/10 hover:bg-[#E7B7A0]/20 text-[#E7B7A0] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all border border-[#E7B7A0]/20"
-            >
-              <span>{currentLang === "en" ? "Explore Student Fellowship" : "瞭解學生聚會與愛宴詳情"}</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-          <div className="lg:col-span-5 h-[280px] sm:h-[320px] rounded-2xl overflow-hidden shadow-2xl relative border border-white/10">
-            <img
-              src="/src/assets/images/gccc_campus_1781744441184.jpg"
-              alt="Gators studying study group"
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent p-6 flex flex-col justify-end">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-amber-200 block mb-1">
-                Friday Dinner & Groups
-              </span>
-              <span className="font-serif text-lg font-bold">
-                UF Plaza of the Americas & Church Hall
-              </span>
             </div>
           </div>
         </div>
       </section>
+
+      {/* LIGHTBOX */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+          onClick={closeLightbox}
+        >
+          {/* Close */}
+          <button
+            className="absolute top-4 right-4 text-white/70 hover:text-white p-2"
+            onClick={closeLightbox}
+          >
+            <X className="w-7 h-7" />
+          </button>
+
+          {/* Prev */}
+          <button
+            className="absolute left-4 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all"
+            onClick={e => { e.stopPropagation(); prevPhoto(); }}
+          >
+            <ChevronLeft className="w-7 h-7" />
+          </button>
+
+          {/* Image */}
+          <img
+            src={cookingPhotos[lightboxIndex]}
+            alt={`Photo ${lightboxIndex + 1}`}
+            className="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl object-contain"
+            onClick={e => e.stopPropagation()}
+          />
+
+          {/* Next */}
+          <button
+            className="absolute right-4 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all"
+            onClick={e => { e.stopPropagation(); nextPhoto(); }}
+          >
+            <ChevronRight className="w-7 h-7" />
+          </button>
+
+          {/* Counter */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {cookingPhotos.map((_, i) => (
+              <button
+                key={i}
+                onClick={e => { e.stopPropagation(); setLightboxIndex(i); }}
+                className={`w-2 h-2 rounded-full transition-all ${i === lightboxIndex ? "bg-white scale-125" : "bg-white/40"}`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
     </>
   );
 }

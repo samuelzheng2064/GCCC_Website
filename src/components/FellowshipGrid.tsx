@@ -12,7 +12,7 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
 
   const t = {
     exploreBtn: { en: "Gather Details", zh: "查看聚會詳情" },
-    featuredBadge: { en: "UF Priority Youth", zh: "UF高佛學子重點事工" },
+    featuredBadge: { en: "Featured Fellowship", zh: "重點推薦團契" },
     titleMain: { en: "Find Your Community", zh: "在基督裡同心同行" },
     subMain: { en: "Fellowships Grouped By Life Stage", zh: "切合您不同人生軌跡的團契與小組生活" },
     modalSchedule: { en: "Meeting Time", zh: "聚會時段" },
@@ -46,7 +46,7 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
         <div 
           className="relative bg-[#33271E] text-[#FBF7EF] rounded-2xl overflow-hidden shadow-xl border border-[#E7B7A0]/20 min-h-[420px] flex flex-col justify-end p-6 md:p-12 hover:shadow-2xl transition-all group cursor-pointer"
           onClick={() => setSelectedFellowship(featured)}
-          id="featured-campus-banner"
+          id="featured-fellowship-banner"
         >
           {/* Background image overlay */}
           <div className="absolute inset-0 bg-[#211E18]">

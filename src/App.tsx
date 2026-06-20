@@ -5,6 +5,7 @@ import GcccIntro from "./components/GcccIntro";
 import Header from "./components/Header";
 import GcccMark from "./components/GcccMark";
 import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
 import FellowshipsPage from "./pages/FellowshipsPage";
 import CalendarPage from "./pages/CalendarPage";
 import ContactPage from "./pages/ContactPage";
@@ -53,7 +54,6 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case "home":
-      case "about":
       case "sermons":
         return (
           <HomePage
@@ -61,6 +61,8 @@ export default function App() {
             onNavigateTo={handlePageChange}
           />
         );
+      case "about":
+        return <AboutPage currentLang={currentLang} />;
       case "fellowships":
         return <FellowshipsPage currentLang={currentLang} />;
       case "calendar":
