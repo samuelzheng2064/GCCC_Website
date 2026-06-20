@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Fellowship, Language } from "../types";
 import { fellowshipsData } from "../data";
-import { Calendar, MapPin, PhoneCall, User, X, Compass, ExternalLink } from "lucide-react";
+import { Calendar, MapPin, User, X } from "lucide-react";
 
 interface FellowshipGridProps {
   currentLang: Language;
@@ -12,129 +12,51 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
 
   const t = {
     exploreBtn: { en: "Gather Details", zh: "查看聚會詳情" },
-    featuredBadge: { en: "Featured Fellowship", zh: "重點推薦團契" },
-    titleMain: { en: "Find Your Community", zh: "在基督裡同心同行" },
-    subMain: { en: "Fellowships Grouped By Life Stage", zh: "切合您不同人生軌跡的團契與小組生活" },
     modalSchedule: { en: "Meeting Time", zh: "聚會時段" },
     modalLocation: { en: "Location", zh: "聚會地點" },
     modalContact: { en: "Coordinator", zh: "聯絡窗口" },
     closeBtn: { en: "Close Window", zh: "關閉視窗" },
   };
 
-  // Split out the featured Campus fellowship
-  const featured = fellowshipsData.find(f => f.isFeatured);
-  const remainingGrids = fellowshipsData.filter(f => !f.isFeatured);
-
   return (
     <div className="flex flex-col gap-8" id="fellowships_section_block">
-      
-      {/* SECTION HEADER */}
-      <div className="text-center max-w-3xl mx-auto mb-4">
-        <span className="font-mono text-xs tracking-widest text-[#9A2B27] uppercase font-bold block mb-2">
-          {t.subMain[currentLang]}
-        </span>
-        <h3 className="font-serif text-3xl md:text-4xl text-[#33271E] font-bold tracking-tight">
-          {t.titleMain[currentLang]}
-        </h3>
-        <p className="text-[#6F685B] mt-3 font-serif italic text-base leading-relaxed">
-          甘城華人教會以多元、跨群體的小組及團契搭建起傳承信仰與生命支持的網絡。不論您的生辰背景或所處歲月，我們都張開雙手。
-        </p>
-      </div>
 
-      {/* FEATURED: Campus Ministry (UF priority) Banner */}
-      {featured && (
-        <div 
-          className="relative bg-[#33271E] text-[#FBF7EF] rounded-2xl overflow-hidden shadow-xl border border-[#E7B7A0]/20 min-h-[420px] flex flex-col justify-end p-6 md:p-12 hover:shadow-2xl transition-all group cursor-pointer"
-          onClick={() => setSelectedFellowship(featured)}
-          id="featured-fellowship-banner"
-        >
-          {/* Background image overlay */}
-          <div className="absolute inset-0 bg-[#211E18]">
-            <img 
-              src={featured.imageUrl} 
-              alt={featured.name[currentLang]}
-              className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 select-none pointer-events-none"
+      {/* UNIFORM GRID: all fellowships same size, ordered youngest → oldest */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {fellowshipsData.map((fellowship) => (
+          <div
+            key={fellowship.id}
+            className="relative aspect-4/3 rounded-xl overflow-hidden group cursor-pointer shadow-md select-none border border-[#E7B7A0]/10"
+            onClick={() => setSelectedFellowship(fellowship)}
+          >
+            {/* Photo backdrop */}
+            <img
+              src={fellowship.imageUrl}
+              alt={fellowship.name[currentLang]}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 select-none pointer-events-none"
               referrerPolicy="no-referrer"
             />
-            {/* Gradients blending with the warm background colors */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/50 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#211E18] via-[#211E18]/20 to-transparent hidden md:block" />
-          </div>
+            {/* Shadow gradient darkening bottom */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/40 to-[#211E18]/10 group-hover:via-[#211E18]/50 transition-all duration-300" />
 
-          {/* Interactive foreground details */}
-          <div className="relative z-10 max-w-2xl flex flex-col gap-4">
-            <span className="font-mono text-[11px] font-bold tracking-widest text-[#E7B7A0] bg-[#9A2B27] px-3.5 py-1.5 rounded-full inline-block self-start shadow-sm">
-              ✨ {t.featuredBadge[currentLang]}
-            </span>
-            <h4 className="font-serif text-2xl sm:text-4xl text-white font-bold leading-tight">
-              {featured.name[currentLang]}
-            </h4>
-            <p className="font-sans text-sm sm:text-base text-[#FBF7EF]/90 line-clamp-3 leading-relaxed">
-              {featured.description[currentLang]}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 text-xs sm:text-sm text-[#E7B7A0] pt-2">
-              <span className="flex items-center gap-1.5 bg-[#211E18]/80 px-3 py-1.5 rounded-lg border border-[#E7B7A0]/10">
-                <Calendar className="w-4 h-4 text-[#9A2B27]" />
-                {featured.schedule[currentLang]}
+            {/* Overlay info */}
+            <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col justify-end text-[#FBF7EF] z-10">
+              <span className="text-[10px] uppercase font-mono tracking-widest text-[#E7B7A0] font-bold block mb-1">
+                {fellowship.schedule[currentLang]}
               </span>
-              <span className="flex items-center gap-1.5 bg-[#211E18]/80 px-3 py-1.5 rounded-lg border border-[#E7B7A0]/10">
-                <MapPin className="w-4 h-4 text-[#9A2B27]" />
-                {featured.location[currentLang]}
-              </span>
-            </div>
-            
-            <button 
-              className="mt-4 self-start bg-[#9A2B27] hover:bg-[#80221E] text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedFellowship(featured);
-              }}
-            >
-              <Compass className="w-4 h-4" />
-              {t.exploreBtn[currentLang]}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* REMAINDER: Beautiful Flat Photo Overlay grid (NOT cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {remainingGrids.map((fellowship) => {
-          return (
-            <div
-              key={fellowship.id}
-              className="relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer shadow-md select-none border border-[#E7B7A0]/10"
-              onClick={() => setSelectedFellowship(fellowship)}
-            >
-              {/* Photo backdrop */}
-              <img
-                src={fellowship.imageUrl}
-                alt={fellowship.name[currentLang]}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 select-none pointer-events-none"
-                referrerPolicy="no-referrer"
-              />
-              {/* Shadow gradient darkening bottom and overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/40 to-[#211E18]/10 group-hover:via-[#211E18]/50 transition-all duration-300" />
-              
-              {/* Flat overlay info */}
-              <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col justify-end text-[#FBF7EF] z-10 transition-transform duration-300">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#E7B7A0] font-bold block mb-1">
-                  {fellowship.schedule[currentLang]}
-                </span>
-                <h4 className="font-serif text-lg font-bold leading-tight line-clamp-1 group-hover:text-amber-100 transition-colors">
-                  {fellowship.name[currentLang]}
-                </h4>
-                <p className="text-xs text-[#FBF7EF]/85 line-clamp-2 mt-2 leading-relaxed opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-12 transition-all duration-500">
-                  {fellowship.description[currentLang]}
-                </p>
-                <div className="mt-3 flex items-center text-xs font-semibold text-[#E7B7A0] group-hover:translate-x-1 transition-transform">
-                  <span>{t.exploreBtn[currentLang]}</span>
-                  <span className="ml-1.5">→</span>
-                </div>
+              <h4 className="font-serif text-lg font-bold leading-tight line-clamp-1 group-hover:text-amber-100 transition-colors">
+                {fellowship.name[currentLang]}
+              </h4>
+              <p className="text-xs text-[#FBF7EF]/85 line-clamp-2 mt-2 leading-relaxed opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-12 transition-all duration-500">
+                {fellowship.description[currentLang]}
+              </p>
+              <div className="mt-3 flex items-center text-xs font-semibold text-[#E7B7A0] group-hover:translate-x-1 transition-transform">
+                <span>{t.exploreBtn[currentLang]}</span>
+                <span className="ml-1.5">→</span>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
 
       {/* DETAIL DIALOG / MODAL PANEL */}

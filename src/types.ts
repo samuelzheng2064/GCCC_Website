@@ -11,6 +11,7 @@ export interface SiteSettings {
   address: { [key in Language]: string };
   phone: string;
   email: string;
+  pastor: { name: string; email: string; cell: string };
   youtubeLiveUrl: string;
 }
 

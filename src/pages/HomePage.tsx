@@ -24,8 +24,14 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
 
   const openLightbox = (i: number) => setLightboxIndex(i);
   const closeLightbox = () => setLightboxIndex(null);
-  const prevPhoto = () => setLightboxIndex(i => i === null ? null : (i - 1 + cookingPhotos.length) % cookingPhotos.length);
-  const nextPhoto = () => setLightboxIndex(i => i === null ? null : (i + 1) % cookingPhotos.length);
+  const prevPhoto = () =>
+    setLightboxIndex((i) =>
+      i === null ? null : (i - 1 + cookingPhotos.length) % cookingPhotos.length,
+    );
+  const nextPhoto = () =>
+    setLightboxIndex((i) =>
+      i === null ? null : (i + 1) % cookingPhotos.length,
+    );
 
   useEffect(() => {
     if (lightboxIndex === null) return;
@@ -81,10 +87,6 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/30 to-transparent" />
 
         <div className="relative z-10 w-full flex flex-col items-start gap-6 text-[#FBF7EF] py-12 md:py-24 animate-fade-in pl-[10%] pr-[10%] sm:pr-[35%]">
-          <div className="bg-[#FBF7EF]/10 p-4 rounded-full border border-[#E7B7A0]/20 backdrop-blur-sm shadow-xl mb-2 hover:scale-105 transition-transform">
-            <GcccMark width={60} height={63} strokeColor="#FBF7EF" />
-          </div>
-
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight">
             {currentLang === "en"
               ? "Welcome to Gainesville Chinese Christian Church"
@@ -113,27 +115,27 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
           </div>
 
           {/* Content panel */}
-          <div className="bg-[#33271E] px-8 py-10 lg:px-10 flex flex-col justify-between gap-5 lg:w-1/2">
+          <div className="bg-[#e45858] px-8 py-10 lg:px-10 flex flex-col justify-between gap-5 lg:w-1/2">
             <div>
-              <span className="font-mono text-[10px] text-[#E7B7A0] uppercase tracking-[3px] font-bold block mb-2">
+              <span className="font-mono text-xs text-[#FDEABF] uppercase tracking-[3px] font-bold block mb-2">
                 {currentLang === "en"
                   ? "You Are Welcome Here"
                   : "歡迎你來到我們中間"}
               </span>
-              <h2 className="font-serif text-3xl md:text-4xl text-[#FBF7EF] font-bold tracking-tight leading-snug">
+              <h2 className="font-serif text-4xl md:text-5xl text-white font-bold tracking-tight leading-snug">
                 {currentLang === "en" ? "Sunday Service" : "主日崇拜"}
               </h2>
-              <div className="h-1 w-12 bg-[#9A2B27] mt-3" />
+              <div className="h-1 w-12 bg-[#FDEABF] mt-3" />
             </div>
 
-            <p className="text-sm text-[#FBF7EF]/70 font-serif leading-relaxed">
+            <p className="text-base text-white/85 font-serif leading-relaxed">
               {currentLang === "en"
                 ? "Every Sunday we gather as one family — in English and Mandarin — to worship, learn from God's Word, and encourage one another. Whether you're visiting for the first time or returning home, there is a place for you."
                 : "每主日，我們以中英雙語齊聚一堂，敬拜讚美、聆聽神話語、彼此相扶。無論你是第一次來訪，還是尋覓屬靈的家，這裡都有你的位置。"}
             </p>
 
             {/* Schedule items */}
-            <div className="divide-y divide-[#E7B7A0]/10">
+            <div className="divide-y divide-white/15">
               {[
                 {
                   time: currentLang === "en" ? "9:30 AM" : "上午 9:30",
@@ -154,14 +156,14 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                 },
               ].map((item) => (
                 <div key={item.time} className="flex items-baseline gap-6 py-4">
-                  <span className="font-mono text-sm text-[#E7B7A0] font-bold whitespace-nowrap w-24 shrink-0">
+                  <span className="font-mono text-base text-[#FDEABF] font-bold whitespace-nowrap w-28 shrink-0">
                     {item.time}
                   </span>
                   <div>
-                    <p className="font-serif text-base text-[#FBF7EF] font-semibold leading-snug">
+                    <p className="font-serif text-lg text-white font-semibold leading-snug">
                       {item.label}
                     </p>
-                    <p className="font-mono text-xs text-[#FBF7EF]/40 tracking-wide mt-1">
+                    <p className="font-mono text-sm text-white/60 tracking-wide mt-1">
                       {item.sub}
                     </p>
                   </div>
@@ -176,21 +178,21 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                   href="https://www.youtube.com/@gccc_gainesville"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-[#FBF7EF] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-[#9A2B27]/30"
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20"
                 >
                   {currentLang === "en" ? "Watch Live" : "線上直播"}
                   <ChevronRight className="w-4 h-4" />
                 </a>
                 <button
                   onClick={() => onNavigateTo("contact")}
-                  className="inline-flex items-center gap-2 border border-[#E7B7A0]/25 hover:border-[#E7B7A0]/50 text-[#E7B7A0] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
+                  className="inline-flex items-center gap-2 border border-[#FDEABF]/40 hover:border-[#FDEABF]/80 text-[#FDEABF] px-5 py-2.5 rounded-lg text-base font-semibold transition-all"
                 >
                   {currentLang === "en" ? "Find Us" : "前往教會"}
                   <Info className="w-4 h-4" />
                 </button>
               </div>
-              <div className="border-t border-[#E7B7A0]/10 pt-4">
-                <p className="font-mono text-[10px] text-[#FBF7EF]/35 uppercase tracking-widest">
+              <div className="border-t border-white/15 pt-4">
+                <p className="font-mono text-xs text-white/50 uppercase tracking-widest">
                   {currentLang === "en"
                     ? "3420 SW 2nd Ave, Gainesville, FL 32607"
                     : "3420 SW 2nd Ave, 佛州甘城 FL 32607"}
@@ -320,7 +322,10 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
           {/* Prev */}
           <button
             className="absolute left-4 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all"
-            onClick={e => { e.stopPropagation(); prevPhoto(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prevPhoto();
+            }}
           >
             <ChevronLeft className="w-7 h-7" />
           </button>
@@ -330,13 +335,16 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
             src={cookingPhotos[lightboxIndex]}
             alt={`Photo ${lightboxIndex + 1}`}
             className="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl object-contain"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           />
 
           {/* Next */}
           <button
             className="absolute right-4 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all"
-            onClick={e => { e.stopPropagation(); nextPhoto(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              nextPhoto();
+            }}
           >
             <ChevronRight className="w-7 h-7" />
           </button>
@@ -346,14 +354,16 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
             {cookingPhotos.map((_, i) => (
               <button
                 key={i}
-                onClick={e => { e.stopPropagation(); setLightboxIndex(i); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex(i);
+                }}
                 className={`w-2 h-2 rounded-full transition-all ${i === lightboxIndex ? "bg-white scale-125" : "bg-white/40"}`}
               />
             ))}
           </div>
         </div>
       )}
-
     </>
   );
 }

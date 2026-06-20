@@ -31,11 +31,16 @@ export const siteSettings: SiteSettings = {
     zh: "由佛羅里達大學（UF）的一群熱心學生與學者創立，如今甘城華人教會已發展成一個充滿生機、跨越世代的溫暖港灣。無論你是初次探尋信仰的學子、尋求屬靈同伴的年輕職場人士，還是為孩子尋找溫馨環境的家庭，這裡都有屬於你的位置，讓我們並肩更親近神。",
   },
   address: {
-    en: "3425 SW 2nd Ave, Gainesville, FL 32607",
-    zh: "3425 SW 2nd Ave, Gainesville, FL 32607 (UF校園旁)",
+    en: "2850 NW 23rd Blvd, Gainesville, FL 32605",
+    zh: "2850 NW 23rd Blvd, Gainesville, FL 32605",
   },
-  phone: "(352) 378-0554",
-  email: "gcccfl@gmail.com",
+  phone: "(352) 271-0776",
+  email: "contactus@gcccfl.org",
+  pastor: {
+    name: "HongJun Li · 李洪軍牧師",
+    email: "hongjun.li@gcccfl.org",
+    cell: "(407) 924-8541",
+  },
   youtubeLiveUrl: "https://www.youtube.com/@GainesvilleChineseChristianChurch",
 };
 
@@ -85,11 +90,60 @@ export const activitiesData: Activity[] = [
 ];
 
 export const fellowshipsData: Fellowship[] = [
+  // Ordered from youngest to oldest life stage
+  {
+    id: "children",
+    name: {
+      en: "Children's Ministry",
+      zh: "兒童事工",
+    },
+    schedule: {
+      en: "Sundays at 9:30 AM (Sunday School) & 10:50 AM (Children's Church)",
+      zh: "主日上午 9:30 兒童主日學 及 10:50 兒童崇拜",
+    },
+    location: {
+      en: "Children's Classrooms (Lower Level)",
+      zh: "兒童教室（樓下）",
+    },
+    contact: {
+      en: "Children's Ministry Team",
+      zh: "兒童事工團隊",
+    },
+    description: {
+      en: "A nurturing, age-appropriate environment where children from infants through 5th grade learn to love God through Bible stories, worship songs, crafts, and meaningful friendships in a safe and joyful setting.",
+      zh: "為嬰兒至五年級的孩子提供充滿愛、合乎年齡的成長環境。透過聖經故事、敬拜詩歌、手工藝及真誠友誼，讓孩子們在安全喜樂的氛圍中學習愛神愛人。",
+    },
+    imageUrl: "/src/assets/images/sundayservice.JPG",
+  },
+  {
+    id: "youth",
+    name: {
+      en: "Youth Ministry (Middle & High School)",
+      zh: "青少年事工 (國中/高中)",
+    },
+    schedule: {
+      en: "Sundays at 9:30 AM & bi-weekly Friday evenings",
+      zh: "主日上午 9:30 及 雙週五傍晚",
+    },
+    location: {
+      en: "Youth Room & Church Campus",
+      zh: "青少年教室及教會校園",
+    },
+    contact: {
+      en: "Youth Ministry Team",
+      zh: "青少年事工團隊",
+    },
+    description: {
+      en: "A vibrant community for middle and high school students to explore faith, ask tough questions, build lasting friendships, and grow as disciples of Christ through worship, Bible study, service projects, and fun events.",
+      zh: "為國中及高中生打造充滿活力的信仰群體。透過敬拜、查經、服事項目與趣味活動，讓青少年在此探索信仰、提出真實問題、建立長久友誼，並在基督裡成長為真正的門徒。",
+    },
+    imageUrl: "/src/assets/images/gccc_campus_1781744441184.jpg",
+  },
   {
     id: "alpha",
     name: {
-      en: "Alpha Fellowship",
-      zh: "Alpha團契",
+      en: "Alpha Fellowship (College Students)",
+      zh: "Alpha團契 (大學生)",
     },
     schedule: {
       en: "Friday evenings at 6:30 PM",
@@ -108,7 +162,54 @@ export const fellowshipsData: Fellowship[] = [
       zh: "由各年齡層姊妹組成的屬靈馨香港灣。我們以真誠的禱告彼此扶持，分享做妻子、母親或職場女性的苦樂，共讀屬靈書籍，在基督的慈愛中共同綻放生命的光彩。",
     },
     imageUrl: "/src/assets/images/alpha.JPG",
-    isFeatured: true,
+  },
+  {
+    id: "song-of-songs",
+    name: {
+      en: "Song of Songs Fellowship",
+      zh: "雅歌團契 (青年夫妻/職青)",
+    },
+    schedule: {
+      en: "Alternate Saturdays at 6:30 PM",
+      zh: "雙週六晚 6:30",
+    },
+    location: {
+      en: "West Gainesville Group Houses",
+      zh: "甘城西區小組成員居所",
+    },
+    contact: {
+      en: "Sister Chloe Ye",
+      zh: "葉姊妹",
+    },
+    description: {
+      en: "Tailored for young working professionals and recently married couples. We cover career challenges, work-faith balance, building strong marriages, and exploring faith in modern culture through a cozy, authentic community format.",
+      zh: "為年輕在職青年、博士後以及新婚夫妻而設。共同探索職場挑戰、信仰與工作的契合、早期婚姻經營等專題，在輕鬆自在、充滿美食的氛圍中敞開心懷坦誠相交。",
+    },
+    imageUrl: "/src/assets/images/song.JPG",
+  },
+  {
+    id: "loving-family",
+    name: {
+      en: "Loving Family Fellowship",
+      zh: "愛家團契 (中青年家庭)",
+    },
+    schedule: {
+      en: "Saturdays once a month at 5:30 PM",
+      zh: "每月一次週六傍晚 5:30",
+    },
+    location: {
+      en: "Rotational Homes & Outdoor Parks",
+      zh: "契友家輪流 或 戶外公園聚會",
+    },
+    contact: {
+      en: "Brother Victor Lin",
+      zh: "林弟兄",
+    },
+    description: {
+      en: "A community for married couples with young children. Here we support one another in biblical parenting, discuss marriage health, and host family potlucks while kids play safely together under supervision.",
+      zh: "由甘城當地有幼兒或學齡兒童的中青年夫婦組成的同盟。我們圍繞聖經原則切磋教養心得、探討健康夫妻關係，並常開展露營、烤肉等親子家庭派對。",
+    },
+    imageUrl: "/src/assets/images/lovehome.JPEG",
   },
   {
     id: "friday-bible-study",
@@ -157,54 +258,6 @@ export const fellowshipsData: Fellowship[] = [
       zh: "專為我們珍愛的長輩契友以及前來探親的父母們設計。我們一同吟唱古典聖詩、做舒展體操、舉辦健康講座與書法交流，並在熱呼呼的茶點中分享生命的恩典與見證。",
     },
     imageUrl: "/src/assets/images/aijiatuanqi.JPG",
-  },
-  {
-    id: "loving-family",
-    name: {
-      en: "Loving Family Fellowship",
-      zh: "愛家團契 (中青年家庭)",
-    },
-    schedule: {
-      en: "Saturdays once a month at 5:30 PM",
-      zh: "每月一次週六傍晚 5:30",
-    },
-    location: {
-      en: "Rotational Homes & Outdoor Parks",
-      zh: "契友家輪流 或 戶外公園聚會",
-    },
-    contact: {
-      en: "Brother Victor Lin",
-      zh: "林弟兄",
-    },
-    description: {
-      en: "A community for married couples with young children. Here we support one another in biblical parenting, discuss marriage health, and host family potlucks while kids play safely together under supervision.",
-      zh: "由甘城當地有幼兒或學齡兒童的中青年夫婦組成的同盟。我們圍繞聖經原則切磋教養心得、探討健康夫妻關係，並常開展露營、烤肉等親子家庭派對。",
-    },
-    imageUrl: "/src/assets/images/lovehome.JPEG",
-  },
-  {
-    id: "song-of-songs",
-    name: {
-      en: "Song of Songs Fellowship",
-      zh: "雅歌團契 (青年夫妻/職青)",
-    },
-    schedule: {
-      en: "Alternate Saturdays at 6:30 PM",
-      zh: "雙週六晚 6:30",
-    },
-    location: {
-      en: "West Gainesville Group Houses",
-      zh: "甘城西區小組成員居所",
-    },
-    contact: {
-      en: "Sister Chloe Ye",
-      zh: "葉姊妹",
-    },
-    description: {
-      en: "Tailored for young working professionals and recently married couples. We cover career challenges, work-faith balance, building strong marriages, and exploring faith in modern culture through a cozy, authentic community format.",
-      zh: "為年輕在職青年、博士後以及新婚夫妻而設。共同探索職場挑戰、信仰與工作的契合、早期婚姻經營等專題，在輕鬆自在、充滿美食的氛圍中敞開心懷坦誠相交。",
-    },
-    imageUrl: "/src/assets/images/song.JPG",
   },
   {
     id: "prayer-meeting",

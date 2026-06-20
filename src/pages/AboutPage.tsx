@@ -149,20 +149,6 @@ export default function AboutPage({ currentLang }: AboutPageProps) {
                 </>
               )}
             </div>
-
-            <a
-              href="https://www.youtube.com/@gccc_gainesville"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 self-start inline-flex items-center gap-2 bg-[#9A2B27]/10 hover:bg-[#9A2B27]/20 text-[#9A2B27] px-5 py-2.5 rounded-lg text-sm font-semibold transition-all border border-[#9A2B27]/20"
-            >
-              <span>
-                {currentLang === "en"
-                  ? "Watch Our Services on YouTube"
-                  : "前往 YouTube 觀看主日崇拜"}
-              </span>
-              <ChevronRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </section>
