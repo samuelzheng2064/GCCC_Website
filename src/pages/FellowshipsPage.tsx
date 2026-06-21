@@ -16,7 +16,7 @@ export default function FellowshipsPage({ currentLang }: FellowshipsPageProps) {
       <section
         className="relative h-[55vh] min-h-85 flex items-end bg-cover bg-center"
         style={{
-          backgroundImage: `url("/src/assets/images/gccc_campus_1781744441184.jpg")`,
+          backgroundImage: `url("/images/gccc_campus_1781744441184.jpg")`,
         }}
       >
         <div className="absolute inset-0 bg-neutral-900/50" />

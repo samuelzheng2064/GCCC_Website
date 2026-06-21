@@ -85,7 +85,7 @@ export const activitiesData: Activity[] = [
     date: "2026-06-19",
     time: "6:30 PM",
     location: { en: "Church Fellowship Hall", zh: "教會團契廳" },
-    photos: ["/src/assets/images/alpha.JPG"],
+    photos: ["/images/alpha.JPG"],
   },
 ];
 
@@ -113,7 +113,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "A nurturing, age-appropriate environment where children from infants through 5th grade learn to love God through Bible stories, worship songs, crafts, and meaningful friendships in a safe and joyful setting.",
       zh: "為嬰兒至五年級的孩子提供充滿愛、合乎年齡的成長環境。透過聖經故事、敬拜詩歌、手工藝及真誠友誼，讓孩子們在安全喜樂的氛圍中學習愛神愛人。",
     },
-    imageUrl: "/src/assets/images/sundayservice.JPG",
+    imageUrl: "/images/sundayservice.JPG",
   },
   {
     id: "youth",
@@ -137,7 +137,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "A vibrant community for middle and high school students to explore faith, ask tough questions, build lasting friendships, and grow as disciples of Christ through worship, Bible study, service projects, and fun events.",
       zh: "為國中及高中生打造充滿活力的信仰群體。透過敬拜、查經、服事項目與趣味活動，讓青少年在此探索信仰、提出真實問題、建立長久友誼，並在基督裡成長為真正的門徒。",
     },
-    imageUrl: "/src/assets/images/gccc_campus_1781744441184.jpg",
+    imageUrl: "/images/gccc_campus_1781744441184.jpg",
   },
   {
     id: "alpha",
@@ -161,7 +161,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "A supportive sanctuary for women of all ages to prayerfully lift one another up, share life's blessings and sorrows, read spiritual books together, and study biblical examples of faithful women.",
       zh: "由各年齡層姊妹組成的屬靈馨香港灣。我們以真誠的禱告彼此扶持，分享做妻子、母親或職場女性的苦樂，共讀屬靈書籍，在基督的慈愛中共同綻放生命的光彩。",
     },
-    imageUrl: "/src/assets/images/alpha.JPG",
+    imageUrl: "/images/alpha.JPG",
     instagramUrl: "https://www.instagram.com/gccc_alpha/",
   },
   {
@@ -186,7 +186,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "Tailored for young working professionals and recently married couples. We cover career challenges, work-faith balance, building strong marriages, and exploring faith in modern culture through a cozy, authentic community format.",
       zh: "為年輕在職青年、博士後以及新婚夫妻而設。共同探索職場挑戰、信仰與工作的契合、早期婚姻經營等專題，在輕鬆自在、充滿美食的氛圍中敞開心懷坦誠相交。",
     },
-    imageUrl: "/src/assets/images/song.JPG",
+    imageUrl: "/images/song.JPG",
   },
   {
     id: "loving-family",
@@ -210,7 +210,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "A community for married couples with young children. Here we support one another in biblical parenting, discuss marriage health, and host family potlucks while kids play safely together under supervision.",
       zh: "由甘城當地有幼兒或學齡兒童的中青年夫婦組成的同盟。我們圍繞聖經原則切磋教養心得、探討健康夫妻關係，並常開展露營、烤肉等親子家庭派對。",
     },
-    imageUrl: "/src/assets/images/lovehome.JPEG",
+    imageUrl: "/images/lovehome.JPEG",
   },
   {
     id: "friday-bible-study",
@@ -234,7 +234,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "A structured, welcoming space for scholars, local professionals, and families to study God's Word in depth. We feature age-appropriate groupings and interactive discussions, alongside children's program supervision.",
       zh: "為甘城當地的訪問學者、職場人士和家庭提供系統化且深入的聖經學習。查經班設有多個小組，並配合兒童看護和課堂活動，歡迎攜家帶眷參與。",
     },
-    imageUrl: "/src/assets/images/sundayservice.JPG",
+    imageUrl: "/images/sundayservice.JPG",
   },
   {
     id: "evergreen",
@@ -258,7 +258,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "Designed for our treasured elder members and visiting parents. Connect through traditional hymns, physical stretching exercises, health seminars, Chinese calligraphy sessions, and rich, loving testimonies.",
       zh: "專為我們珍愛的長輩契友以及前來探親的父母們設計。我們一同吟唱古典聖詩、做舒展體操、舉辦健康講座與書法交流，並在熱呼呼的茶點中分享生命的恩典與見證。",
     },
-    imageUrl: "/src/assets/images/aijiatuanqi.JPG",
+    imageUrl: "/images/aijiatuanqi.JPG",
   },
   {
     id: "prayer-meeting",
@@ -282,7 +282,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "The powerhouse of our church. We gather specifically to pray for world missions, local community needs, sick members, church ministries, and to seek God's leading.",
       zh: "教會事工的屬靈發動機。我們同心合意聚集，專切為全球宣教、甘城社區需要、生病肢體及教會各項聖工代禱守望，在安靜中尋求神的主權與引導。",
     },
-    imageUrl: "/src/assets/images/evergreen.JPG",
+    imageUrl: "/images/evergreen.JPG",
   },
 ];
 

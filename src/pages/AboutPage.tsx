@@ -11,7 +11,7 @@ export default function AboutPage({ currentLang }: AboutPageProps) {
       {/* HERO */}
       <section
         className="relative h-[55vh] min-h-[340px] flex items-end pt-20 bg-cover bg-center"
-        style={{ backgroundImage: `url("/src/assets/images/aboutus.jpg")` }}
+        style={{ backgroundImage: `url("/images/aboutus.jpg")` }}
       >
         <div className="absolute inset-0 bg-neutral-900/55" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/20 to-transparent" />
@@ -33,7 +33,7 @@ export default function AboutPage({ currentLang }: AboutPageProps) {
             <div className="relative">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
                 <img
-                  src="/src/assets/images/gccc_sermon_1781744456768.jpg"
+                  src="/images/gccc_sermon_1781744456768.jpg"
                   alt="Holy Bible on altar table"
                   className="w-full h-full object-cover"
                 />

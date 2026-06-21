@@ -10,12 +10,12 @@ interface HomePageProps {
 }
 
 const cookingPhotos = [
-  "/src/assets/images/cooking competion/27d94bc0-8dad-44c7-a6ab-1e6f8e8a3ead.JPG",
-  "/src/assets/images/cooking competion/573ebce7-ca0f-4bf5-850c-40f19f5d0cad.JPG",
-  "/src/assets/images/cooking competion/IMG_2842.JPG",
-  "/src/assets/images/cooking competion/IMG_2843.JPG",
-  "/src/assets/images/cooking competion/IMG_2847.JPG",
-  "/src/assets/images/cooking competion/IMG_2848.JPG",
+  "/images/cooking competion/27d94bc0-8dad-44c7-a6ab-1e6f8e8a3ead.JPG",
+  "/images/cooking competion/573ebce7-ca0f-4bf5-850c-40f19f5d0cad.JPG",
+  "/images/cooking competion/IMG_2842.JPG",
+  "/images/cooking competion/IMG_2843.JPG",
+  "/images/cooking competion/IMG_2847.JPG",
+  "/images/cooking competion/IMG_2848.JPG",
 ];
 
 export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
@@ -81,7 +81,7 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       <section
         id="hero"
         className="relative min-h-[95vh] flex items-center pt-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
-        style={{ backgroundImage: `url("/src/assets/images/hero.jpg")` }}
+        style={{ backgroundImage: `url("/images/hero.JPG")` }}
       >
         <div className="absolute inset-0 bg-neutral-900/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/30 to-transparent" />
@@ -108,7 +108,7 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
           {/* Image panel */}
           <div className="lg:w-1/2 shrink-0">
             <img
-              src="/src/assets/images/sundayservice.JPG"
+              src="/images/sundayservice.JPG"
               alt="Sunday Service at GCCC"
               className="w-full h-auto block"
             />
