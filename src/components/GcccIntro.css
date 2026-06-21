@@ -6,8 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* fade out the overlay: starts at 2.0s, lasts 0.35s → done at 2.35s */
-  animation: gccc-intro-fade-out 0.35s 2.0s cubic-bezier(0.6, 0.05, 0.25, 1)
+  /* fade out the overlay: starts at 3.0s, lasts 0.6s → done at 3.6s */
+  animation: gccc-intro-fade-out 0.6s 3.0s cubic-bezier(0.4, 0, 0.2, 1)
     forwards;
 }
 
@@ -16,8 +16,8 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  /* fly to header logo position: starts at 1.75s, lasts 0.5s */
-  animation: gccc-intro-dock 0.5s 1.75s cubic-bezier(0.7, 0, 0.2, 1)
+  /* fly to header logo position: starts at 2.6s, lasts 0.7s */
+  animation: gccc-intro-dock 0.7s 2.6s cubic-bezier(0.4, 0, 0.2, 1)
     forwards;
 }
 
@@ -36,19 +36,19 @@
 .gccc-intro__mark .s--inner {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: gccc-intro-draw 0.18s ease forwards;
+  animation: gccc-intro-draw 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .gccc-intro__mark .s--gring {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: gccc-intro-draw 0.28s cubic-bezier(0.4, 0, 0.3, 1) 0.28s forwards;
+  animation: gccc-intro-draw 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
 }
 
 .gccc-intro__mark .s--garm {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: gccc-intro-draw 0.08s ease-out 0.56s forwards;
+  animation: gccc-intro-draw 0.25s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
 }
 
 .gccc-intro__name {
@@ -64,7 +64,7 @@
   letter-spacing: 9px;
   color: #211e18;
   opacity: 0;
-  animation: gccc-intro-fade-in 0.25s 0.65s forwards;
+  animation: gccc-intro-fade-in 0.5s 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .gccc-intro__en {
@@ -74,7 +74,7 @@
   text-transform: uppercase;
   color: #6f685b;
   opacity: 0;
-  animation: gccc-intro-fade-in 0.25s 0.78s forwards;
+  animation: gccc-intro-fade-in 0.5s 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes gccc-intro-draw {
