@@ -12,7 +12,7 @@ const t = {
 export default function FellowshipsPage({ currentLang }: FellowshipsPageProps) {
   return (
     <>
-      {/* HERO BANNER — full bleed, no padding wrapper */}
+      {/* HERO BANNER */}
       <section
         className="relative h-[55vh] min-h-85 flex items-end bg-cover bg-center"
         style={{

@@ -154,14 +154,15 @@ export const fellowshipsData: Fellowship[] = [
       zh: "教會多功能室",
     },
     contact: {
-      en: "Sister Sarah Wu",
-      zh: "吳師母",
+      en: "Dan Dai",
+      zh: "戴弟兄",
     },
     description: {
       en: "A supportive sanctuary for women of all ages to prayerfully lift one another up, share life's blessings and sorrows, read spiritual books together, and study biblical examples of faithful women.",
       zh: "由各年齡層姊妹組成的屬靈馨香港灣。我們以真誠的禱告彼此扶持，分享做妻子、母親或職場女性的苦樂，共讀屬靈書籍，在基督的慈愛中共同綻放生命的光彩。",
     },
     imageUrl: "/src/assets/images/alpha.JPG",
+    instagramUrl: "https://www.instagram.com/gccc_alpha/",
   },
   {
     id: "song-of-songs",

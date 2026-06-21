@@ -115,7 +115,7 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
           </div>
 
           {/* Content panel */}
-          <div className="bg-[#e45858] px-8 py-10 lg:px-10 flex flex-col justify-between gap-5 lg:w-1/2">
+          <div className="bg-[#9b3939] px-8 py-10 lg:px-10 flex flex-col justify-between gap-5 lg:w-1/2">
             <div>
               <span className="font-mono text-xs text-[#FDEABF] uppercase tracking-[3px] font-bold block mb-2">
                 {currentLang === "en"
@@ -178,24 +178,24 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                   href="https://www.youtube.com/@gccc_gainesville"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20"
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border-1"
                 >
                   {currentLang === "en" ? "Watch Live" : "線上直播"}
                   <ChevronRight className="w-4 h-4" />
                 </a>
                 <button
                   onClick={() => onNavigateTo("contact")}
-                  className="inline-flex items-center gap-2 border border-[#FDEABF]/40 hover:border-[#FDEABF]/80 text-[#FDEABF] px-5 py-2.5 rounded-lg text-base font-semibold transition-all"
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border-1"
                 >
                   {currentLang === "en" ? "Find Us" : "前往教會"}
                   <Info className="w-4 h-4" />
                 </button>
               </div>
               <div className="border-t border-white/15 pt-4">
-                <p className="font-mono text-xs text-white/50 uppercase tracking-widest">
+                <p className="font-mono text-xs text-white uppercase tracking-widest">
                   {currentLang === "en"
                     ? "3420 SW 2nd Ave, Gainesville, FL 32607"
-                    : "3420 SW 2nd Ave, 佛州甘城 FL 32607"}
+                    : "3420 SW 2nd Ave, Gainesville, FL 32607"}
                 </p>
               </div>
             </div>

@@ -1,26 +1,27 @@
 import { useState } from "react";
 import { Fellowship, Language } from "../types";
 import { fellowshipsData } from "../data";
-import { Calendar, MapPin, User, X } from "lucide-react";
+import { Calendar, Instagram, MapPin, User, X } from "lucide-react";
 
 interface FellowshipGridProps {
   currentLang: Language;
 }
 
 export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
-  const [selectedFellowship, setSelectedFellowship] = useState<Fellowship | null>(null);
+  const [selectedFellowship, setSelectedFellowship] =
+    useState<Fellowship | null>(null);
 
   const t = {
     exploreBtn: { en: "Gather Details", zh: "查看聚會詳情" },
     modalSchedule: { en: "Meeting Time", zh: "聚會時段" },
     modalLocation: { en: "Location", zh: "聚會地點" },
     modalContact: { en: "Coordinator", zh: "聯絡窗口" },
+    modalInstagram: { en: "Follow on Instagram", zh: "追蹤 Instagram" },
     closeBtn: { en: "Close Window", zh: "關閉視窗" },
   };
 
   return (
     <div className="flex flex-col gap-8" id="fellowships_section_block">
-
       {/* UNIFORM GRID: all fellowships same size, ordered youngest → oldest */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {fellowshipsData.map((fellowship) => (
@@ -61,21 +62,24 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
 
       {/* DETAIL DIALOG / MODAL PANEL */}
       {selectedFellowship && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" id="fellowship-detail-modal">
-          <div 
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          id="fellowship-detail-modal"
+        >
+          <div
             className="bg-[#FBF7EF] text-[#33271E] rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl border border-[#E7B7A0]/30 relative animate-fade-in"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Image display */}
             <div className="relative h-48 bg-[#33271E]">
-              <img 
-                src={selectedFellowship.imageUrl} 
+              <img
+                src={selectedFellowship.imageUrl}
                 alt={selectedFellowship.name[currentLang]}
                 className="w-full h-full object-cover opacity-75"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#FBF7EF] via-transparent to-[#211E18]/30" />
-              <button 
+              <button
                 onClick={() => setSelectedFellowship(null)}
                 className="absolute top-4 right-4 bg-black/65 hover:bg-black/85 text-white p-2 rounded-full transition-all"
                 aria-label="Close dialog"
@@ -96,7 +100,6 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
               </div>
 
               <div className="flex flex-col gap-3.5 border-t border-[#E7B7A0]/25 pt-4">
-                
                 {/* Time */}
                 <div className="flex items-start gap-3">
                   <div className="bg-[#9A2B27]/10 p-2 rounded-lg mt-0.5">
@@ -113,19 +116,6 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
                 </div>
 
                 {/* Location */}
-                <div className="flex items-start gap-3">
-                  <div className="bg-[#9A2B27]/10 p-2 rounded-lg mt-0.5">
-                    <MapPin className="w-4 h-4 text-[#9A2B27]" />
-                  </div>
-                  <div>
-                    <span className="text-xs uppercase font-mono tracking-wider text-[#6F685B] block">
-                      {t.modalLocation[currentLang]}
-                    </span>
-                    <span className="text-sm font-semibold text-[#33271E]">
-                      {selectedFellowship.location[currentLang]}
-                    </span>
-                  </div>
-                </div>
 
                 {/* Contact */}
                 <div className="flex items-start gap-3">
@@ -142,6 +132,27 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
                   </div>
                 </div>
 
+                {/* Instagram */}
+                {selectedFellowship.instagramUrl && (
+                  <div className="flex items-start gap-3">
+                    <div className="bg-[#9A2B27]/10 p-2 rounded-lg mt-0.5">
+                      <Instagram className="w-4 h-4 text-[#9A2B27]" />
+                    </div>
+                    <div>
+                      <span className="text-xs uppercase font-mono tracking-wider text-[#6F685B] block">
+                        {t.modalInstagram[currentLang]}
+                      </span>
+                      <a
+                        href={selectedFellowship.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold text-[#9A2B27] hover:underline"
+                      >
+                        @gccc_alpha
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Close controls */}
@@ -153,12 +164,10 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
                   {t.closeBtn[currentLang]}
                 </button>
               </div>
-
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 }

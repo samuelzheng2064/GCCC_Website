@@ -9,18 +9,43 @@ import AboutPage from "./pages/AboutPage";
 import FellowshipsPage from "./pages/FellowshipsPage";
 import CalendarPage from "./pages/CalendarPage";
 import ContactPage from "./pages/ContactPage";
+import GivePage from "./pages/GivePage";
 import {
   Heart,
-  MapPin,
-  Mail,
-  Youtube,
   CheckCircle,
   Sparkles,
+  Mail,
+  MapPin,
+  Phone,
 } from "lucide-react";
+
+const PAGE_TO_PATH: Record<Page, string> = {
+  home: "/",
+  about: "/about-us",
+  fellowships: "/ministry",
+  sermons: "/sermons",
+  calendar: "/calendar",
+  contact: "/contact",
+  give: "/give",
+};
+
+const PATH_TO_PAGE: Record<string, Page> = {
+  "/": "home",
+  "/about-us": "about",
+  "/ministry": "fellowships",
+  "/sermons": "home",
+  "/calendar": "calendar",
+  "/contact": "contact",
+  "/give": "give",
+};
+
+function getPageFromPath(): Page {
+  return PATH_TO_PAGE[window.location.pathname] ?? "home";
+}
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>("zh");
-  const [currentPage, setCurrentPage] = useState<Page>("home");
+  const [currentPage, setCurrentPage] = useState<Page>(getPageFromPath);
   const [introPlaying, setIntroPlaying] = useState(true);
   const [forceReplayKey, setForceReplayKey] = useState(0);
   const [showNewHereModal, setShowNewHereModal] = useState(false);
@@ -30,6 +55,16 @@ export default function App() {
     if (seen) setIntroPlaying(false);
   }, [forceReplayKey]);
 
+  // Sync URL → state on browser back/forward
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPage(getPageFromPath());
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   const handleReplayIntro = () => {
     sessionStorage.removeItem("gccc_intro_seen");
     setIntroPlaying(true);
@@ -37,6 +72,8 @@ export default function App() {
   };
 
   const handlePageChange = (page: Page) => {
+    const path = PAGE_TO_PATH[page];
+    window.history.pushState({ page }, "", path);
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -93,6 +130,8 @@ export default function App() {
         return <CalendarPage currentLang={currentLang} />;
       case "contact":
         return <ContactPage currentLang={currentLang} />;
+      case "give":
+        return <GivePage currentLang={currentLang} />;
     }
   };
 
@@ -119,62 +158,143 @@ export default function App() {
         {renderPage()}
       </main>
 
-      <footer className="bg-[#191512] text-[#F9F6ED] py-16 px-4 sm:px-6 lg:px-8 border-t-2 border-[#9A2B27]/40 relative z-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 border-b border-[#E7B7A0]/10 pb-12 mb-12">
-          <div className="flex flex-col items-center md:items-start gap-3">
-            <button
-              className="flex items-center gap-2.5 cursor-pointer"
-              onClick={() => handlePageChange("home")}
-            >
-              <GcccMark width={36} height={38} strokeColor="#9A2B27" />
-              <div className="flex flex-col">
-                <span className="font-serif text-lg font-bold tracking-wider text-white">
-                  甘城華人教會
-                </span>
-                <span className="font-mono text-[9px] tracking-widest text-[#E7B7A0] uppercase font-light">
-                  Gainesville Chinese Christian Church
-                </span>
-              </div>
-            </button>
-          </div>
-          <div className="flex flex-col items-center md:items-end gap-3">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-[#E7B7A0] font-semibold">
-              {t.socialLinks[currentLang]}
+      <footer className="bg-black text-white py-16 px-4 sm:px-6 lg:px-8 border-t border-white/10 relative z-10">
+        {/* Top: 3 columns */}
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 border-b border-white/10 pb-12 mb-12">
+          {/* Contact column */}
+          <div className="flex flex-col gap-4 py-8 sm:py-0 sm:pr-8 border-b sm:border-b-0 sm:border-r border-white/10">
+            <span className="text-xs uppercase font-mono tracking-widest text-white/40 font-semibold mb-1">
+              {currentLang === "en" ? "Contact" : "聯絡我們"}
             </span>
-            <div className="flex items-center gap-3">
-              <a
-                href={siteSettings.youtubeLiveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-red-700/10 hover:bg-red-700/30 p-2.5 rounded-full border border-red-700/30 text-red-500 hover:text-red-400 transition-colors"
-                title="GCCC YouTube Channels"
+            <a
+              href={`mailto:${siteSettings.email}`}
+              className="flex items-center gap-2 text-lg text-white/60 hover:text-white transition-colors w-fit font-light"
+            >
+              <Mail className="w-5 h-5 shrink-0" />
+              {siteSettings.email}
+            </a>
+            <a
+              href={`tel:${siteSettings.phone}`}
+              className="flex items-center gap-2 text-lg text-white/60 hover:text-white transition-colors w-fit font-light"
+            >
+              <Phone className="w-5 h-5 shrink-0" />
+              {siteSettings.phone}
+            </a>
+            <a
+              href="https://maps.google.com/?q=2850+NW+23rd+Blvd,+Gainesville,+FL+32605"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-2 text-lg text-white/60 hover:text-white transition-colors w-fit font-light"
+            >
+              <MapPin className="w-5 h-5 shrink-0 mt-0.5" />
+              <span>
+                {siteSettings.address[currentLang].replace(/, (Gainesville.*)$/, "")}
+                <br />
+                {siteSettings.address[currentLang].match(/, (Gainesville.*)$/)?.[1]}
+              </span>
+            </a>
+          </div>
+
+          {/* Who We Are column */}
+          <div className="flex flex-col gap-4 py-8 sm:py-0 sm:px-8 border-b sm:border-b-0 sm:border-r border-white/10">
+            <span className="text-xs uppercase font-mono tracking-widest text-white/40 font-semibold mb-1">
+              {currentLang === "en" ? "Who We Are" : "關於我們"}
+            </span>
+            {(
+              [
+                { label: { en: "Home", zh: "首頁" }, page: "home" as Page },
+                {
+                  label: { en: "About Us", zh: "關於我們" },
+                  page: "about" as Page,
+                },
+                {
+                  label: { en: "Ministry", zh: "团契事工" },
+                  page: "fellowships" as Page,
+                },
+              ] as const
+            ).map(({ label, page }) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className="text-lg text-white/60 hover:text-white transition-colors text-left font-light"
               >
-                <Youtube className="w-5 h-5" />
-              </a>
-              <a
-                href={`mailto:${siteSettings.email}`}
-                className="bg-neutral-800 hover:bg-neutral-700 p-2.5 rounded-full border border-[#E7B7A0]/10 text-[#E7B7A0] hover:text-white transition-colors"
-                title="Email Us"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-              <a
-                href="https://maps.google.com/?q=3425+SW+2nd+Ave,+Gainesville,+FL+32607"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-neutral-700 p-2.5 rounded-full border border-[#E7B7A0]/10 text-[#E7B7A0] hover:text-white transition-colors"
-                title="Church Location Map"
-              >
-                <MapPin className="w-5 h-5" />
-              </a>
-            </div>
+                {label[currentLang]}
+              </button>
+            ))}
+          </div>
+
+          {/* Get Connected column */}
+          <div className="flex flex-col gap-4 py-8 sm:py-0 sm:pl-8">
+            <span className="text-xs uppercase font-mono tracking-widest text-white/40 font-semibold mb-1">
+              {currentLang === "en" ? "Get Connected" : "聯絡我們"}
+            </span>
+            <button
+              onClick={() => handlePageChange("contact")}
+              className="text-lg text-white/60 hover:text-white transition-colors text-left font-light"
+            >
+              {currentLang === "en" ? "Connection Card" : "聯絡卡"}
+            </button>
+            <a
+              href="https://www.gcccfl.org/give"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg text-white/60 hover:text-white transition-colors font-light"
+            >
+              {currentLang === "en" ? "Give" : "線上奉獻"}
+            </a>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-400 font-mono">
-          <span>
-            &copy; {new Date().getFullYear()} {t.rights[currentLang]}. 3425 SW
-            2nd Ave, Gainesville, FL 32607.
-          </span>
+
+        {/* Middle: social — logo — social */}
+        <div className="max-w-5xl mx-auto flex items-center justify-center gap-8 mb-8">
+          {/* YouTube left */}
+          <a
+            href={siteSettings.youtubeLiveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/50 hover:text-white transition-colors"
+            title="YouTube"
+          >
+            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+
+          {/* Logo center */}
+          <button
+            className="cursor-pointer mx-6"
+            onClick={() => handlePageChange("home")}
+          >
+            <GcccMark width={72} height={76} strokeColor="#ffffff" />
+          </button>
+
+          {/* Instagram right */}
+          <a
+            href="https://www.instagram.com/gcccgainesville/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/50 hover:text-white transition-colors"
+            title="Instagram"
+          >
+            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+          </a>
+        </div>
+
+        {/* Worship times */}
+        <div className="max-w-5xl mx-auto text-center mb-10">
+          <p className="text-sm text-white/40 font-mono">
+            {currentLang === "en"
+              ? "Join us for worship every Sunday at 10:50 AM & Friday at 6:30 PM"
+              : "歡迎每週日上午 10:50 及週五晚 6:30 與我們一同敬拜"}
+          </p>
+        </div>
+
+        {/* Bottom copyright */}
+        <div className="max-w-5xl mx-auto border-t border-white/10 pt-6 text-center text-[11px] text-white/30 font-mono">
+          &copy; {new Date().getFullYear()} {t.rights[currentLang]}.{" "}
+          {siteSettings.address[currentLang]}.
         </div>
       </footer>
 

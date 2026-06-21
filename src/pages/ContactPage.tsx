@@ -2,19 +2,13 @@ import { useState } from "react";
 import { Language } from "../types";
 import { siteSettings } from "../data";
 import {
-  MapPin,
-  Mail,
-  ExternalLink,
   Heart,
-  Gift,
   ChevronDown,
 } from "lucide-react";
 
 interface ContactPageProps {
   currentLang: Language;
 }
-
-type ContactTab = "connect" | "give";
 
 const STAGE_OPTIONS: { value: string; en: string; zh: string }[] = [
   { value: "high_school", en: "High School", zh: "高中生" },
@@ -65,8 +59,6 @@ const HEAR_OPTIONS: { value: string; en: string; zh: string }[] = [
 ];
 
 export default function ContactPage({ currentLang }: ContactPageProps) {
-  const [activeTab, setActiveTab] = useState<ContactTab>("connect");
-
   // Form state
   const [form, setForm] = useState({
     firstName: "",
@@ -97,8 +89,6 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
   const l = currentLang;
 
   const t = {
-    tabConnect: { en: "Connection Card", zh: "聯絡卡" },
-    tabGive: { en: "Give", zh: "奉獻" },
     formTitle: { en: "Connection Card — Digital", zh: "數位聯絡卡" },
     formSubtitle: {
       en: "Thank you for coming to GCCC! If you want to get more information about our church then please fill out this form and we'll contact you to get you better connected!",
@@ -160,30 +150,6 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
       en: "We've received your connection card and will be in touch soon. Welcome to the GCCC family!",
       zh: "我們已收到您的聯絡卡，將盡快與您聯繫。歡迎加入甘城華人教會大家庭！",
     },
-    giveTitle: { en: "Give to GCCC", zh: "奉獻支持甘城華人教會" },
-    giveSub: {
-      en: "Your generous giving supports the ministry and mission of GCCC Gainesville.",
-      zh: "您慷慨的奉獻支持甘城華人教會的事工與宣教使命。",
-    },
-    giveOnline: { en: "Give Online", zh: "線上奉獻" },
-    giveOnlineDesc: {
-      en: "We use Zelle for secure online giving. Send your gift directly to our church email.",
-      zh: "我們使用 Zelle 安全線上奉獻，請直接轉帳至教會電子郵件。",
-    },
-    giveMail: { en: "Give by Mail", zh: "郵寄支票" },
-    giveMailDesc: {
-      en: "Make checks payable to 'Gainesville Chinese Christian Church' and mail to our address.",
-      zh: "支票抬頭請寫「Gainesville Chinese Christian Church」，郵寄至教會地址。",
-    },
-    giveInPerson: { en: "Give In Person", zh: "現場奉獻" },
-    giveInPersonDesc: {
-      en: "Offering boxes are available during Sunday Worship Service and at the welcome table.",
-      zh: "主日崇拜及迎賓桌旁設有奉獻箱，歡迎親臨奉獻。",
-    },
-    giveNote: {
-      en: "GCCC is a registered 501(c)(3) nonprofit organization. All donations are tax-deductible to the extent allowed by law.",
-      zh: "甘城華人教會為合法登記之 501(c)(3) 非營利組織，所有捐款均可依法享有稅務減免。",
-    },
   };
 
   const handleCheckbox = (
@@ -213,7 +179,7 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
     >
       {/* Top info strip */}
       <div className="px-4 sm:px-8 lg:px-16 pt-16 pb-10">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-end gap-10 lg:gap-20">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-20">
           {/* Heading */}
           <div className="flex flex-col gap-4 lg:max-w-lg">
             <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-widest font-bold">
@@ -230,29 +196,8 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
             </p>
           </div>
 
-          {/* Contact details */}
+          {/* Church contact details */}
           <div className="flex flex-col gap-4">
-            <div>
-              <span className="font-mono text-xs tracking-wider uppercase text-[#9A2B27] block mb-1">
-                {l === "en" ? "Pastor" : "牧師"}
-              </span>
-              <p className="font-serif text-lg text-[#33271E] font-semibold">
-                {siteSettings.pastor.name}
-              </p>
-              <a
-                href={`mailto:${siteSettings.pastor.email}`}
-                className="font-serif text-lg text-[#33271E] hover:text-[#9A2B27] hover:underline block"
-              >
-                {siteSettings.pastor.email}
-              </a>
-              <a
-                href={`tel:${siteSettings.pastor.cell.replace(/\D/g, "")}`}
-                className="font-serif text-lg text-[#33271E] hover:text-[#9A2B27] hover:underline block"
-              >
-                {l === "en" ? "Cell: " : "手機："}
-                {siteSettings.pastor.cell}
-              </a>
-            </div>
             <div>
               <span className="font-mono text-xs tracking-wider uppercase text-[#9A2B27] block mb-1">
                 {l === "en" ? "Address" : "教會堂址"}
@@ -290,54 +235,46 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
             </div>
           </div>
 
+          {/* Pastor */}
+          <div className="flex flex-col gap-1">
+            <span className="font-mono text-xs tracking-wider uppercase text-[#9A2B27] block mb-1">
+              {l === "en" ? "Pastor" : "牧師"}
+            </span>
+            <p className="font-serif text-lg text-[#33271E]">
+              {siteSettings.pastor.name}
+            </p>
+            <a
+              href={`mailto:${siteSettings.pastor.email}`}
+              className="font-serif text-lg text-[#33271E] hover:text-[#9A2B27] hover:underline block"
+            >
+              {siteSettings.pastor.email}
+            </a>
+            <a
+              href={`tel:${siteSettings.pastor.cell.replace(/\D/g, "")}`}
+              className="font-serif text-lg text-[#33271E] hover:text-[#9A2B27] hover:underline block"
+            >
+              {l === "en" ? "Cell: " : "手機："}
+              {siteSettings.pastor.cell}
+            </a>
+          </div>
+
           {/* CTA */}
         </div>
       </div>
 
-      {/* Subtab bar */}
-      <div className="px-4 sm:px-8 lg:px-16 pb-0">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex gap-1 border-b border-black/10">
-            <button
-              onClick={() => setActiveTab("connect")}
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold font-sans transition-all border-b-2 -mb-px ${
-                activeTab === "connect"
-                  ? "border-[#9A2B27] text-[#9A2B27]"
-                  : "border-transparent text-neutral-400 hover:text-[#33271E]"
-              }`}
-            >
-              {t.tabConnect[l]}
-            </button>
-            <button
-              onClick={() => setActiveTab("give")}
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold font-sans transition-all border-b-2 -mb-px ${
-                activeTab === "give"
-                  ? "border-[#9A2B27] text-[#9A2B27]"
-                  : "border-transparent text-neutral-400 hover:text-[#33271E]"
-              }`}
-            >
-              {t.tabGive[l]}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Tab content */}
+      {/* Content */}
       <div className="px-4 sm:px-8 lg:px-16 py-10 flex-1">
         <div className="max-w-4xl mx-auto">
-          {/* ── CONNECTION CARD TAB ── */}
-          {activeTab === "connect" && (
-            <div>
-              <div className="mb-8">
-                <h3 className="font-serif text-2xl font-bold text-[#33271E] mb-2">
-                  {t.formTitle[l]}
-                </h3>
-                <p className="text-[#6F685B] text-sm font-serif leading-relaxed">
-                  {t.formSubtitle[l]}
-                </p>
-              </div>
+          <div className="mb-8">
+            <h3 className="font-serif text-2xl font-bold text-[#33271E] mb-2">
+              {t.formTitle[l]}
+            </h3>
+            <p className="text-[#6F685B] text-sm font-serif leading-relaxed">
+              {t.formSubtitle[l]}
+            </p>
+          </div>
 
-              {submitted ? (
+          {submitted ? (
                 <div className="bg-white border border-[#9A2B27]/20 rounded-2xl p-10 text-center shadow-sm">
                   <div className="w-14 h-14 rounded-full bg-[#9A2B27]/10 flex items-center justify-center mx-auto mb-4">
                     <Heart className="w-7 h-7 text-[#9A2B27] fill-[#9A2B27]" />
@@ -861,123 +798,30 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
                     </button>
                   </div>
                 </form>
-              )}
-
-              {/* Deacon / Coworker Directory */}
-              <div className="mt-12">
-                <div className="mb-4">
-                  <h4 className="font-serif text-lg font-bold text-[#33271E] mb-1">
-                    {l === "en" ? "Ministry Contacts" : "事工同工聯絡表"}
-                  </h4>
-                  <p className="text-xs text-[#6F685B] font-serif">
-                    {l === "en"
-                      ? "For questions relating to church business or ministries, please contact the appropriate deacon or coworker below."
-                      : "如有關於教會事務或事工的問題，請聯絡以下相關執事或同工。"}
-                  </p>
-                </div>
-                <div className="rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
-                  <iframe
-                    src="https://docs.google.com/spreadsheets/d/1k7YJjdBpWJjMxFPG--1JKgUCwq4dN5NzMA11g5LBD6o/pubhtml?gid=1676222687&single=true&widget=false&headers=false&chrome=false"
-                    className="w-full"
-                    style={{ height: "480px", border: 0 }}
-                    title="GCCC Ministry Contacts Directory"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
           )}
 
-          {/* ── GIVE TAB ── */}
-          {activeTab === "give" && (
-            <div className="space-y-10">
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-[#33271E] mb-2">
-                  {t.giveTitle[l]}
-                </h3>
-                <p className="text-[#6F685B] text-sm font-serif leading-relaxed max-w-2xl">
-                  {t.giveSub[l]}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {/* Zelle */}
-                <div className="bg-white border border-black/8 rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
-                  <div className="w-10 h-10 rounded-xl bg-[#9A2B27]/10 flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-[#9A2B27]" />
-                  </div>
-                  <div>
-                    <h4 className="font-serif font-bold text-[#33271E] text-base mb-1">
-                      {t.giveOnline[l]}
-                    </h4>
-                    <p className="text-[#6F685B] text-xs font-serif leading-relaxed">
-                      {t.giveOnlineDesc[l]}
-                    </p>
-                  </div>
-                  <a
-                    href={`mailto:${siteSettings.email}`}
-                    className="mt-auto inline-flex items-center gap-1.5 text-[#9A2B27] text-xs font-semibold hover:text-[#80221E] transition-colors"
-                  >
-                    {siteSettings.email}
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-
-                {/* Mail */}
-                <div className="bg-white border border-black/8 rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
-                  <div className="w-10 h-10 rounded-xl bg-[#9A2B27]/10 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-[#9A2B27]" />
-                  </div>
-                  <div>
-                    <h4 className="font-serif font-bold text-[#33271E] text-base mb-1">
-                      {t.giveMail[l]}
-                    </h4>
-                    <p className="text-[#6F685B] text-xs font-serif leading-relaxed">
-                      {t.giveMailDesc[l]}
-                    </p>
-                  </div>
-                  <span className="mt-auto text-[#9A2B27] text-xs font-semibold">
-                    {siteSettings.address[l]}
-                  </span>
-                </div>
-
-                {/* In person */}
-                <div className="bg-white border border-black/8 rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
-                  <div className="w-10 h-10 rounded-xl bg-[#9A2B27]/10 flex items-center justify-center">
-                    <Gift className="w-5 h-5 text-[#9A2B27]" />
-                  </div>
-                  <div>
-                    <h4 className="font-serif font-bold text-[#33271E] text-base mb-1">
-                      {t.giveInPerson[l]}
-                    </h4>
-                    <p className="text-[#6F685B] text-xs font-serif leading-relaxed">
-                      {t.giveInPersonDesc[l]}
-                    </p>
-                  </div>
-                  <span className="mt-auto text-[#9A2B27] text-xs font-semibold">
-                    {l === "en" ? "Sundays · 10:00 AM" : "週日 · 上午 10:00"}
-                  </span>
-                </div>
-              </div>
-
-              {/* 501c3 note */}
-              <div className="bg-[#9A2B27]/8 border border-[#9A2B27]/15 rounded-xl px-6 py-4 flex items-start gap-3">
-                <Gift className="w-4 h-4 text-[#9A2B27] shrink-0 mt-0.5" />
-                <p className="text-xs text-[#6F685B] font-serif leading-relaxed">
-                  {t.giveNote[l]}
-                </p>
-              </div>
-
-              {/* Scripture */}
-              <blockquote className="border-l-2 border-[#9A2B27] pl-5 py-1">
-                <p className="font-serif text-sm italic text-[#6F685B] leading-relaxed">
-                  {l === "en"
-                    ? '"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." — 2 Corinthians 9:7'
-                    : "「各人要隨本心所酌定的捐輸，不要作難，不要勉強，因為捐得樂意的人是神所喜愛的。」— 哥林多後書 9:7"}
-                </p>
-              </blockquote>
+          {/* Deacon / Coworker Directory */}
+          <div className="mt-12">
+            <div className="mb-4">
+              <h4 className="font-serif text-lg font-bold text-[#33271E] mb-1">
+                {l === "en" ? "Ministry Contacts" : "事工同工聯絡表"}
+              </h4>
+              <p className="text-xs text-[#6F685B] font-serif">
+                {l === "en"
+                  ? "For questions relating to church business or ministries, please contact the appropriate deacon or coworker below."
+                  : "如有關於教會事務或事工的問題，請聯絡以下相關執事或同工。"}
+              </p>
             </div>
-          )}
+            <div className="rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
+              <iframe
+                src="https://docs.google.com/spreadsheets/d/1k7YJjdBpWJjMxFPG--1JKgUCwq4dN5NzMA11g5LBD6o/pubhtml?gid=1676222687&single=true&widget=false&headers=false&chrome=false"
+                className="w-full"
+                style={{ height: "480px", border: 0 }}
+                title="GCCC Ministry Contacts Directory"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
       </div>
 

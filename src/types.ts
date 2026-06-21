@@ -1,6 +1,6 @@
 export type Language = 'en' | 'zh';
 
-export type Page = 'home' | 'about' | 'sermons' | 'fellowships' | 'calendar' | 'contact';
+export type Page = 'home' | 'about' | 'sermons' | 'fellowships' | 'calendar' | 'contact' | 'give';
 
 export interface SiteSettings {
   churchName: { [key in Language]: string };
@@ -46,4 +46,5 @@ export interface Fellowship {
   description: { [key in Language]: string };
   imageUrl: string;
   isFeatured?: boolean;
+  instagramUrl?: string;
 }

@@ -36,10 +36,10 @@ export default function GcccIntro({
 
   useEffect(() => {
     if (!shouldPlay) return;
-    // Matches the fade-out delay (3.5s) + duration (0.35s) in GcccIntro.css => 3.85s
+    // Matches the fade-out delay (2.0s) + duration (0.35s) in GcccIntro.css => 2.35s
     const t = setTimeout(() => {
       onDone?.();
-    }, 3900);
+    }, 2400);
     return () => clearTimeout(t);
   }, [shouldPlay, onDone]);
 
@@ -63,13 +63,13 @@ export default function GcccIntro({
           {/* 1. Three nested concentric C-arcs (inner to outer), each delayed slightly after the previous */}
           <path
             className="s s--inner"
-            style={{ animationDelay: ".24s" }}
+            style={{ animationDelay: ".17s" }}
             pathLength={1}
             d="M110 66 A32 32 0 0 0 110 130"
           />
           <path
             className="s s--inner"
-            style={{ animationDelay: ".12s" }}
+            style={{ animationDelay: ".08s" }}
             pathLength={1}
             d="M110 53 A45 45 0 0 0 110 143"
           />
@@ -83,13 +83,13 @@ export default function GcccIntro({
           {/* 2 & 3. Cross: vertical stem, then horizontal bar */}
           <path
             className="s s--inner"
-            style={{ animationDelay: ".42s" }}
+            style={{ animationDelay: ".30s" }}
             pathLength={1}
             d="M110 26 L110 186"
           />
           <path
             className="s s--inner"
-            style={{ animationDelay: ".58s" }}
+            style={{ animationDelay: ".41s" }}
             pathLength={1}
             d="M90 66 L140 66"
           />
@@ -97,19 +97,19 @@ export default function GcccIntro({
           {/* 4. Open book: left page, right page, then baseline */}
           <path
             className="s s--inner s--book"
-            style={{ animationDelay: ".74s" }}
+            style={{ animationDelay: ".52s" }}
             pathLength={1}
             d="M107 190 C88 186 68 185 59 188 L62 208 C77 205 93 205 107 209 Z"
           />
           <path
             className="s s--inner s--book"
-            style={{ animationDelay: ".8s" }}
+            style={{ animationDelay: ".56s" }}
             pathLength={1}
             d="M113 190 C132 186 152 185 161 188 L158 208 C143 205 127 205 113 209 Z"
           />
           <path
             className="s s--inner s--book"
-            style={{ animationDelay: ".94s" }}
+            style={{ animationDelay: ".66s" }}
             pathLength={1}
             d="M48 215 L172 215"
           />

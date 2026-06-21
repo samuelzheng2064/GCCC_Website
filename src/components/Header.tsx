@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Language, Page } from "../types";
 import GcccMark from "./GcccMark";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, ChevronDown } from "lucide-react";
 
 interface HeaderProps {
   currentLang: Language;
@@ -21,6 +21,9 @@ export default function Header({
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [connectDropdownOpen, setConnectDropdownOpen] = useState(false);
+  const [mobileConnectOpen, setMobileConnectOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -28,24 +31,37 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setConnectDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const t = {
     navHome: { en: "Home", zh: "首頁" },
     navAbout: { en: "About Us", zh: "關於我們" },
     navFellowships: { en: "Ministry", zh: "团契事工" },
-    navContact: { en: "Get Connected", zh: "聯絡我們" },
+    navConnect: { en: "Get Connected", zh: "聯絡我們" },
+    navConnectCard: { en: "Connection Card", zh: "聯絡卡" },
+    navConnectGive: { en: "Give", zh: "奉獻" },
     wordmarkZh: "甘城華人教會",
     wordmarkEn: "GCCC FL",
   };
 
-  const navItems: { label: { en: string; zh: string }; page: Page }[] = [
+  const regularNavItems: { label: { en: string; zh: string }; page: Page }[] = [
     { label: t.navHome, page: "home" },
     { label: t.navAbout, page: "about" },
     { label: t.navFellowships, page: "fellowships" },
-    { label: t.navContact, page: "contact" },
   ];
 
   const handleNav = (page: Page) => {
     setMobileMenuOpen(false);
+    setConnectDropdownOpen(false);
     onPageChange(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -81,7 +97,7 @@ export default function Header({
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-3">
-            {navItems.map((item) => (
+            {regularNavItems.map((item) => (
               <button
                 key={item.page}
                 onClick={() => handleNav(item.page)}
@@ -101,6 +117,48 @@ export default function Header({
                 />
               </button>
             ))}
+
+            {/* Get Connected dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setConnectDropdownOpen((o) => !o)}
+                className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group flex items-center gap-1 ${
+                  currentPage === "contact" || currentPage === "give"
+                    ? "text-black"
+                    : "text-gray-600 hover:text-black"
+                }`}
+              >
+                {t.navConnect[currentLang]}
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${connectDropdownOpen ? "rotate-180" : ""}`}
+                />
+                <span
+                  className={`absolute bottom-1 left-3 right-3 h-[2px] bg-black transition-transform duration-300 origin-center ${
+                    currentPage === "contact" || currentPage === "give"
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown panel */}
+              {connectDropdownOpen && (
+                <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-black/8 overflow-hidden py-1 animate-fade-in">
+                  <button
+                    onClick={() => handleNav("contact")}
+                    className="w-full text-left px-4 py-2.5 text-sm font-sans text-gray-700 hover:bg-black/5 hover:text-black transition-colors"
+                  >
+                    {t.navConnectCard[currentLang]}
+                  </button>
+                  <button
+                    onClick={() => handleNav("give")}
+                    className="w-full text-left px-4 py-2.5 text-sm font-sans text-gray-700 hover:bg-black/5 hover:text-black transition-colors"
+                  >
+                    {t.navConnectGive[currentLang]}
+                  </button>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Right Controls */}
@@ -156,7 +214,7 @@ export default function Header({
         }`}
       >
         <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-          {navItems.map((item) => (
+          {regularNavItems.map((item) => (
             <button
               key={item.page}
               onClick={() => handleNav(item.page)}
@@ -169,6 +227,39 @@ export default function Header({
               {item.label[currentLang]}
             </button>
           ))}
+
+          {/* Mobile Get Connected expandable */}
+          <div>
+            <button
+              onClick={() => setMobileConnectOpen((o) => !o)}
+              className={`flex w-full items-center justify-between px-4 py-2.5 rounded-md text-base font-medium transition-all ${
+                currentPage === "contact" || currentPage === "give"
+                  ? "bg-black/10 text-black"
+                  : "text-gray-600 hover:bg-black/5 hover:text-black"
+              }`}
+            >
+              {t.navConnect[currentLang]}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${mobileConnectOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+            {mobileConnectOpen && (
+              <div className="ml-4 mt-1 space-y-1">
+                <button
+                  onClick={() => handleNav("contact")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {t.navConnectCard[currentLang]}
+                </button>
+                <button
+                  onClick={() => handleNav("give")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {t.navConnectGive[currentLang]}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
