@@ -12,6 +12,14 @@ interface GcccIntroProps {
   onDone?: () => void;
 }
 
+// Skip animation on mobile (touch devices or narrow screens)
+function isMobile(): boolean {
+  return (
+    window.matchMedia("(max-width: 768px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches
+  );
+}
+
 export default function GcccIntro({
   forceReplay = false,
   onDone,
@@ -21,6 +29,10 @@ export default function GcccIntro({
 
   useEffect(() => {
     setMounted(true);
+    if (isMobile()) {
+      onDone?.();
+      return;
+    }
     try {
       const seen = sessionStorage.getItem(SESSION_KEY);
       if (forceReplay || !seen) {
