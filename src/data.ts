@@ -210,7 +210,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "A community for married couples with young children. Here we support one another in biblical parenting, discuss marriage health, and host family potlucks while kids play safely together under supervision.",
       zh: "由甘城當地有幼兒或學齡兒童的中青年夫婦組成的同盟。我們圍繞聖經原則切磋教養心得、探討健康夫妻關係，並常開展露營、烤肉等親子家庭派對。",
     },
-    imageUrl: "/images/lovehome.JPEG",
+    imageUrl: "/images/gccc_hero_1781744424066.jpg",
   },
   {
     id: "friday-bible-study",

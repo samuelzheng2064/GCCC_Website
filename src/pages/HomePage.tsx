@@ -80,7 +80,7 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       {/* HERO */}
       <section
         id="hero"
-        className="relative min-h-[95vh] flex items-center pt-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+        className="relative min-h-[calc(95vh-80px)] mt-20 flex items-center px-4 sm:px-6 lg:px-8 bg-cover bg-center"
         style={{ backgroundImage: `url("/images/hero.JPG")` }}
       >
         <div className="absolute inset-0 bg-neutral-900/60" />
