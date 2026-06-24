@@ -23,7 +23,13 @@ export default function Header({
   const [scrolled, setScrolled] = useState(false);
   const [connectDropdownOpen, setConnectDropdownOpen] = useState(false);
   const [mobileConnectOpen, setMobileConnectOpen] = useState(false);
+  const [eventsDropdownOpen, setEventsDropdownOpen] = useState(false);
+  const [mobileEventsOpen, setMobileEventsOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const eventsDropdownRef = useRef<HTMLDivElement>(null);
+  const aboutDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -31,11 +37,26 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setConnectDropdownOpen(false);
+      }
+      if (
+        eventsDropdownRef.current &&
+        !eventsDropdownRef.current.contains(e.target as Node)
+      ) {
+        setEventsDropdownOpen(false);
+      }
+      if (
+        aboutDropdownRef.current &&
+        !aboutDropdownRef.current.contains(e.target as Node)
+      ) {
+        setAboutDropdownOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -45,23 +66,26 @@ export default function Header({
   const t = {
     navHome: { en: "Home", zh: "首頁" },
     navAbout: { en: "About Us", zh: "關於我們" },
-    navFellowships: { en: "Ministry", zh: "团契事工" },
+    navGainsvilleDew: { en: "Gainesville Dew", zh: "甘城甘露" },
+    navFellowships: { en: "Ministries", zh: "团契事工" },
+    navLeaders: { en: "Leadership", zh: "牧師同工" },
+    navEvents: { en: "Events", zh: "活動" },
+    navEventsCalendar: { en: "Church Calendar", zh: "教會行事曆" },
+    navEventsAnnouncements: { en: "Announcements", zh: "教會公告" },
     navConnect: { en: "Get Connected", zh: "聯絡我們" },
     navConnectCard: { en: "Connection Card", zh: "聯絡卡" },
+    navConnectPrayer: { en: "Prayer Requests", zh: "代禱事項" },
     navConnectGive: { en: "Give", zh: "奉獻" },
     wordmarkZh: "甘城華人教會",
     wordmarkEn: "GCCC FL",
   };
 
-  const regularNavItems: { label: { en: string; zh: string }; page: Page }[] = [
-    { label: t.navHome, page: "home" },
-    { label: t.navAbout, page: "about" },
-    { label: t.navFellowships, page: "fellowships" },
-  ];
-
   const handleNav = (page: Page) => {
     setMobileMenuOpen(false);
     setConnectDropdownOpen(false);
+    setEventsDropdownOpen(false);
+    setAboutDropdownOpen(false);
+    setMobileAboutOpen(false);
     onPageChange(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -97,33 +121,112 @@ export default function Header({
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-3">
-            {regularNavItems.map((item) => (
+            {/* Home */}
+            <button
+              onClick={() => handleNav("home")}
+              className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group ${
+                currentPage === "home" ? "text-black" : "text-gray-600 hover:text-black"
+              }`}
+            >
+              {t.navHome[currentLang]}
+              <span className={`absolute bottom-1 left-3 right-3 h-[2px] bg-black transition-transform duration-300 origin-center ${currentPage === "home" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+            </button>
+
+            {/* About Us dropdown */}
+            <div className="relative" ref={aboutDropdownRef}>
               <button
-                key={item.page}
-                onClick={() => handleNav(item.page)}
-                className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group ${
-                  currentPage === item.page
+                onClick={() => setAboutDropdownOpen((o) => !o)}
+                className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group flex items-center gap-1 ${
+                  currentPage === "about" || currentPage === "gainesville-dew" ? "text-black" : "text-gray-600 hover:text-black"
+                }`}
+              >
+                {t.navAbout[currentLang]}
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${aboutDropdownOpen ? "rotate-180" : ""}`} />
+                <span className={`absolute bottom-1 left-3 right-3 h-[2px] bg-black transition-transform duration-300 origin-center ${currentPage === "about" || currentPage === "gainesville-dew" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+              </button>
+              {aboutDropdownOpen && (
+                <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-black/8 overflow-hidden py-1 animate-fade-in">
+                  <button
+                    onClick={() => handleNav("about")}
+                    className={`w-full text-left px-4 py-2.5 text-sm font-sans hover:bg-black/5 hover:text-black transition-colors ${currentPage === "about" ? "text-black font-semibold" : "text-gray-700"}`}
+                  >
+                    {currentLang === "en" ? "Our Story" : "教會歷史"}
+                  </button>
+                  <button
+                    onClick={() => handleNav("about")}
+                    className={`w-full text-left px-4 py-2.5 text-sm font-sans hover:bg-black/5 hover:text-black transition-colors ${currentPage === "about" ? "text-black font-semibold" : "text-gray-700"}`}
+                  >
+                    {currentLang === "en" ? "Leadership" : "牧師同工"}
+                  </button>
+                  <button
+                    onClick={() => handleNav("gainesville-dew")}
+                    className={`w-full text-left px-4 py-2.5 text-sm font-sans hover:bg-black/5 hover:text-black transition-colors ${currentPage === "gainesville-dew" ? "text-black font-semibold" : "text-gray-700"}`}
+                  >
+                    {t.navGainsvilleDew[currentLang]}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Ministries */}
+            <button
+              onClick={() => handleNav("fellowships")}
+              className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group ${
+                currentPage === "fellowships" ? "text-black" : "text-gray-600 hover:text-black"
+              }`}
+            >
+              {t.navFellowships[currentLang]}
+              <span className={`absolute bottom-1 left-3 right-3 h-[2px] bg-black transition-transform duration-300 origin-center ${currentPage === "fellowships" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+            </button>
+
+            {/* Events dropdown */}
+            <div className="relative" ref={eventsDropdownRef}>
+              <button
+                onClick={() => setEventsDropdownOpen((o) => !o)}
+                className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group flex items-center gap-1 ${
+                  currentPage === "calendar" || currentPage === "announcements"
                     ? "text-black"
                     : "text-gray-600 hover:text-black"
                 }`}
               >
-                {item.label[currentLang]}
+                {t.navEvents[currentLang]}
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${eventsDropdownOpen ? "rotate-180" : ""}`}
+                />
                 <span
                   className={`absolute bottom-1 left-3 right-3 h-[2px] bg-black transition-transform duration-300 origin-center ${
-                    currentPage === item.page
+                    currentPage === "calendar" ||
+                    currentPage === "announcements"
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
                   }`}
                 />
               </button>
-            ))}
+
+              {eventsDropdownOpen && (
+                <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-black/8 overflow-hidden py-1 animate-fade-in">
+                  <button
+                    onClick={() => handleNav("calendar")}
+                    className="w-full text-left px-4 py-2.5 text-sm font-sans text-gray-700 hover:bg-black/5 hover:text-black transition-colors"
+                  >
+                    {t.navEventsCalendar[currentLang]}
+                  </button>
+                  <button
+                    onClick={() => handleNav("announcements")}
+                    className="w-full text-left px-4 py-2.5 text-sm font-sans text-gray-700 hover:bg-black/5 hover:text-black transition-colors"
+                  >
+                    {t.navEventsAnnouncements[currentLang]}
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* Get Connected dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setConnectDropdownOpen((o) => !o)}
                 className={`font-sans text-base font-medium px-3 py-2 rounded-md transition-colors relative group flex items-center gap-1 ${
-                  currentPage === "contact" || currentPage === "give"
+                  currentPage === "contact" || currentPage === "give" || currentPage === "prayer"
                     ? "text-black"
                     : "text-gray-600 hover:text-black"
                 }`}
@@ -134,7 +237,7 @@ export default function Header({
                 />
                 <span
                   className={`absolute bottom-1 left-3 right-3 h-[2px] bg-black transition-transform duration-300 origin-center ${
-                    currentPage === "contact" || currentPage === "give"
+                    currentPage === "contact" || currentPage === "give" || currentPage === "prayer"
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
                   }`}
@@ -143,12 +246,18 @@ export default function Header({
 
               {/* Dropdown panel */}
               {connectDropdownOpen && (
-                <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-black/8 overflow-hidden py-1 animate-fade-in">
+                <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-black/8 overflow-hidden py-1 animate-fade-in">
                   <button
                     onClick={() => handleNav("contact")}
                     className="w-full text-left px-4 py-2.5 text-sm font-sans text-gray-700 hover:bg-black/5 hover:text-black transition-colors"
                   >
                     {t.navConnectCard[currentLang]}
+                  </button>
+                  <button
+                    onClick={() => handleNav("prayer")}
+                    className="w-full text-left px-4 py-2.5 text-sm font-sans text-gray-700 hover:bg-black/5 hover:text-black transition-colors"
+                  >
+                    {t.navConnectPrayer[currentLang]}
                   </button>
                   <button
                     onClick={() => handleNav("give")}
@@ -214,26 +323,100 @@ export default function Header({
         }`}
       >
         <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-          {regularNavItems.map((item) => (
+          {/* Home */}
+          <button
+            onClick={() => handleNav("home")}
+            className={`block w-full text-left px-4 py-2.5 rounded-md text-base font-medium transition-all ${
+              currentPage === "home" ? "bg-black/10 text-black" : "text-gray-600 hover:bg-black/5 hover:text-black"
+            }`}
+          >
+            {t.navHome[currentLang]}
+          </button>
+
+          {/* Mobile About Us expandable */}
+          <div>
             <button
-              key={item.page}
-              onClick={() => handleNav(item.page)}
-              className={`block w-full text-left px-4 py-2.5 rounded-md text-base font-medium transition-all ${
-                currentPage === item.page
+              onClick={() => setMobileAboutOpen((o) => !o)}
+              className={`flex w-full items-center justify-between px-4 py-2.5 rounded-md text-base font-medium transition-all ${
+                currentPage === "about" || currentPage === "gainesville-dew" ? "bg-black/10 text-black" : "text-gray-600 hover:bg-black/5 hover:text-black"
+              }`}
+            >
+              {t.navAbout[currentLang]}
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileAboutOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobileAboutOpen && (
+              <div className="ml-4 mt-1 space-y-1">
+                <button
+                  onClick={() => handleNav("about")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {currentLang === "en" ? "Our Story" : "教會歷史"}
+                </button>
+                <button
+                  onClick={() => handleNav("about")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {currentLang === "en" ? "Leadership" : "牧師同工"}
+                </button>
+                <button
+                  onClick={() => handleNav("gainesville-dew")}
+                  className={`block w-full text-left px-4 py-2 rounded-md text-sm font-medium hover:bg-black/5 hover:text-black transition-all ${currentPage === "gainesville-dew" ? "text-black font-semibold" : "text-gray-600"}`}
+                >
+                  {t.navGainsvilleDew[currentLang]}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Ministries */}
+          <button
+            onClick={() => handleNav("fellowships")}
+            className={`block w-full text-left px-4 py-2.5 rounded-md text-base font-medium transition-all ${
+              currentPage === "fellowships" ? "bg-black/10 text-black" : "text-gray-600 hover:bg-black/5 hover:text-black"
+            }`}
+          >
+            {t.navFellowships[currentLang]}
+          </button>
+
+          {/* Mobile Events expandable */}
+          <div>
+            <button
+              onClick={() => setMobileEventsOpen((o) => !o)}
+              className={`flex w-full items-center justify-between px-4 py-2.5 rounded-md text-base font-medium transition-all ${
+                currentPage === "calendar" || currentPage === "announcements"
                   ? "bg-black/10 text-black"
                   : "text-gray-600 hover:bg-black/5 hover:text-black"
               }`}
             >
-              {item.label[currentLang]}
+              {t.navEvents[currentLang]}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${mobileEventsOpen ? "rotate-180" : ""}`}
+              />
             </button>
-          ))}
+            {mobileEventsOpen && (
+              <div className="ml-4 mt-1 space-y-1">
+                <button
+                  onClick={() => handleNav("calendar")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {t.navEventsCalendar[currentLang]}
+                </button>
+                <button
+                  onClick={() => handleNav("announcements")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {t.navEventsAnnouncements[currentLang]}
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Mobile Get Connected expandable */}
           <div>
             <button
               onClick={() => setMobileConnectOpen((o) => !o)}
               className={`flex w-full items-center justify-between px-4 py-2.5 rounded-md text-base font-medium transition-all ${
-                currentPage === "contact" || currentPage === "give"
+                currentPage === "contact" || currentPage === "give" || currentPage === "prayer"
                   ? "bg-black/10 text-black"
                   : "text-gray-600 hover:bg-black/5 hover:text-black"
               }`}
@@ -250,6 +433,12 @@ export default function Header({
                   className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
                 >
                   {t.navConnectCard[currentLang]}
+                </button>
+                <button
+                  onClick={() => handleNav("prayer")}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-black transition-all"
+                >
+                  {t.navConnectPrayer[currentLang]}
                 </button>
                 <button
                   onClick={() => handleNav("give")}

@@ -7,7 +7,7 @@
  * Migration status: static fixtures kept as fallback.
  * Live fetch functions are exported from src/lib/cms.ts.
  */
-import { Sermon, Fellowship, SiteSettings, Activity } from "./types";
+import { Sermon, Fellowship, SiteSettings, Activity, Leader, MinistryCategoryInfo } from "./types";
 
 export const siteSettings: SiteSettings = {
   churchName: {
@@ -89,6 +89,75 @@ export const activitiesData: Activity[] = [
   },
 ];
 
+export const ministryCategoriesData: MinistryCategoryInfo[] = [
+  {
+    id: "kids",
+    label: { en: "Kids", zh: "兒童" },
+    ageRange: { en: "Infants – 5th Grade", zh: "嬰兒至五年級" },
+    description: {
+      en: "A nurturing, age-appropriate environment where children learn to love God through Bible stories, worship songs, crafts, and meaningful friendships. We walk alongside parents in raising the next generation of faithful followers of Christ.",
+      zh: "為嬰兒至五年級的孩子提供充滿愛、合乎年齡的成長環境。透過聖經故事、敬拜詩歌、手工藝及真誠友誼，讓孩子們在安全喜樂的氛圍中學習愛神愛人，與家長攜手培育下一代基督門徒。",
+    },
+    bannerImageUrl: "/images/sundayservice.JPG",
+    color: "#4A90D9",
+  },
+  {
+    id: "youth",
+    label: { en: "Youth", zh: "青少年" },
+    ageRange: { en: "Middle & High School", zh: "國中 / 高中" },
+    description: {
+      en: "A vibrant community for middle and high school students to explore faith, ask tough questions, build lasting friendships, and grow as disciples of Christ through worship, Bible study, service projects, and fun events.",
+      zh: "為國中及高中生打造充滿活力的信仰群體。透過敬拜、查經、服事項目與趣味活動，讓青少年在此探索信仰、提出真實問題、建立長久友誼，並在基督裡成長為真正的門徒。",
+    },
+    bannerImageUrl: "/images/gccc_campus_1781744441184.jpg",
+    color: "#7B6CF6",
+  },
+  {
+    id: "college",
+    label: { en: "College", zh: "大學生" },
+    ageRange: { en: "College Students", zh: "大學生" },
+    description: {
+      en: "A warm home away from home for college students — especially UF students and international scholars. Come for a free Friday dinner, stay for authentic community, Bible study, and a faith that holds up under real questions.",
+      zh: "為大學生——尤其是佛大學生及國際訪學者——打造真誠溫馨的屬靈家園。週五免費愛宴帶你認識我們，查經與真誠團契讓你在信仰中紮根。",
+    },
+    bannerImageUrl: "/images/alpha.JPG",
+    color: "#E8963A",
+  },
+  {
+    id: "adults",
+    label: { en: "Adults", zh: "成人" },
+    ageRange: { en: "Young Professionals & Families", zh: "職青 / 青年家庭" },
+    description: {
+      en: "Communities for young professionals, married couples, and growing families navigating career, marriage, and parenthood. We pursue Christ together through honest conversation, shared meals, and mutual encouragement.",
+      zh: "為職場青年、新婚夫婦及育兒家庭而設的屬靈群體。在坦誠對話、共享美食與彼此扶持中，一同在基督裡走過職場、婚姻與育兒的人生旅程。",
+    },
+    bannerImageUrl: "/images/song.JPG",
+    color: "#9A2B27",
+  },
+  {
+    id: "senior-adults",
+    label: { en: "Senior Adults", zh: "長輩" },
+    ageRange: { en: "Senior Adults & Visiting Parents", zh: "長輩 / 探親父母" },
+    description: {
+      en: "A warm fellowship designed for our treasured elder members and visiting parents. Connect through traditional hymns, health seminars, Chinese calligraphy, stretching exercises, and rich testimonies over tea.",
+      zh: "專為我們珍愛的長輩契友以及前來探親的父母們設計。一同吟唱古典聖詩、參與健康講座、書法交流及舒展體操，在熱呼呼的茶點中分享生命的恩典與見證。",
+    },
+    bannerImageUrl: "/images/aijiatuanqi.JPG",
+    color: "#2E7D52",
+  },
+  {
+    id: "discipleship",
+    label: { en: "Discipleship", zh: "門徒訓練" },
+    ageRange: { en: "All Ages", zh: "所有年齡" },
+    description: {
+      en: "A space for every believer to grow deeper in Christ — through training, spiritual breakthrough, and curated resources. Whether you are just beginning your faith journey or pursuing deeper maturity, we walk alongside you.",
+      zh: "為每一位信徒提供在基督裡更深成長的空間——透過系統訓練、屬靈突破與精選資源，陪伴你從信仰起步到生命成熟的每一步。",
+    },
+    bannerImageUrl: "/images/sundayservice.JPG",
+    color: "#C07A2F",
+  },
+];
+
 export const fellowshipsData: Fellowship[] = [
   // Ordered from youngest to oldest life stage
   {
@@ -114,6 +183,7 @@ export const fellowshipsData: Fellowship[] = [
       zh: "為嬰兒至五年級的孩子提供充滿愛、合乎年齡的成長環境。透過聖經故事、敬拜詩歌、手工藝及真誠友誼，讓孩子們在安全喜樂的氛圍中學習愛神愛人。",
     },
     imageUrl: "/images/sundayservice.JPG",
+    ministryCategory: "kids",
   },
   {
     id: "youth",
@@ -138,6 +208,7 @@ export const fellowshipsData: Fellowship[] = [
       zh: "為國中及高中生打造充滿活力的信仰群體。透過敬拜、查經、服事項目與趣味活動，讓青少年在此探索信仰、提出真實問題、建立長久友誼，並在基督裡成長為真正的門徒。",
     },
     imageUrl: "/images/gccc_campus_1781744441184.jpg",
+    ministryCategory: "youth",
   },
   {
     id: "alpha",
@@ -163,6 +234,7 @@ export const fellowshipsData: Fellowship[] = [
     },
     imageUrl: "/images/alpha.JPG",
     instagramUrl: "https://www.instagram.com/gccc_alpha/",
+    ministryCategory: "college",
   },
   {
     id: "song-of-songs",
@@ -187,6 +259,7 @@ export const fellowshipsData: Fellowship[] = [
       zh: "為年輕在職青年、博士後以及新婚夫妻而設。共同探索職場挑戰、信仰與工作的契合、早期婚姻經營等專題，在輕鬆自在、充滿美食的氛圍中敞開心懷坦誠相交。",
     },
     imageUrl: "/images/song.JPG",
+    ministryCategory: "adults",
   },
   {
     id: "loving-family",
@@ -211,6 +284,7 @@ export const fellowshipsData: Fellowship[] = [
       zh: "由甘城當地有幼兒或學齡兒童的中青年夫婦組成的同盟。我們圍繞聖經原則切磋教養心得、探討健康夫妻關係，並常開展露營、烤肉等親子家庭派對。",
     },
     imageUrl: "/images/gccc_hero_1781744424066.jpg",
+    ministryCategory: "adults",
   },
   {
     id: "friday-bible-study",
@@ -235,6 +309,7 @@ export const fellowshipsData: Fellowship[] = [
       zh: "為甘城當地的訪問學者、職場人士和家庭提供系統化且深入的聖經學習。查經班設有多個小組，並配合兒童看護和課堂活動，歡迎攜家帶眷參與。",
     },
     imageUrl: "/images/sundayservice.JPG",
+    ministryCategory: "adults",
   },
   {
     id: "evergreen",
@@ -259,6 +334,7 @@ export const fellowshipsData: Fellowship[] = [
       zh: "專為我們珍愛的長輩契友以及前來探親的父母們設計。我們一同吟唱古典聖詩、做舒展體操、舉辦健康講座與書法交流，並在熱呼呼的茶點中分享生命的恩典與見證。",
     },
     imageUrl: "/images/aijiatuanqi.JPG",
+    ministryCategory: "senior-adults",
   },
   {
     id: "prayer-meeting",
@@ -283,6 +359,34 @@ export const fellowshipsData: Fellowship[] = [
       zh: "教會事工的屬靈發動機。我們同心合意聚集，專切為全球宣教、甘城社區需要、生病肢體及教會各項聖工代禱守望，在安靜中尋求神的主權與引導。",
     },
     imageUrl: "/images/evergreen.JPG",
+  },
+];
+
+export const leadersData: Leader[] = [
+  {
+    id: "pastor-li",
+    name: { en: "Rev. HongJun Li", zh: "李洪軍牧師" },
+    title: { en: "Pastor", zh: "牧師" },
+    bio: {
+      en: "Pastor HongJun Li has faithfully served GCCC as Senior Pastor, shepherding the congregation with a deep commitment to biblical preaching and discipleship.",
+      zh: "李洪軍牧師忠心服事甘城華人教會，以深厚的聖經根基帶領會眾，致力於講道與門徒培育事工。",
+    },
+    email: "hongjun.li@gcccfl.org",
+  },
+  // {
+  //   id: "pastor-chen",
+  //   name: { en: "Rev. David Chen", zh: "陳達偉牧師" },
+  //   title: { en: "Pastor", zh: "牧師" },
+  // },
+  {
+    id: "elder-fang",
+    name: { en: "Brother Chou Fang", zh: "方疇弟兄" },
+    title: { en: "Elder", zh: "長老" },
+  },
+  {
+    id: "elder-song",
+    name: { en: "Brother Sihong Song", zh: "宋嗣宏弟兄" },
+    title: { en: "Elder", zh: "長老" },
   },
 ];
 

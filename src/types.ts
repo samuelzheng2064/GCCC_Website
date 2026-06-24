@@ -1,6 +1,26 @@
 export type Language = 'en' | 'zh';
 
-export type Page = 'home' | 'about' | 'sermons' | 'fellowships' | 'calendar' | 'contact' | 'give';
+export type Page = 'home' | 'about' | 'sermons' | 'fellowships' | 'calendar' | 'contact' | 'give' | 'announcements' | 'prayer' | 'gainesville-dew';
+
+export type MinistryCategory = 'kids' | 'youth' | 'college' | 'adults' | 'senior-adults' | 'discipleship';
+
+export interface MinistryCategoryInfo {
+  id: MinistryCategory;
+  label: { [key in Language]: string };
+  ageRange: { [key in Language]: string };
+  description: { [key in Language]: string };
+  bannerImageUrl: string;
+  color: string; // accent color class
+}
+
+export interface Leader {
+  id: string;
+  name: { [key in Language]: string };
+  title: { [key in Language]: string };
+  bio?: { [key in Language]: string };
+  imageUrl?: string;
+  email?: string;
+}
 
 export interface SiteSettings {
   churchName: { [key in Language]: string };
@@ -47,4 +67,5 @@ export interface Fellowship {
   imageUrl: string;
   isFeatured?: boolean;
   instagramUrl?: string;
+  ministryCategory?: MinistryCategory;
 }

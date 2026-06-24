@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Language, Page } from "./types";
+import { Language, Page, MinistryCategory } from "./types";
 import { siteSettings } from "./data";
 import GcccIntro from "./components/GcccIntro";
 import Header from "./components/Header";
@@ -10,6 +10,10 @@ import FellowshipsPage from "./pages/FellowshipsPage";
 import CalendarPage from "./pages/CalendarPage";
 import ContactPage from "./pages/ContactPage";
 import GivePage from "./pages/GivePage";
+import AnnouncementsPage from "./pages/AnnouncementsPage";
+import PrayerPage from "./pages/PrayerPage";
+import MinistryDetailPage from "./pages/MinistryDetailPage";
+import GainsvilleDewPage from "./pages/GainsvilleDewPage";
 import {
   Heart,
   CheckCircle,
@@ -27,6 +31,9 @@ const PAGE_TO_PATH: Record<Page, string> = {
   calendar: "/calendar",
   contact: "/contact",
   give: "/give",
+  announcements: "/announcements",
+  prayer: "/prayer",
+  "gainesville-dew": "/gainesville-dew",
 };
 
 const PATH_TO_PAGE: Record<string, Page> = {
@@ -37,15 +44,32 @@ const PATH_TO_PAGE: Record<string, Page> = {
   "/calendar": "calendar",
   "/contact": "contact",
   "/give": "give",
+  "/announcements": "announcements",
+  "/prayer": "prayer",
+  "/gainesville-dew": "gainesville-dew",
+};
+
+const MINISTRY_CATEGORY_PATHS: Record<string, MinistryCategory> = {
+  "/ministry/kids": "kids",
+  "/ministry/youth": "youth",
+  "/ministry/college": "college",
+  "/ministry/adults": "adults",
+  "/ministry/senior-adults": "senior-adults",
 };
 
 function getPageFromPath(): Page {
+  if (MINISTRY_CATEGORY_PATHS[window.location.pathname]) return "fellowships";
   return PATH_TO_PAGE[window.location.pathname] ?? "home";
+}
+
+function getCategoryFromPath(): MinistryCategory | null {
+  return MINISTRY_CATEGORY_PATHS[window.location.pathname] ?? null;
 }
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>("zh");
   const [currentPage, setCurrentPage] = useState<Page>(getPageFromPath);
+  const [selectedMinistryCategory, setSelectedMinistryCategory] = useState<MinistryCategory | null>(getCategoryFromPath);
   const [introPlaying, setIntroPlaying] = useState(true);
   const [forceReplayKey, setForceReplayKey] = useState(0);
   const [showNewHereModal, setShowNewHereModal] = useState(false);
@@ -59,6 +83,7 @@ export default function App() {
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPage(getPageFromPath());
+      setSelectedMinistryCategory(getCategoryFromPath());
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
     window.addEventListener("popstate", handlePopState);
@@ -75,6 +100,15 @@ export default function App() {
     const path = PAGE_TO_PATH[page];
     window.history.pushState({ page }, "", path);
     setCurrentPage(page);
+    setSelectedMinistryCategory(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleMinistryCategory = (category: MinistryCategory) => {
+    const path = `/ministry/${category}`;
+    window.history.pushState({ category }, "", path);
+    setCurrentPage("fellowships");
+    setSelectedMinistryCategory(category);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -125,13 +159,33 @@ export default function App() {
       case "about":
         return <AboutPage currentLang={currentLang} />;
       case "fellowships":
-        return <FellowshipsPage currentLang={currentLang} />;
+        if (selectedMinistryCategory) {
+          return (
+            <MinistryDetailPage
+              currentLang={currentLang}
+              category={selectedMinistryCategory}
+              onBack={() => handlePageChange("fellowships")}
+            />
+          );
+        }
+        return (
+          <FellowshipsPage
+            currentLang={currentLang}
+            onSelectCategory={handleMinistryCategory}
+          />
+        );
       case "calendar":
         return <CalendarPage currentLang={currentLang} />;
       case "contact":
         return <ContactPage currentLang={currentLang} />;
       case "give":
         return <GivePage currentLang={currentLang} />;
+      case "announcements":
+        return <AnnouncementsPage currentLang={currentLang} />;
+      case "prayer":
+        return <PrayerPage currentLang={currentLang} />;
+      case "gainesville-dew":
+        return <GainsvilleDewPage currentLang={currentLang} />;
     }
   };
 
@@ -233,6 +287,12 @@ export default function App() {
               className="text-lg text-white/60 hover:text-white transition-colors text-left font-light"
             >
               {currentLang === "en" ? "Connection Card" : "聯絡卡"}
+            </button>
+            <button
+              onClick={() => handlePageChange("prayer")}
+              className="text-lg text-white/60 hover:text-white transition-colors text-left font-light"
+            >
+              {currentLang === "en" ? "Prayer" : "代禱事項"}
             </button>
             <a
               href="https://www.gcccfl.org/give"

@@ -1,11 +1,13 @@
 import { Language } from "../types";
-import { ChevronRight } from "lucide-react";
+import { leadersData } from "../data";
+import { Mail, UserCircle2 } from "lucide-react";
 
 interface AboutPageProps {
   currentLang: Language;
 }
 
 export default function AboutPage({ currentLang }: AboutPageProps) {
+
   return (
     <>
       {/* HERO */}
@@ -25,133 +27,231 @@ export default function AboutPage({ currentLang }: AboutPageProps) {
         </div>
       </section>
 
-      {/* MAIN CONTENT */}
+      {/* OUR STORY */}
       <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-16">
-          {/* Left: image + proclamation */}
-          <div className="flex flex-col gap-8">
-            <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
-                <img
-                  src="/images/gccc_sermon_1781744456768.jpg"
-                  alt="Holy Bible on altar table"
-                  className="w-full h-full object-cover"
-                />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-16">
+            {/* Left: image + proclamation */}
+            <div className="flex flex-col gap-8">
+              <div className="relative">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
+                  <img
+                    src="/images/gccc_sermon_1781744456768.jpg"
+                    alt="Holy Bible on altar table"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-1/2 h-1/2 bg-[#E7B7A0]/40 rounded-2xl z-0" />
+                <div className="absolute top-4 -left-4 w-20 h-20 border-t-4 border-l-4 border-[#9A2B27] z-0" />
               </div>
-              <div className="absolute -bottom-4 -right-4 w-1/2 h-1/2 bg-[#E7B7A0]/40 rounded-2xl z-0" />
-              <div className="absolute top-4 -left-4 w-20 h-20 border-t-4 border-l-4 border-[#9A2B27] z-0" />
+
+              {/* Proclamation of Faith */}
+              <div className="bg-[#33271E] text-[#FBF7EF] rounded-2xl p-6 border border-[#E7B7A0]/10 shadow-xl">
+                <span className="font-mono text-[10px] text-[#E7B7A0] uppercase tracking-[3px] font-bold block mb-4">
+                  {currentLang === "en" ? "Proclamation of Faith" : "信仰宣告"}
+                </span>
+                <div className="space-y-3 font-serif text-sm text-[#FBF7EF]/85 italic leading-relaxed">
+                  {currentLang === "en" ? (
+                    <>
+                      <p>
+                        I believe in God, the Father Almighty, Creator of heaven
+                        and earth.
+                      </p>
+                      <p>
+                        I believe in Jesus Christ, God's only Son, our Lord; who
+                        was conceived by the Holy Spirit, born of the Virgin Mary;
+                        suffered under Pontius Pilate, was crucified, died, and
+                        was buried; he descended to the dead; on the third day he
+                        rose again; he ascended into heaven, he is seated at the
+                        right hand of the Father; and he will come again to judge
+                        the living and the dead.
+                      </p>
+                      <p>
+                        I believe in the Holy Spirit; the holy catholic church,
+                        the communion of saints; the forgiveness of sins, the
+                        resurrection of the body; and the life everlasting. Amen.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p>我信上帝，全能的父，創造天地的主。</p>
+                      <p>
+                        我信我主耶穌基督，上帝的獨生子；因著聖靈感孕，從童貞女馬利亞所生；在本丟彼拉多手下受難，被釘在十字架上，受死，埋葬；降在陰間；第三天從死里復活；祂升天，坐在全能父上帝的右邊；將來必從那里降臨，審判活人，死人。
+                      </p>
+                      <p>
+                        我信聖靈；我信聖而公之教會；我信聖徒相通；我信罪得赦免；我信身體復活；我信永生。阿們！
+                      </p>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
 
-            {/* Proclamation of Faith */}
-            <div className="bg-[#33271E] text-[#FBF7EF] rounded-2xl p-6 border border-[#E7B7A0]/10 shadow-xl">
-              <span className="font-mono text-[10px] text-[#E7B7A0] uppercase tracking-[3px] font-bold block mb-4">
-                {currentLang === "en" ? "Proclamation of Faith" : "信仰宣告"}
-              </span>
-              <div className="space-y-3 font-serif text-sm text-[#FBF7EF]/85 italic leading-relaxed">
+            {/* Right: full church history */}
+            <div className="lg:col-span-2 flex flex-col gap-6">
+              <div>
+                <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-[3px] font-bold block mb-2">
+                  {currentLang === "en" ? "Our Story" : "教會歷史"}
+                </span>
+                <h2 className="font-serif text-3xl md:text-4xl text-[#33271E] font-bold tracking-tight">
+                  {currentLang === "en" ? "History of Our Church" : "本教會歷史"}
+                </h2>
+              </div>
+              <div className="h-1 w-16 bg-[#9A2B27]" />
+              <div className="space-y-5 text-base md:text-lg text-[#6F685B] font-serif leading-relaxed">
                 {currentLang === "en" ? (
                   <>
                     <p>
-                      I believe in God, the Father Almighty, Creator of heaven
-                      and earth.
+                      In September 1970, several Chinese Christians started the
+                      Gainesville Chinese Bible Study Group. They met every Friday
+                      night at the Baptist Student Center — not only to fellowship
+                      through Bible study, praying, and sharing together with other
+                      brothers and sisters in the Lord, but also to share the gospel
+                      with the Chinese community. The numbers of people attending
+                      the meeting grew from a little over 10 people to 60 to 70
+                      people by the 1980s.
                     </p>
                     <p>
-                      I believe in Jesus Christ, God's only Son, our Lord; who
-                      was conceived by the Holy Spirit, born of the Virgin Mary;
-                      suffered under Pontius Pilate, was crucified, died, and
-                      was buried; he descended to the dead; on the third day he
-                      rose again; he ascended into heaven, he is seated at the
-                      right hand of the Father; and he will come again to judge
-                      the living and the dead.
+                      In 1979, the First Baptist Church started an international
+                      Sunday school, whose members were mainly from the Gainesville
+                      Chinese Bible Study Group. In October 1988, Chinese Sunday
+                      worship service was started at the chapel of the First Baptist
+                      Church. In February 1989, the Gainesville Chinese Christian
+                      Church was officially established. By the grace of God, we
+                      moved into our own church building in 2002. The number of
+                      adults attending the worship service grew from about 40
+                      initially to more than 100 at present.
                     </p>
                     <p>
-                      I believe in the Holy Spirit; the holy catholic church,
-                      the communion of saints; the forgiveness of sins, the
-                      resurrection of the body; and the life everlasting. Amen.
+                      Our congregation consists of people of all walks of life and
+                      of all ages. We are mostly first- and second-generation
+                      Chinese immigrants, college students, and graduate students
+                      and their families.
+                    </p>
+                    <p>
+                      One of the missions of the church is to evangelize Chinese
+                      who came to Gainesville for school or work. By the grace of
+                      God, we have been successful in this mission. Many Christians,
+                      who have accepted Jesus Christ as their personal savior and
+                      been baptized in the church, have carried this mission with
+                      them to other parts of the United States and their home
+                      countries.
+                    </p>
+                    <p>
+                      There are about five percent non-Chinese and about one-third
+                      second-generation Chinese immigrants who are more fluent in
+                      English than Chinese. As such, the church is Chinese-English
+                      bilingual and bicultural. The adult worship service is
+                      conducted in both Chinese and English, whereas the youth
+                      worship service as well as several Bible studies are conducted
+                      in English. While other meetings are conducted in Chinese,
+                      English is used in conversations.
+                    </p>
+                    <p>
+                      This church has deep roots in Bible study. From a small Bible
+                      study forty years ago, this church has grown. Now we have four
+                      Bible study groups on Sunday mornings, another six on Friday
+                      nights, five fellowships, and a Bible Training Center for
+                      Pastors. We are students of the Holy Bible and disciples of
+                      Jesus Christ.
+                    </p>
+                    <p>
+                      In 2009, the church celebrated its 20th anniversary and the
+                      7th anniversary of church building dedication. The church
+                      published a commemorative issue that documented witnesses of
+                      God's grace and glory in church history.
                     </p>
                   </>
                 ) : (
                   <>
-                    <p>我信上帝，全能的父，創造天地的主。</p>
                     <p>
-                      我信我主耶穌基督，上帝的獨生子；因著聖靈感孕，從童貞女馬利亞所生；在本丟彼拉多手下受難，被釘在十字架上，受死，埋葬；降在陰間；第三天從死里復活；祂升天，坐在全能父上帝的右邊；將來必從那里降臨，審判活人，死人。
+                      一九七零年九月，數位愛主的華人基督徒開始佛州大學的中文查經班。每週五晚上，在浸信會學生中心聚會。一則聯繫主內弟兄姊妹查經、禱告、分享，一則傳揚福音給自己的同胞，同學。聚會人數從起初的十幾人到八十年代末期已增至六、七十人。
                     </p>
                     <p>
-                      我信聖靈；我信聖而公之教會；我信聖徒相通；我信罪得赦免；我信身體復活；我信永生。阿們！
+                      一九七九年第一浸信教會開始以華人為主的國際主日學，其中成員都是查經班的弟兄姊妹。一九八八年十月第一浸信教會提供場所給查經班，在它的副堂開始中文主日崇拜。次年二月正式成立教會。蒙神的恩典，教會於二零零二年搬進了自建的教堂，教會的崇拜成人人數也由起初的四十幾人增加到現在的一百多人。
+                    </p>
+                    <p>
+                      本教會會眾包含社會各階層及各年齡層的人。我們大部份是第一代及第二代華人移民、大學生、研究生及他們的眷屬。
+                    </p>
+                    <p>
+                      本教會首要的使命之一就是傳福音給來甘城讀書或工作的華人。蒙神的恩典、我們在這個使命裡有收穫。許多基督徒、在接受耶穌基督為他們個人的救主並在教會受洗以後、到了美國其它各地或回到家鄉接續了這項使命、繼續的傳耶穌基督復活及赦罪的福音。
+                    </p>
+                    <p>
+                      教會會眾中有大約百份之五的非華人及大約三份之一的第二代華人移民。他們說英文比說中文流利。因此、本教會有一個中英文雙語及雙文化的環境。成人主日崇拜是雙語的。青少年主日崇拜及數個查經班是英語的。雖然在大部份的時間我們用的語言是中文、英文也是聚會時隨時可用的語言。
+                    </p>
+                    <p>
+                      本教會的基礎深植於查經班。從四十年前的那一個查經班開始、本教會現在在主日有四個查經班、在週五有六個查經班、在週末有聖經牧訓班、另外有五個團契及其它的聚會。我們是聖經的學生、是耶穌基督的門徒。
+                    </p>
+                    <p>
+                      在二零零九年，教會的弟兄姊妹慶祝了教會成立二十周年及建堂七周年、除了向神獻上感恩外、並為文以為紀念。教會也發行了紀念特刊、將榮耀、感恩及頌讚歸與神。
                     </p>
                   </>
                 )}
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Right: full church history */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            <div>
-              <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-[3px] font-bold block mb-2">
-                {currentLang === "en" ? "Our Story" : "教會歷史"}
-              </span>
-              <h2 className="font-serif text-3xl md:text-4xl text-[#33271E] font-bold tracking-tight">
-                {currentLang === "en" ? "History of Our Church" : "本教會歷史"}
-              </h2>
-            </div>
-            <div className="h-1 w-16 bg-[#9A2B27]" />
-            <div className="space-y-5 text-base md:text-lg text-[#6F685B] font-serif leading-relaxed">
-              {currentLang === "en" ? (
-                <>
-                  <p>
-                    In September 1970, several Chinese Christians started the
-                    Gainesville Chinese Bible Study Group. They met every Friday
-                    night at the Baptist Student Center — to fellowship through
-                    Bible study, prayer, and sharing, and to share the gospel
-                    with the Chinese community. Numbers grew from a little over
-                    10 to 60–70 by the late 1980s.
-                  </p>
-                  <p>
-                    In 1979, the First Baptist Church started an international
-                    Sunday school whose members were mainly from the Bible study
-                    group. In October 1988, Chinese Sunday worship service began
-                    at the First Baptist Church chapel, and in February 1989,
-                    GCCC was officially established. By the grace of God, we
-                    moved into our own church building in 2002, with adult
-                    attendance growing from about 40 to over 100.
-                  </p>
-                  <p>
-                    Our congregation consists of people of all walks of life —
-                    mostly first- and second-generation Chinese immigrants,
-                    college students, graduate students, and their families.
-                    About five percent are non-Chinese and about one-third are
-                    second-generation Chinese immigrants more fluent in English.
-                    The adult worship service is conducted bilingually in
-                    Chinese and English.
-                  </p>
-                  <p>
-                    This church has deep roots in Bible study. From that single
-                    Bible study group over fifty years ago, we now have four
-                    Sunday morning study groups, six on Friday nights, five
-                    fellowships, and a Bible Training Center for Pastors. We are
-                    students of the Holy Bible and disciples of Jesus Christ.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p>
-                    一九七零年九月，數位愛主的華人基督徒開始佛州大學的中文查經班。每週五晚上，在浸信會學生中心聚會，聯繫弟兄姊妹查經、禱告、分享，並傳揚福音給同胞同學。聚會人數從起初的十幾人到八十年代末已增至六、七十人。
-                  </p>
-                  <p>
-                    一九七九年第一浸信教會開始以華人為主的國際主日學，成員都是查經班的弟兄姊妹。一九八八年十月，在第一浸信教會副堂開始中文主日崇拜；次年二月正式成立教會。蒙神的恩典，教會於二零零二年搬進自建教堂，成人崇拜人數由起初四十幾人增加到現在一百多人。
-                  </p>
-                  <p>
-                    本教會會眾包含社會各階層及各年齡層，大部份是第一代及第二代華人移民、大學生、研究生及其眷屬。約有百份之五的非華人及三份之一說英語較流利的第二代移民，成人主日崇拜採中英雙語進行。
-                  </p>
-                  <p>
-                    本教會的基礎深植於查經班。從五十多年前那一個查經班開始，現在主日有四個查經班、週五有六個查經班、五個團契及聖經牧訓班。我們是聖經的學生，是耶穌基督的門徒。
-                  </p>
-                </>
-              )}
-            </div>
+      {/* LEADERSHIP */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="font-serif text-lg text-[#6F685B] leading-relaxed">
+              {currentLang === "en"
+                ? "Meet the pastoral team and elders who shepherd our congregation."
+                : "認識帶領我們會眾的牧師同工與長老群。"}
+            </p>
+            <div className="mt-6 h-1 w-16 bg-[#9A2B27] mx-auto" />
           </div>
-        </div>
-      </section>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {leadersData.map((leader) => (
+              <div
+                key={leader.id}
+                className="bg-white rounded-2xl overflow-hidden shadow-md border border-[#E7B7A0]/20 flex flex-col"
+              >
+                {/* Photo or placeholder */}
+                <div className="aspect-[3/4] bg-[#F5EDE4] flex items-center justify-center overflow-hidden">
+                  {leader.imageUrl ? (
+                    <img
+                      src={leader.imageUrl}
+                      alt={leader.name[currentLang]}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <UserCircle2 className="w-32 h-32 text-[#E7B7A0]" />
+                  )}
+                </div>
+
+                {/* Info */}
+                <div className="p-6 flex flex-col gap-3 flex-grow">
+                  <div>
+                    <span className="font-mono text-[10px] text-[#9A2B27] uppercase tracking-widest font-bold block mb-1">
+                      {leader.title[currentLang]}
+                    </span>
+                    <h3 className="font-serif text-xl font-bold text-[#33271E] leading-snug">
+                      {leader.name[currentLang]}
+                    </h3>
+                  </div>
+
+                  {leader.bio && (
+                    <p className="text-sm text-[#6F685B] font-serif leading-relaxed flex-grow">
+                      {leader.bio[currentLang]}
+                    </p>
+                  )}
+
+                  {leader.email && (
+                    <a
+                      href={`mailto:${leader.email}`}
+                      className="inline-flex items-center gap-1.5 text-xs text-[#9A2B27] hover:text-[#7a2220] transition-colors font-mono mt-auto"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      {currentLang === "en" ? "Contact" : "聯絡"}
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
     </>
   );
 }

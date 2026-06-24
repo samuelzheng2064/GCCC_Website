@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Language, Page } from "../types";
-import GcccMark from "../components/GcccMark";
 import SermonPlayer from "../components/SermonPlayer";
-import { Info, ChevronRight, X, ChevronLeft } from "lucide-react";
+import { Info, ChevronRight, X, ChevronLeft, HandHeart } from "lucide-react";
 
 interface HomePageProps {
   currentLang: Language;
@@ -19,7 +18,6 @@ const cookingPhotos = [
 ];
 
 export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
-  const [transitMode, setTransitMode] = useState<"walk" | "bus" | "car">("bus");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const openLightbox = (i: number) => setLightboxIndex(i);
@@ -84,7 +82,7 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
         style={{ backgroundImage: `url("/images/hero.JPG")` }}
       >
         <div className="absolute inset-0 bg-neutral-900/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#211E18] via-[#211E18]/30 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#211E18] via-[#211E18]/30 to-transparent" />
 
         <div className="relative z-10 w-full flex flex-col items-start gap-6 text-[#FBF7EF] py-12 md:py-24 animate-fade-in pl-[10%] pr-[10%] sm:pr-[35%]">
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight">
@@ -178,14 +176,14 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                   href="https://www.youtube.com/@gccc_gainesville"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border-1"
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border"
                 >
                   {currentLang === "en" ? "Watch Live" : "線上直播"}
                   <ChevronRight className="w-4 h-4" />
                 </a>
                 <button
                   onClick={() => onNavigateTo("contact")}
-                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border-1"
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border"
                 >
                   {currentLang === "en" ? "Find Us" : "前往教會"}
                   <Info className="w-4 h-4" />
@@ -197,6 +195,54 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                     ? "3420 SW 2nd Ave, Gainesville, FL 32607"
                     : "3420 SW 2nd Ave, Gainesville, FL 32607"}
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRAYER REQUESTS */}
+      <section className="py-0 pb-0 md:pb-0 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl border border-[#E7B7A0]/20">
+          {/* Image panel */}
+          <div className="lg:w-2/5 shrink-0 min-h-64 bg-[#1a1208] relative overflow-hidden">
+            <img
+              src="/images/sundayservice.JPG"
+              alt="Congregation in prayer"
+              className="w-full h-full object-cover opacity-60 absolute inset-0"
+            />
+            <div className="absolute inset-0 bg-linear-to-br from-[#33271E]/80 to-[#9A2B27]/40" />
+            <div className="relative z-10 flex flex-col items-center justify-center h-full min-h-64 p-8 gap-4"></div>
+          </div>
+
+          {/* Content panel */}
+          <div className="bg-[#33271E] px-8 py-10 lg:px-10 flex flex-col justify-between gap-6 lg:w-3/5">
+            <div>
+              <h2 className="font-serif text-4xl md:text-5xl text-white font-bold tracking-tight leading-snug">
+                {currentLang === "en" ? "Prayer Requests" : "代禱事項"}
+              </h2>
+              <div className="h-1 w-12 bg-[#FDEABF] mt-3" />
+            </div>
+
+            <p className="text-base text-white/85 font-serif leading-relaxed">
+              {currentLang === "en"
+                ? "Prayer is our lifeline, and everyone is invited. We have seen God's power save, heal, and restore too many times to expect anything less. There is strength when we bring our needs to God together. We know that He hears us and He answers."
+                : "「禱告是我們的生命線，我們歡迎每一個人的加入。我們已無數次見證了神拯救、醫治與恢復的大能，因此我們絕不會降低對祂的期盼。當我們同心合意將需要帶到神面前時，便大有力量。我們深知，祂在垂聽，也必應允。」"}
+            </p>
+            <div>
+              <div className="flex flex-wrap gap-3 mb-4">
+                <button
+                  onClick={() => {
+                    sessionStorage.setItem("gccc_scroll_prayer", "1");
+                    onNavigateTo("announcements");
+                  }}
+                  className="inline-flex items-center gap-2 bg-[#9A2B27] hover:bg-[#7e2320] text-white px-5 py-2.5 rounded-lg text-base font-semibold transition-all shadow-lg shadow-black/20 border-amber-50 border"
+                >
+                  {currentLang === "en"
+                    ? "Submit a Prayer Request"
+                    : "提交代禱事項"}
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
