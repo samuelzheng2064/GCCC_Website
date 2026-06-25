@@ -6,7 +6,7 @@ interface CalendarPageProps {
 }
 
 // TODO: replace with your actual Google Calendar embed src
-const GOOGLE_CALENDAR_SRC = "";
+const GOOGLE_CALENDAR_SRC = "https://calendar.google.com/calendar/embed?src=0iit1vrp7ifu6cf1sn9tsaapek%40group.calendar.google.com&ctz=America%2FNew_York";
 
 export default function CalendarPage({ currentLang }: CalendarPageProps) {
   const t = {

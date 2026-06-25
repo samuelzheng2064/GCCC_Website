@@ -48,7 +48,7 @@ export const siteSettings: SiteSettings = {
     email: "hongjun.li@gcccfl.org",
     cell: "(407) 924-8541",
   },
-  youtubeLiveUrl: "https://www.youtube.com/@GainesvilleChineseChristianChurch",
+  youtubeLiveUrl: "https://www.youtube.com/@gainesvillechinesechristia9690",
 };
 
 export const currentSermons: Sermon[] = [
@@ -127,7 +127,7 @@ export const ministryCategoriesData: MinistryCategoryInfo[] = [
       en: "A warm home away from home for college students — especially UF students and international scholars. Come for a free Friday dinner, stay for authentic community, Bible study, and a faith that holds up under real questions.",
       zh: "為大學生——尤其是佛大學生及國際訪學者——打造真誠溫馨的屬靈家園。週五免費愛宴帶你認識我們，查經與真誠團契讓你在信仰中紮根。",
     },
-    bannerImageUrl: "/images/alpha.JPG",
+    bannerImageUrl: "/images/college.JPG",
     color: "#E8963A",
   },
   {
@@ -138,7 +138,7 @@ export const ministryCategoriesData: MinistryCategoryInfo[] = [
       en: "Communities for young professionals, married couples, and growing families navigating career, marriage, and parenthood. We pursue Christ together through honest conversation, shared meals, and mutual encouragement.",
       zh: "為職場青年、新婚夫婦及育兒家庭而設的屬靈群體。在坦誠對話、共享美食與彼此扶持中，一同在基督裡走過職場、婚姻與育兒的人生旅程。",
     },
-    bannerImageUrl: "/images/song.JPG",
+    bannerImageUrl: "/images/adults.JPG",
     color: "#9A2B27",
   },
   {
@@ -265,7 +265,7 @@ export const fellowshipsData: Fellowship[] = [
       en: "Tailored for young working professionals and recently married couples. We cover career challenges, work-faith balance, building strong marriages, and exploring faith in modern culture through a cozy, authentic community format.",
       zh: "為年輕在職青年、博士後以及新婚夫妻而設。共同探索職場挑戰、信仰與工作的契合、早期婚姻經營等專題，在輕鬆自在、充滿美食的氛圍中敞開心懷坦誠相交。",
     },
-    imageUrl: "/images/song.JPG",
+    imageUrl: "/images/song-of-songsJPG",
     ministryCategory: "adults",
   },
   {

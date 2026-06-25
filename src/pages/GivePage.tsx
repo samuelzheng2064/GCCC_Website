@@ -10,7 +10,6 @@ export default function GivePage({ currentLang }: GivePageProps) {
   const l = currentLang;
 
   const t = {
-    eyebrow: { en: "Generosity", zh: "慷慨奉獻" },
     title: { en: "Give to GCCC", zh: "奉獻支持甘城華人教會" },
     sub: {
       en: "Your generous giving supports the ministry and mission of GCCC Gainesville.",
@@ -45,9 +44,6 @@ export default function GivePage({ currentLang }: GivePageProps) {
       {/* Top info strip */}
       <div className="px-4 sm:px-8 lg:px-16 pt-16 pb-10">
         <div className="max-w-4xl mx-auto flex flex-col gap-4">
-          <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-widest font-bold">
-            {t.eyebrow[l]}
-          </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#33271E] font-bold tracking-tight leading-tight">
             {t.title[l]}
           </h2>

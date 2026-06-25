@@ -31,11 +31,34 @@ export default function MinistryDetailPage({
     <>
       {/* BANNER */}
       <section
-        className="relative h-[55vh] min-h-80 flex items-end pt-20 bg-cover bg-center"
-        style={{ backgroundImage: `url("${catInfo.bannerImageUrl}")` }}
+        className="relative h-[55vh] min-h-80 flex items-end pt-20 overflow-hidden"
+        style={{ background: `linear-gradient(135deg, ${catInfo.color}dd 0%, ${catInfo.color}88 55%, #211E18 100%)` }}
       >
-        <div className="absolute inset-0 bg-neutral-900/40" />
-        <div className="absolute inset-0 bg-linear-to-t from-[#211E18] via-[#211E18]/20 to-transparent" />
+        {/* Decorative cross */}
+        <svg
+          viewBox="0 0 400 300"
+          className="absolute inset-0 w-full h-full opacity-[0.07]"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+        >
+          <rect x="178" y="20" width="44" height="260" rx="10" fill="white" />
+          <rect x="60" y="95" width="280" height="44" rx="10" fill="white" />
+        </svg>
+        {/* Dot grid */}
+        <svg
+          viewBox="0 0 400 300"
+          className="absolute inset-0 w-full h-full opacity-[0.08]"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern id="banner-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.8" fill="white" />
+            </pattern>
+          </defs>
+          <rect width="400" height="300" fill="url(#banner-dots)" />
+        </svg>
+        <div className="absolute inset-0 bg-linear-to-t from-[#211E18] via-[#211E18]/10 to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-12">
           <button

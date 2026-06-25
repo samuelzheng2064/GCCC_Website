@@ -91,7 +91,7 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
               : "歡迎來到甘城華人教會"}
           </h1>
 
-          <p className="font-mono text-xs sm:text-sm text-[#E7B7A0] tracking-widest leading-relaxed">
+          <p className="font-mono text-sm sm:text-sm text-[#E7B7A0] tracking-widest leading-relaxed">
             {t.heroScheduleSentence[currentLang]}
           </p>
         </div>
@@ -100,40 +100,38 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       {/* SUNDAY SERVICE */}
       <section
         id="sunday-service"
-        className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+        className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto"
       >
-        <div className="flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl border border-[#E7B7A0]/20">
+        <div className="flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl lg:h-140">
           {/* Image panel */}
-          <div className="lg:w-1/2 shrink-0">
+          <div className="lg:w-1/2 shrink-0 h-64 lg:h-full">
             <img
               src="/images/sundayservice.JPG"
               alt="Sunday Service at GCCC"
-              className="w-full h-auto block"
+              className="w-full h-full object-cover block"
             />
           </div>
-
-          {/* Content panel */}
-          <div className="bg-[#9b3939] px-8 py-10 lg:px-10 flex flex-col justify-between gap-5 lg:w-1/2">
+          {/* Content panel */} {/*red: bg-[#9b3939 */}
+          <div className="bg-[#fefefe] px-8 py-8 lg:px-10 flex flex-col justify-between gap-4 lg:w-1/2">
             <div>
-              <span className="font-mono text-xs text-[#FDEABF] uppercase tracking-[3px] font-bold block mb-2">
+              <span className="font-mono text-xs text-[#7b7878] uppercase tracking-[3px] font-bold block mb-2">
                 {currentLang === "en"
                   ? "You Are Welcome Here"
                   : "歡迎你來到我們中間"}
               </span>
-              <h2 className="font-serif text-4xl md:text-5xl text-white font-bold tracking-tight leading-snug">
+              <h2 className="font-serif text-4xl md:text-5xl text-black font-bold tracking-tight leading-snug">
                 {currentLang === "en" ? "Sunday Service" : "主日崇拜"}
               </h2>
-              <div className="h-1 w-12 bg-[#FDEABF] mt-3" />
             </div>
 
-            <p className="text-base text-white/85 font-serif leading-relaxed">
+            <p className="text-lg text-[#70665f] font-serif leading-relaxed">
               {currentLang === "en"
                 ? "Every Sunday we gather as one family — in English and Mandarin — to worship, learn from God's Word, and encourage one another. Whether you're visiting for the first time or returning home, there is a place for you."
                 : "每主日，我們以中英雙語齊聚一堂，敬拜讚美、聆聽神話語、彼此相扶。無論你是第一次來訪，還是尋覓屬靈的家，這裡都有你的位置。"}
             </p>
 
             {/* Schedule items */}
-            <div className="divide-y divide-white/15">
+            <div className="divide-y divide-transparent">
               {[
                 {
                   time: currentLang === "en" ? "9:30 AM" : "上午 9:30",
@@ -154,14 +152,14 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                 },
               ].map((item) => (
                 <div key={item.time} className="flex items-baseline gap-6 py-4">
-                  <span className="font-mono text-base text-[#FDEABF] font-bold whitespace-nowrap w-28 shrink-0">
+                  <span className="font-mono text-base text-[#9A2B27] font-bold whitespace-nowrap w-28 shrink-0">
                     {item.time}
                   </span>
                   <div>
-                    <p className="font-serif text-lg text-white font-semibold leading-snug">
+                    <p className="font-serif text-lg text-[#33271E] font-semibold leading-snug">
                       {item.label}
                     </p>
-                    <p className="font-mono text-sm text-white/60 tracking-wide mt-1">
+                    <p className="font-mono text-sm text-[#7b7878] tracking-wide mt-1">
                       {item.sub}
                     </p>
                   </div>
@@ -189,11 +187,11 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
                   <Info className="w-4 h-4" />
                 </button>
               </div>
-              <div className="border-t border-white/15 pt-4">
-                <p className="font-mono text-xs text-white uppercase tracking-widest">
+              <div className="pt-4">
+                <p className="font-mono text-xs text-[#7b7878] uppercase tracking-widest">
                   {currentLang === "en"
-                    ? "3420 SW 2nd Ave, Gainesville, FL 32607"
-                    : "3420 SW 2nd Ave, Gainesville, FL 32607"}
+                    ? "2850 NW 23rd Blvd, Gainesville, FL 32605"
+                    : "2850 NW 23rd Blvd, Gainesville, FL 32605"}
                 </p>
               </div>
             </div>
@@ -202,33 +200,36 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       </section>
 
       {/* PRAYER REQUESTS */}
-      <section className="py-0 pb-0 md:pb-0 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl border border-[#E7B7A0]/20">
+      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto">
+        <div className="flex flex-col lg:flex-row-reverse rounded-3xl overflow-hidden shadow-2xl lg:h-140">
           {/* Image panel */}
-          <div className="lg:w-2/5 shrink-0 min-h-64 bg-[#1a1208] relative overflow-hidden">
+          <div className="lg:w-1/2 shrink-0 h-64 lg:h-full">
             <img
-              src="/images/sundayservice.JPG"
+              src="/images/junjie.JPG"
               alt="Congregation in prayer"
-              className="w-full h-full object-cover opacity-60 absolute inset-0"
+              className="w-full h-full object-cover block"
             />
-            <div className="absolute inset-0 bg-linear-to-br from-[#33271E]/80 to-[#9A2B27]/40" />
-            <div className="relative z-10 flex flex-col items-center justify-center h-full min-h-64 p-8 gap-4"></div>
           </div>
 
           {/* Content panel */}
-          <div className="bg-[#33271E] px-8 py-10 lg:px-10 flex flex-col justify-between gap-6 lg:w-3/5">
+          <div className="bg-[#fefefe] px-8 py-8 lg:px-10 flex flex-col justify-between gap-4 lg:w-1/2">
             <div>
-              <h2 className="font-serif text-4xl md:text-5xl text-white font-bold tracking-tight leading-snug">
+              <span className="font-mono text-xs text-[#7b7878] uppercase tracking-[3px] font-bold block mb-2">
+                {currentLang === "en"
+                  ? "Bring Your Burdens to God"
+                  : "將你的重擔帶到神面前"}
+              </span>
+              <h2 className="font-serif text-4xl md:text-5xl text-black font-bold tracking-tight leading-snug">
                 {currentLang === "en" ? "Prayer Requests" : "代禱事項"}
               </h2>
-              <div className="h-1 w-12 bg-[#FDEABF] mt-3" />
             </div>
 
-            <p className="text-base text-white/85 font-serif leading-relaxed">
+            <p className="text-lg text-[#70665f] font-serif leading-relaxed">
               {currentLang === "en"
                 ? "Prayer is our lifeline, and everyone is invited. We have seen God's power save, heal, and restore too many times to expect anything less. There is strength when we bring our needs to God together. We know that He hears us and He answers."
-                : "「禱告是我們的生命線，我們歡迎每一個人的加入。我們已無數次見證了神拯救、醫治與恢復的大能，因此我們絕不會降低對祂的期盼。當我們同心合意將需要帶到神面前時，便大有力量。我們深知，祂在垂聽，也必應允。」"}
+                : "禱告是我們的生命線，我們歡迎每一個人的加入。我們已無數次見證了神拯救、醫治與恢復的大能，因此我們絕不會降低對祂的期盼。當我們同心合意將需要帶到神面前時，便大有力量。我們深知，祂在垂聽，也必應允。"}
             </p>
+
             <div>
               <div className="flex flex-wrap gap-3 mb-4">
                 <button
@@ -252,15 +253,10 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       {/* SERMONS — inline on home page for easy visitor access */}
       <section
         id="sermons"
-        className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+        className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center"
       >
         <div className="mb-8">
-          <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-widest font-bold block mb-1">
-            {currentLang === "en"
-              ? "Spiritual Nourishment"
-              : "主日神話語的造就"}
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl text-[#33271E] font-bold tracking-tight">
+          <h2 className="font-serif text-3xl md:text-6xl text-[#33271E] font-bold tracking-tight">
             {currentLang === "en" ? "Recent Sermons" : "近期主日講道"}
           </h2>
         </div>
@@ -270,13 +266,10 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       {/* ACTIVITIES */}
       <section
         id="activities"
-        className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+        className="text-center py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       >
         <div className="mb-10">
-          <span className="font-mono text-xs text-brand-red uppercase tracking-widest font-bold block mb-1">
-            {currentLang === "en" ? "Life Together" : "教會生活"}
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-brown-dark font-bold tracking-tight">
+          <h2 className="font-serif text-3xl md:text-6xl text-brand-brown-dark font-bold tracking-tight">
             {currentLang === "en" ? "Recent Activities" : "近期活動"}
           </h2>
         </div>

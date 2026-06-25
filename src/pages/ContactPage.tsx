@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Language } from "../types";
 import { siteSettings } from "../data";
-import {
-  Heart,
-  ChevronDown,
-} from "lucide-react";
+import { Heart, ChevronDown } from "lucide-react";
 
 interface ContactPageProps {
   currentLang: Language;
@@ -116,23 +113,10 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
       en: "I would like to know more about:",
       zh: "我希望了解更多關於：",
     },
-    gcTitle: {
-      en: "If you are interested in joining a Fellowship Small Group, please select which time(s) work for you:",
-      zh: "若您有興趣加入查經小組，請選擇適合的時間：",
-    },
-    gcDesc: {
-      en: "Our fellowship small groups gather weekly for a meal, Bible study, prayer, and mutual care. We welcome all life stages together.",
-      zh: "我們的查經小組每週聚集，共享愛宴、研讀聖經、禱告，彼此關懷。歡迎各年齡層一同參與。",
-    },
     contactVia: { en: "Please contact me via:", zh: "請以以下方式聯絡我：" },
     addToList: {
       en: "Would you like to be added to our mailing list?",
       zh: "您是否願意加入我們的通訊名單？",
-    },
-    prayer: { en: "Prayer Requests", zh: "代禱事項" },
-    prayerDesc: {
-      en: "Please use this section to let us know how to pray for you.",
-      zh: "請告訴我們如何為您禱告。",
     },
     question: { en: "General Questions", zh: "一般問題" },
     questionDesc: {
@@ -182,9 +166,6 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-20">
           {/* Heading */}
           <div className="flex flex-col gap-4 lg:max-w-lg">
-            <span className="font-mono text-xs text-[#9A2B27] uppercase tracking-widest font-bold">
-              {l === "en" ? "Get Connected" : "甘城與你，愛中相遇"}
-            </span>
             <h2 className="font-serif text-4xl md:text-5xl text-[#33271E] font-bold tracking-tight leading-tight">
               {l === "en" ? "Contact Us" : "聯絡我們"}
             </h2>
@@ -265,539 +246,457 @@ export default function ContactPage({ currentLang }: ContactPageProps) {
       {/* Content */}
       <div className="px-4 sm:px-8 lg:px-16 py-10 flex-1">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h3 className="font-serif text-2xl font-bold text-[#33271E] mb-2">
-              {t.formTitle[l]}
-            </h3>
-            <p className="text-[#6F685B] text-sm font-serif leading-relaxed">
-              {t.formSubtitle[l]}
-            </p>
-          </div>
-
           {submitted ? (
-                <div className="bg-white border border-[#9A2B27]/20 rounded-2xl p-10 text-center shadow-sm">
-                  <div className="w-14 h-14 rounded-full bg-[#9A2B27]/10 flex items-center justify-center mx-auto mb-4">
-                    <Heart className="w-7 h-7 text-[#9A2B27] fill-[#9A2B27]" />
-                  </div>
-                  <h4 className="font-serif text-xl font-bold text-[#33271E] mb-2">
-                    {t.successTitle[l]}
-                  </h4>
-                  <p className="text-[#6F685B] font-serif text-sm leading-relaxed max-w-md mx-auto">
-                    {t.successMsg[l]}
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setForm({
-                        firstName: "",
-                        lastName: "",
-                        email: "",
-                        phone: "",
-                        phoneType: "",
-                        address: "",
-                        apt: "",
-                        city: "",
-                        state: "",
-                        zip: "",
-                        country: "",
-                        birthday: "",
-                        gender: "",
-                        maritalStatus: "",
-                        stages: [],
-                        interests: [],
-                        gcTimes: [],
-                        contactVia: "",
-                        addToList: "",
-                        prayerRequest: "",
-                        generalQuestion: "",
-                        howHeard: "",
-                      });
-                    }}
-                    className="mt-6 text-sm text-[#9A2B27] hover:text-[#80221E] underline underline-offset-2 transition-colors"
-                  >
-                    {l === "en" ? "Submit another response" : "再次填寫"}
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Name */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField label={t.firstName[l]} required>
-                      <input
-                        type="text"
-                        placeholder={t.firstName[l]}
-                        value={form.firstName}
-                        onChange={(e) =>
-                          setForm({ ...form, firstName: e.target.value })
-                        }
-                        required
-                        className={inputCls}
-                      />
-                    </FormField>
-                    <FormField label={t.lastName[l]} required>
-                      <input
-                        type="text"
-                        placeholder={t.lastName[l]}
-                        value={form.lastName}
-                        onChange={(e) =>
-                          setForm({ ...form, lastName: e.target.value })
-                        }
-                        required
-                        className={inputCls}
-                      />
-                    </FormField>
-                  </div>
+            <div className="bg-white border border-[#9A2B27]/20 rounded-2xl p-10 text-center shadow-sm">
+              <div className="w-14 h-14 rounded-full bg-[#9A2B27]/10 flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-7 h-7 text-[#9A2B27] fill-[#9A2B27]" />
+              </div>
+              <h4 className="font-serif text-xl font-bold text-[#33271E] mb-2">
+                {t.successTitle[l]}
+              </h4>
+              <p className="text-[#6F685B] font-serif text-sm leading-relaxed max-w-md mx-auto">
+                {t.successMsg[l]}
+              </p>
+              <button
+                onClick={() => {
+                  setSubmitted(false);
+                  setForm({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    phoneType: "",
+                    address: "",
+                    apt: "",
+                    city: "",
+                    state: "",
+                    zip: "",
+                    country: "",
+                    birthday: "",
+                    gender: "",
+                    maritalStatus: "",
+                    stages: [],
+                    interests: [],
+                    gcTimes: [],
+                    contactVia: "",
+                    addToList: "",
+                    prayerRequest: "",
+                    generalQuestion: "",
+                    howHeard: "",
+                  });
+                }}
+                className="mt-6 text-sm text-[#9A2B27] hover:text-[#80221E] underline underline-offset-2 transition-colors"
+              >
+                {l === "en" ? "Submit another response" : "再次填寫"}
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* Name */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField label={t.firstName[l]} required>
+                  <input
+                    type="text"
+                    placeholder={t.firstName[l]}
+                    value={form.firstName}
+                    onChange={(e) =>
+                      setForm({ ...form, firstName: e.target.value })
+                    }
+                    required
+                    className={inputCls}
+                  />
+                </FormField>
+                <FormField label={t.lastName[l]} required>
+                  <input
+                    type="text"
+                    placeholder={t.lastName[l]}
+                    value={form.lastName}
+                    onChange={(e) =>
+                      setForm({ ...form, lastName: e.target.value })
+                    }
+                    required
+                    className={inputCls}
+                  />
+                </FormField>
+              </div>
 
-                  {/* Email + Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField label={t.email[l]} required>
-                      <input
-                        type="email"
-                        placeholder="name@example.com"
-                        value={form.email}
-                        onChange={(e) =>
-                          setForm({ ...form, email: e.target.value })
-                        }
-                        required
-                        className={inputCls}
-                      />
-                    </FormField>
-                    <FormField label={t.phone[l]} required>
-                      <div className="flex gap-2">
-                        <input
-                          type="tel"
-                          placeholder="(352) 000-0000"
-                          value={form.phone}
-                          onChange={(e) =>
-                            setForm({ ...form, phone: e.target.value })
-                          }
-                          required
-                          className={`${inputCls} flex-1`}
-                        />
-                        <div className="relative">
-                          <select
-                            value={form.phoneType}
-                            onChange={(e) =>
-                              setForm({ ...form, phoneType: e.target.value })
-                            }
-                            className={`${inputCls} pr-8 appearance-none`}
-                          >
-                            <option value="">
-                              {l === "en" ? "Type" : "類型"}
-                            </option>
-                            <option value="mobile">
-                              {l === "en" ? "Mobile" : "手機"}
-                            </option>
-                            <option value="home">
-                              {l === "en" ? "Home" : "家用"}
-                            </option>
-                            <option value="work">
-                              {l === "en" ? "Work" : "公司"}
-                            </option>
-                          </select>
-                          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                        </div>
-                      </div>
-                    </FormField>
-                  </div>
-
-                  {/* Address */}
-                  <fieldset className="space-y-3">
-                    <legend className="text-xs font-mono uppercase tracking-wider text-[#9A2B27] mb-3">
-                      {l === "en" ? "Address" : "地址"}
-                    </legend>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="relative">
-                        <select
-                          value={form.country}
-                          onChange={(e) =>
-                            setForm({ ...form, country: e.target.value })
-                          }
-                          className={`${inputCls} appearance-none pr-8 sm:col-span-2`}
-                        >
-                          <option value="">
-                            {t.country?.[l] ??
-                              (l === "en" ? "Country" : "國家")}
-                          </option>
-                          <option value="us">
-                            {l === "en" ? "United States" : "美國"}
-                          </option>
-                          <option value="cn">
-                            {l === "en" ? "China" : "中國"}
-                          </option>
-                          <option value="tw">
-                            {l === "en" ? "Taiwan" : "台灣"}
-                          </option>
-                          <option value="other">
-                            {l === "en" ? "Other" : "其他"}
-                          </option>
-                        </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                      </div>
-                    </div>
+              {/* Email + Phone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField label={t.email[l]} required>
+                  <input
+                    type="email"
+                    placeholder="name@example.com"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                    required
+                    className={inputCls}
+                  />
+                </FormField>
+                <FormField label={t.phone[l]} required>
+                  <div className="flex gap-2">
                     <input
-                      type="text"
-                      placeholder={t.address[l]}
-                      value={form.address}
+                      type="tel"
+                      placeholder="(352) 000-0000"
+                      value={form.phone}
                       onChange={(e) =>
-                        setForm({ ...form, address: e.target.value })
+                        setForm({ ...form, phone: e.target.value })
                       }
-                      className={inputCls}
+                      required
+                      className={`${inputCls} flex-1`}
                     />
-                    <input
-                      type="text"
-                      placeholder={t.apt[l]}
-                      value={form.apt}
-                      onChange={(e) =>
-                        setForm({ ...form, apt: e.target.value })
-                      }
-                      className={inputCls}
-                    />
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                      <input
-                        type="text"
-                        placeholder={t.city[l]}
-                        value={form.city}
+                    <div className="relative">
+                      <select
+                        value={form.phoneType}
                         onChange={(e) =>
-                          setForm({ ...form, city: e.target.value })
+                          setForm({ ...form, phoneType: e.target.value })
                         }
-                        className={inputCls}
-                      />
-                      <input
-                        type="text"
-                        placeholder={t.state[l]}
-                        value={form.state}
-                        onChange={(e) =>
-                          setForm({ ...form, state: e.target.value })
-                        }
-                        className={inputCls}
-                      />
-                      <input
-                        type="text"
-                        placeholder={t.zip[l]}
-                        value={form.zip}
-                        onChange={(e) =>
-                          setForm({ ...form, zip: e.target.value })
-                        }
-                        className={`${inputCls} col-span-2 sm:col-span-1`}
-                      />
+                        className={`${inputCls} pr-8 appearance-none`}
+                      >
+                        <option value="">{l === "en" ? "Type" : "類型"}</option>
+                        <option value="mobile">
+                          {l === "en" ? "Mobile" : "手機"}
+                        </option>
+                        <option value="home">
+                          {l === "en" ? "Home" : "家用"}
+                        </option>
+                        <option value="work">
+                          {l === "en" ? "Work" : "公司"}
+                        </option>
+                      </select>
+                      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
                     </div>
-                  </fieldset>
-
-                  {/* Birthday + Gender + Marital */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <FormField label={t.birthday[l]} required>
-                      <input
-                        type="date"
-                        value={form.birthday}
-                        onChange={(e) =>
-                          setForm({ ...form, birthday: e.target.value })
-                        }
-                        required
-                        className={inputCls}
-                      />
-                    </FormField>
-                    <FormField label={t.gender[l]} required>
-                      <div className="relative">
-                        <select
-                          value={form.gender}
-                          onChange={(e) =>
-                            setForm({ ...form, gender: e.target.value })
-                          }
-                          required
-                          className={`${inputCls} appearance-none pr-8`}
-                        >
-                          <option value="">
-                            {l === "en" ? "Select…" : "請選擇…"}
-                          </option>
-                          <option value="male">
-                            {l === "en" ? "Male" : "男"}
-                          </option>
-                          <option value="female">
-                            {l === "en" ? "Female" : "女"}
-                          </option>
-                          <option value="other">
-                            {l === "en" ? "Prefer not to say" : "不方便說明"}
-                          </option>
-                        </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                      </div>
-                    </FormField>
-                    <FormField label={t.maritalStatus[l]}>
-                      <div className="relative">
-                        <select
-                          value={form.maritalStatus}
-                          onChange={(e) =>
-                            setForm({ ...form, maritalStatus: e.target.value })
-                          }
-                          className={`${inputCls} appearance-none pr-8`}
-                        >
-                          <option value="">
-                            {l === "en" ? "Select…" : "請選擇…"}
-                          </option>
-                          <option value="single">
-                            {l === "en" ? "Single" : "單身"}
-                          </option>
-                          <option value="married">
-                            {l === "en" ? "Married" : "已婚"}
-                          </option>
-                          <option value="divorced">
-                            {l === "en" ? "Divorced" : "離婚"}
-                          </option>
-                          <option value="widowed">
-                            {l === "en" ? "Widowed" : "喪偶"}
-                          </option>
-                        </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                      </div>
-                    </FormField>
                   </div>
+                </FormField>
+              </div>
 
-                  {/* Stage of Life */}
-                  <fieldset>
-                    <legend className="text-sm font-semibold text-[#33271E] mb-3">
-                      {t.stageTitle[l]}{" "}
-                      <span className="text-[#9A2B27] ml-0.5">*</span>
-                    </legend>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {STAGE_OPTIONS.map((opt) => (
-                        <label
-                          key={opt.value}
-                          className={checkboxLabelCls(
-                            form.stages.includes(opt.value),
-                          )}
-                        >
-                          <input
-                            type="checkbox"
-                            className="hidden"
-                            checked={form.stages.includes(opt.value)}
-                            onChange={() => handleCheckbox("stages", opt.value)}
-                          />
-                          <span
-                            className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${form.stages.includes(opt.value) ? "bg-[#9A2B27] border-[#9A2B27]" : "border-black/25 bg-white"}`}
-                          >
-                            {form.stages.includes(opt.value) && (
-                              <span className="text-white text-[9px] font-black">
-                                ✓
-                              </span>
-                            )}
-                          </span>
-                          <span className="text-sm font-sans">{opt[l]}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  {/* Interests */}
-                  <fieldset>
-                    <legend className="text-sm font-semibold text-[#33271E] mb-1">
-                      {t.interestTitle[l]}
-                    </legend>
-                    <p className="text-xs text-[#6F685B] mb-3 font-serif">
-                      {l === "en"
-                        ? "Let us know which ministry area you're interested in and we'll send you more info."
-                        : "請告訴我們您感興趣的事工領域，我們將為您提供更多資訊。"}
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {INTEREST_OPTIONS.map((opt) => (
-                        <label
-                          key={opt.value}
-                          className={checkboxLabelCls(
-                            form.interests.includes(opt.value),
-                          )}
-                        >
-                          <input
-                            type="checkbox"
-                            className="hidden"
-                            checked={form.interests.includes(opt.value)}
-                            onChange={() =>
-                              handleCheckbox("interests", opt.value)
-                            }
-                          />
-                          <span
-                            className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${form.interests.includes(opt.value) ? "bg-[#9A2B27] border-[#9A2B27]" : "border-black/25 bg-white"}`}
-                          >
-                            {form.interests.includes(opt.value) && (
-                              <span className="text-white text-[9px] font-black">
-                                ✓
-                              </span>
-                            )}
-                          </span>
-                          <span className="text-sm font-sans">{opt[l]}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  {/* Gospel Community / Small Groups */}
-                  <fieldset>
-                    <legend className="text-sm font-semibold text-[#33271E] mb-1">
-                      {t.gcTitle[l]}
-                    </legend>
-                    <p className="text-xs text-neutral-400 mb-3 font-serif leading-relaxed">
-                      {t.gcDesc[l]}
-                    </p>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {GC_OPTIONS.map((opt) => (
-                        <label
-                          key={opt.value}
-                          className={checkboxLabelCls(
-                            form.gcTimes.includes(opt.value),
-                          )}
-                        >
-                          <input
-                            type="checkbox"
-                            className="hidden"
-                            checked={form.gcTimes.includes(opt.value)}
-                            onChange={() =>
-                              handleCheckbox("gcTimes", opt.value)
-                            }
-                          />
-                          <span
-                            className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${form.gcTimes.includes(opt.value) ? "bg-[#9A2B27] border-[#9A2B27]" : "border-black/25 bg-white"}`}
-                          >
-                            {form.gcTimes.includes(opt.value) && (
-                              <span className="text-white text-[9px] font-black">
-                                ✓
-                              </span>
-                            )}
-                          </span>
-                          <span className="text-sm font-sans">{opt[l]}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  {/* Contact via */}
-                  <FormField label={t.contactVia[l]} required>
-                    <div className="relative">
-                      <select
-                        value={form.contactVia}
-                        onChange={(e) =>
-                          setForm({ ...form, contactVia: e.target.value })
-                        }
-                        required
-                        className={`${inputCls} appearance-none pr-8`}
-                      >
-                        <option value="">
-                          {l === "en" ? "Select…" : "請選擇…"}
-                        </option>
-                        <option value="email">
-                          {l === "en" ? "Email" : "電子郵件"}
-                        </option>
-                        <option value="phone">
-                          {l === "en" ? "Phone Call" : "電話"}
-                        </option>
-                        <option value="text">
-                          {l === "en" ? "Text / SMS" : "簡訊"}
-                        </option>
-                        <option value="wechat">
-                          {l === "en" ? "WeChat" : "微信"}
-                        </option>
-                      </select>
-                      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                    </div>
-                  </FormField>
-
-                  {/* Add to mailing list */}
-                  <FormField label={t.addToList[l]}>
-                    <div className="relative">
-                      <select
-                        value={form.addToList}
-                        onChange={(e) =>
-                          setForm({ ...form, addToList: e.target.value })
-                        }
-                        className={`${inputCls} appearance-none pr-8`}
-                      >
-                        <option value="">
-                          {l === "en" ? "Select…" : "請選擇…"}
-                        </option>
-                        <option value="yes">
-                          {l === "en" ? "Yes, add me" : "是，請加入"}
-                        </option>
-                        <option value="no">
-                          {l === "en" ? "No, thank you" : "不用，謝謝"}
-                        </option>
-                      </select>
-                      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                    </div>
-                  </FormField>
-
-                  {/* Prayer Requests */}
-                  <FormField label={t.prayer[l]}>
-                    <p className="text-xs text-[#6F685B] mb-2 font-serif">
-                      {t.prayerDesc[l]}
-                    </p>
-                    <textarea
-                      rows={3}
-                      value={form.prayerRequest}
+              {/* Address */}
+              <fieldset className="space-y-3">
+                <legend className="text-xs font-mono uppercase tracking-wider text-[#9A2B27] mb-3">
+                  {l === "en" ? "Address" : "地址"}
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <select
+                      value={form.country}
                       onChange={(e) =>
-                        setForm({ ...form, prayerRequest: e.target.value })
+                        setForm({ ...form, country: e.target.value })
                       }
-                      placeholder={
-                        l === "en"
-                          ? "Share your prayer requests here…"
-                          : "在此分享您的代禱需求…"
-                      }
-                      className={`${inputCls} resize-none`}
-                    />
-                  </FormField>
-
-                  {/* General Questions */}
-                  <FormField label={t.question[l]}>
-                    <p className="text-xs text-[#6F685B] mb-2 font-serif">
-                      {t.questionDesc[l]}
-                    </p>
-                    <textarea
-                      rows={3}
-                      value={form.generalQuestion}
-                      onChange={(e) =>
-                        setForm({ ...form, generalQuestion: e.target.value })
-                      }
-                      placeholder={
-                        l === "en"
-                          ? "Any questions for us?"
-                          : "有任何問題想詢問我們嗎？"
-                      }
-                      className={`${inputCls} resize-none`}
-                    />
-                  </FormField>
-
-                  {/* How did you hear */}
-                  <FormField label={t.howHeard[l]} required>
-                    <div className="relative">
-                      <select
-                        value={form.howHeard}
-                        onChange={(e) =>
-                          setForm({ ...form, howHeard: e.target.value })
-                        }
-                        required
-                        className={`${inputCls} appearance-none pr-8`}
-                      >
-                        <option value="">
-                          {l === "en" ? "Select…" : "請選擇…"}
-                        </option>
-                        {HEAR_OPTIONS.map((opt) => (
-                          <option key={opt.value} value={opt.value}>
-                            {opt[l]}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
-                    </div>
-                  </FormField>
-
-                  {/* Submit */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full sm:w-auto bg-[#9A2B27] hover:bg-[#80221E] text-white px-10 py-3.5 rounded-xl text-sm font-semibold shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                      className={`${inputCls} appearance-none pr-8 sm:col-span-2`}
                     >
-                      <Heart className="w-4 h-4" />
-                      {t.submit[l]}
-                    </button>
+                      <option value="">
+                        {t.country?.[l] ?? (l === "en" ? "Country" : "國家")}
+                      </option>
+                      <option value="us">
+                        {l === "en" ? "United States" : "美國"}
+                      </option>
+                      <option value="cn">
+                        {l === "en" ? "China" : "中國"}
+                      </option>
+                      <option value="tw">
+                        {l === "en" ? "Taiwan" : "台灣"}
+                      </option>
+                      <option value="other">
+                        {l === "en" ? "Other" : "其他"}
+                      </option>
+                    </select>
+                    <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
                   </div>
-                </form>
+                </div>
+                <input
+                  type="text"
+                  placeholder={t.address[l]}
+                  value={form.address}
+                  onChange={(e) =>
+                    setForm({ ...form, address: e.target.value })
+                  }
+                  className={inputCls}
+                />
+                <input
+                  type="text"
+                  placeholder={t.apt[l]}
+                  value={form.apt}
+                  onChange={(e) => setForm({ ...form, apt: e.target.value })}
+                  className={inputCls}
+                />
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <input
+                    type="text"
+                    placeholder={t.city[l]}
+                    value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                    className={inputCls}
+                  />
+                  <input
+                    type="text"
+                    placeholder={t.state[l]}
+                    value={form.state}
+                    onChange={(e) =>
+                      setForm({ ...form, state: e.target.value })
+                    }
+                    className={inputCls}
+                  />
+                  <input
+                    type="text"
+                    placeholder={t.zip[l]}
+                    value={form.zip}
+                    onChange={(e) => setForm({ ...form, zip: e.target.value })}
+                    className={`${inputCls} col-span-2 sm:col-span-1`}
+                  />
+                </div>
+              </fieldset>
+
+              {/* Birthday + Gender + Marital */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <FormField label={t.birthday[l]} required>
+                  <input
+                    type="date"
+                    value={form.birthday}
+                    onChange={(e) =>
+                      setForm({ ...form, birthday: e.target.value })
+                    }
+                    required
+                    className={inputCls}
+                  />
+                </FormField>
+                <FormField label={t.gender[l]} required>
+                  <div className="relative">
+                    <select
+                      value={form.gender}
+                      onChange={(e) =>
+                        setForm({ ...form, gender: e.target.value })
+                      }
+                      required
+                      className={`${inputCls} appearance-none pr-8`}
+                    >
+                      <option value="">
+                        {l === "en" ? "Select…" : "請選擇…"}
+                      </option>
+                      <option value="male">{l === "en" ? "Male" : "男"}</option>
+                      <option value="female">
+                        {l === "en" ? "Female" : "女"}
+                      </option>
+                      <option value="other">
+                        {l === "en" ? "Prefer not to say" : "不方便說明"}
+                      </option>
+                    </select>
+                    <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
+                  </div>
+                </FormField>
+                <FormField label={t.maritalStatus[l]}>
+                  <div className="relative">
+                    <select
+                      value={form.maritalStatus}
+                      onChange={(e) =>
+                        setForm({ ...form, maritalStatus: e.target.value })
+                      }
+                      className={`${inputCls} appearance-none pr-8`}
+                    >
+                      <option value="">
+                        {l === "en" ? "Select…" : "請選擇…"}
+                      </option>
+                      <option value="single">
+                        {l === "en" ? "Single" : "單身"}
+                      </option>
+                      <option value="married">
+                        {l === "en" ? "Married" : "已婚"}
+                      </option>
+                      <option value="divorced">
+                        {l === "en" ? "Divorced" : "離婚"}
+                      </option>
+                      <option value="widowed">
+                        {l === "en" ? "Widowed" : "喪偶"}
+                      </option>
+                    </select>
+                    <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
+                  </div>
+                </FormField>
+              </div>
+
+              {/* Stage of Life */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-[#33271E] mb-3">
+                  {t.stageTitle[l]}{" "}
+                  <span className="text-[#9A2B27] ml-0.5">*</span>
+                </legend>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {STAGE_OPTIONS.map((opt) => (
+                    <label
+                      key={opt.value}
+                      className={checkboxLabelCls(
+                        form.stages.includes(opt.value),
+                      )}
+                    >
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        checked={form.stages.includes(opt.value)}
+                        onChange={() => handleCheckbox("stages", opt.value)}
+                      />
+                      <span
+                        className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${form.stages.includes(opt.value) ? "bg-[#9A2B27] border-[#9A2B27]" : "border-black/25 bg-white"}`}
+                      >
+                        {form.stages.includes(opt.value) && (
+                          <span className="text-white text-[9px] font-black">
+                            ✓
+                          </span>
+                        )}
+                      </span>
+                      <span className="text-sm font-sans">{opt[l]}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {/* Interests */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-[#33271E] mb-1">
+                  {t.interestTitle[l]}
+                </legend>
+                <p className="text-xs text-[#6F685B] mb-3 font-serif">
+                  {l === "en"
+                    ? "Let us know which ministry area you're interested in and we'll send you more info."
+                    : "請告訴我們您感興趣的事工領域，我們將為您提供更多資訊。"}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {INTEREST_OPTIONS.map((opt) => (
+                    <label
+                      key={opt.value}
+                      className={checkboxLabelCls(
+                        form.interests.includes(opt.value),
+                      )}
+                    >
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        checked={form.interests.includes(opt.value)}
+                        onChange={() => handleCheckbox("interests", opt.value)}
+                      />
+                      <span
+                        className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${form.interests.includes(opt.value) ? "bg-[#9A2B27] border-[#9A2B27]" : "border-black/25 bg-white"}`}
+                      >
+                        {form.interests.includes(opt.value) && (
+                          <span className="text-white text-[9px] font-black">
+                            ✓
+                          </span>
+                        )}
+                      </span>
+                      <span className="text-sm font-sans">{opt[l]}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {/* Contact via */}
+              <FormField label={t.contactVia[l]} required>
+                <div className="relative">
+                  <select
+                    value={form.contactVia}
+                    onChange={(e) =>
+                      setForm({ ...form, contactVia: e.target.value })
+                    }
+                    required
+                    className={`${inputCls} appearance-none pr-8`}
+                  >
+                    <option value="">
+                      {l === "en" ? "Select…" : "請選擇…"}
+                    </option>
+                    <option value="email">
+                      {l === "en" ? "Email" : "電子郵件"}
+                    </option>
+                    <option value="phone">
+                      {l === "en" ? "Phone Call" : "電話"}
+                    </option>
+                    <option value="text">
+                      {l === "en" ? "Text / SMS" : "簡訊"}
+                    </option>
+                    <option value="wechat">
+                      {l === "en" ? "WeChat" : "微信"}
+                    </option>
+                  </select>
+                  <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
+                </div>
+              </FormField>
+
+              {/* Add to mailing list */}
+              <FormField label={t.addToList[l]}>
+                <div className="relative">
+                  <select
+                    value={form.addToList}
+                    onChange={(e) =>
+                      setForm({ ...form, addToList: e.target.value })
+                    }
+                    className={`${inputCls} appearance-none pr-8`}
+                  >
+                    <option value="">
+                      {l === "en" ? "Select…" : "請選擇…"}
+                    </option>
+                    <option value="yes">
+                      {l === "en" ? "Yes, add me" : "是，請加入"}
+                    </option>
+                    <option value="no">
+                      {l === "en" ? "No, thank you" : "不用，謝謝"}
+                    </option>
+                  </select>
+                  <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
+                </div>
+              </FormField>
+
+              {/* General Questions */}
+              <FormField label={t.question[l]}>
+                <p className="text-xs text-[#6F685B] mb-2 font-serif">
+                  {t.questionDesc[l]}
+                </p>
+                <textarea
+                  rows={3}
+                  value={form.generalQuestion}
+                  onChange={(e) =>
+                    setForm({ ...form, generalQuestion: e.target.value })
+                  }
+                  placeholder={
+                    l === "en"
+                      ? "Any questions for us?"
+                      : "有任何問題想詢問我們嗎？"
+                  }
+                  className={`${inputCls} resize-none`}
+                />
+              </FormField>
+
+              {/* How did you hear */}
+              <FormField label={t.howHeard[l]} required>
+                <div className="relative">
+                  <select
+                    value={form.howHeard}
+                    onChange={(e) =>
+                      setForm({ ...form, howHeard: e.target.value })
+                    }
+                    required
+                    className={`${inputCls} appearance-none pr-8`}
+                  >
+                    <option value="">
+                      {l === "en" ? "Select…" : "請選擇…"}
+                    </option>
+                    {HEAR_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt[l]}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
+                </div>
+              </FormField>
+
+              {/* Submit */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto bg-[#9A2B27] hover:bg-[#80221E] text-white px-10 py-3.5 rounded-xl text-sm font-semibold shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                >
+                  {t.submit[l]}
+                </button>
+              </div>
+            </form>
           )}
 
           {/* Deacon / Coworker Directory */}

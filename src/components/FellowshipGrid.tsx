@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Fellowship, Language } from "../types";
-import { fellowshipsData } from "../data";
+import { fellowshipsData, ministryCategoriesData } from "../data";
 import { Calendar, Instagram, MapPin, User, X } from "lucide-react";
 
 interface FellowshipGridProps {
@@ -70,31 +70,65 @@ export default function FellowshipGrid({ currentLang }: FellowshipGridProps) {
             className="bg-[#FBF7EF] text-[#33271E] rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl border border-[#E7B7A0]/30 relative animate-fade-in"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Image display */}
-            <div className="relative h-48 bg-[#33271E]">
-              <img
-                src={selectedFellowship.imageUrl}
-                alt={selectedFellowship.name[currentLang]}
-                className="w-full h-full object-cover opacity-75"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#FBF7EF] via-transparent to-[#211E18]/30" />
-              <button
-                onClick={() => setSelectedFellowship(null)}
-                className="absolute top-4 right-4 bg-black/65 hover:bg-black/85 text-white p-2 rounded-full transition-all"
-                aria-label="Close dialog"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+            {/* Modal banner */}
+            {(() => {
+              const catColor =
+                ministryCategoriesData.find(
+                  (c) => c.id === selectedFellowship.ministryCategory
+                )?.color ?? "#9A2B27";
+              return (
+                <div
+                  className="relative h-44 overflow-hidden flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${catColor}cc 0%, ${catColor}88 60%, #211E18 100%)` }}
+                >
+                  {/* Decorative cross */}
+                  <svg
+                    viewBox="0 0 200 200"
+                    className="absolute inset-0 w-full h-full opacity-10"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                  >
+                    <rect x="88" y="20" width="24" height="160" rx="6" fill="white" />
+                    <rect x="30" y="68" width="140" height="24" rx="6" fill="white" />
+                  </svg>
+                  {/* Subtle dot grid */}
+                  <svg
+                    viewBox="0 0 200 200"
+                    className="absolute inset-0 w-full h-full opacity-10"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1.5" fill="white" />
+                      </pattern>
+                    </defs>
+                    <rect width="200" height="200" fill="url(#dots)" />
+                  </svg>
+                  {/* Ministry name */}
+                  <div className="relative z-10 text-center px-6">
+                    <p className="text-[10px] uppercase font-mono tracking-widest text-white/70 mb-1">
+                      Gainesville Chinese Christian Church
+                    </p>
+                    <h3 className="font-serif text-2xl font-bold text-white leading-snug drop-shadow">
+                      {selectedFellowship.name[currentLang]}
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setSelectedFellowship(null)}
+                    className="absolute top-4 right-4 bg-black/40 hover:bg-black/65 text-white p-2 rounded-full transition-all"
+                    aria-label="Close dialog"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              );
+            })()}
 
             {/* Modal Body */}
             <div className="p-6 md:p-8 flex flex-col gap-5">
               <div>
-                <h4 className="font-serif text-2xl font-bold tracking-tight text-[#33271E]">
-                  {selectedFellowship.name[currentLang]}
-                </h4>
-                <p className="text-sm font-sans text-[#6F685B] font-medium leading-relaxed mt-2.5">
+                <p className="text-sm font-sans text-[#6F685B] font-medium leading-relaxed">
                   {selectedFellowship.description[currentLang]}
                 </p>
               </div>
