@@ -160,7 +160,7 @@ export const ministryCategoriesData: MinistryCategoryInfo[] = [
       en: "A space for every believer to grow deeper in Christ — through training, spiritual breakthrough, and curated resources. Whether you are just beginning your faith journey or pursuing deeper maturity, we walk alongside you.",
       zh: "為每一位信徒提供在基督裡更深成長的空間——透過系統訓練、屬靈突破與精選資源，陪伴你從信仰起步到生命成熟的每一步。",
     },
-    bannerImageUrl: "/images/sundayservice.JPG",
+    bannerImageUrl: "/images/discipleship.png",
     color: "#C07A2F",
   },
 ];
