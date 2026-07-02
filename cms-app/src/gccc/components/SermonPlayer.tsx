@@ -18,31 +18,35 @@ const NA = "—";
 
 interface SermonPlayerProps {
   currentLang: Language;
+  featuredSermonId?: string | null;
 }
 
-export default function SermonPlayer({ currentLang }: SermonPlayerProps) {
+export default function SermonPlayer({ currentLang, featuredSermonId }: SermonPlayerProps) {
   const [sermon, setSermon] = useState<CmsSermon | null>(null);
   const [settings, setSettings] = useState<CmsSiteSettings | null>(null);
 
+  const pinnedId = featuredSermonId ?? null;
+
   useEffect(() => {
-    // Fetch the most recent featured sermon, or just the latest
     const base =
       typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_CMS_URL ?? "http://localhost:3001");
 
+    // If a specific sermon is pinned, fetch it by ID; otherwise fetch the latest
+    const sermonUrl = pinnedId
+      ? `${base}/api/sermons/${pinnedId}?locale=${currentLang}&fallbackLocale=en&depth=1`
+      : `${base}/api/sermons?sort=-date&limit=1&locale=${currentLang}&fallbackLocale=en&depth=1`;
+
     Promise.all([
-      fetch(
-        `${base}/api/sermons?sort=-date&limit=1&locale=${currentLang}&fallbackLocale=en&depth=1`,
-        { next: { revalidate: 60 } } as RequestInit,
-      )
+      fetch(sermonUrl, { next: { revalidate: 60 } } as RequestInit)
         .then((r) => (r.ok ? r.json() : null))
-        .then((d) => d?.docs?.[0] ?? null)
+        .then((d) => (pinnedId ? d : (d?.docs?.[0] ?? null)))
         .catch(() => null),
       fetchSiteSettings(currentLang),
     ]).then(([latestSermon, siteSettings]) => {
       setSermon(latestSermon);
       setSettings(siteSettings);
     });
-  }, [currentLang]);
+  }, [currentLang, pinnedId]);
 
   const t = {
     chinese: { en: "Chinese", zh: "中文" },

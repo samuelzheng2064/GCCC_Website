@@ -90,20 +90,6 @@ export interface PrayerFeatureBlockData {
   ctaLabel?: string;
 }
 
-export interface DirectionItem {
-  id?: string;
-  icon?: string;
-  label: string;
-}
-
-export interface CampusFocusBlockData {
-  blockType: "campusFocus";
-  sectionTitle: string;
-  sectionDesc?: string;
-  directionsTitle?: string;
-  directionItems?: DirectionItem[];
-}
-
 export interface ActivityPhoto {
   photo?: CmsMediaDoc;
 }
@@ -234,7 +220,6 @@ export type PageBlock =
   | HeroBlockData
   | SundayServiceBlockData
   | PrayerFeatureBlockData
-  | CampusFocusBlockData
   | ActivitiesBlockData
   | ChurchHistoryBlockData
   | RichTextBlockData
@@ -261,7 +246,7 @@ export interface HomePageGlobalDoc {
     findUsLabel?: string; addressLine?: string;
   };
   prayerFeature?: { image?: CmsMediaDoc; eyebrow?: string; heading?: string; body?: unknown; ctaLabel?: string };
-  campusFocus?: { sectionTitle?: string; sectionDesc?: string; directionsTitle?: string; directionItems?: DirectionItem[] };
+  sermons?: { heading?: string; featuredSermon?: { id: string } | string | null };
   activities?: { heading?: string; items?: ActivityItem[] };
 }
 

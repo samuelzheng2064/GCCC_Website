@@ -48,8 +48,15 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
   const hero = doc?.hero;
   const sunday = doc?.sundayService;
   const prayer = doc?.prayerFeature;
-  const campus = doc?.campusFocus;
+  const sermons = doc?.sermons;
   const activities = doc?.activities;
+
+  const featuredSermonId =
+    sermons?.featuredSermon == null
+      ? null
+      : typeof sermons.featuredSermon === "object"
+        ? sermons.featuredSermon.id
+        : sermons.featuredSermon;
 
   const heroBg = mediaUrl(hero?.backgroundImage);
 
@@ -263,44 +270,11 @@ export default function HomePage({ currentLang, onNavigateTo }: HomePageProps) {
       >
         <div className="mb-8">
           <h2 className="font-serif text-3xl md:text-6xl text-[#33271E] font-bold tracking-tight">
-            {currentLang === "en" ? "Recent Sermons" : "近期主日講道"}
+            {sermons?.heading ?? (currentLang === "en" ? "Recent Sermons" : "近期主日講道")}
           </h2>
         </div>
-        <SermonPlayer currentLang={currentLang} />
+        <SermonPlayer currentLang={currentLang} featuredSermonId={featuredSermonId} />
       </section>
-
-      {/* ── CAMPUS FOCUS ─────────────────────────────────────────────────── */}
-      {campus && (
-        <section className="py-10 md:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-xl border border-[#E7B7A0]/20 p-8 md:p-12">
-            <h2 className="font-serif text-2xl md:text-4xl text-[#33271E] font-bold tracking-tight mb-3">
-              {campus.sectionTitle}
-            </h2>
-            {campus.sectionDesc && (
-              <p className="text-[#6F685B] font-serif text-base md:text-lg leading-relaxed mb-6">
-                {campus.sectionDesc}
-              </p>
-            )}
-            {campus.directionsTitle && (
-              <p className="font-mono text-xs text-[#9A2B27] uppercase tracking-widest font-bold mb-4">
-                {campus.directionsTitle}
-              </p>
-            )}
-            {(campus.directionItems ?? []).length > 0 && (
-              <ul className="flex flex-wrap gap-4">
-                {campus.directionItems!.map((d, i) => (
-                  <li
-                    key={i}
-                    className="bg-[#9A2B27]/8 border border-[#9A2B27]/15 rounded-xl px-4 py-2 text-sm font-sans text-[#33271E]"
-                  >
-                    {d.label}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </section>
-      )}
 
       {/* ── ACTIVITIES ───────────────────────────────────────────────────── */}
       <section

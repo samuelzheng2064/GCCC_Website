@@ -94,23 +94,23 @@ export const HomePageGlobal: GlobalConfig = {
       ],
     },
 
-    // ── Campus Focus ─────────────────────────────────────────────────────────
+    // ── Recent Sermons ───────────────────────────────────────────────────────
     {
-      name: "campusFocus",
+      name: "sermons",
       type: "group",
-      label: "Campus Focus Section",
+      label: "Recent Sermons Section",
       fields: [
-        localText("sectionTitle", "Section Title", true),
-        localText("sectionDesc", "Section Description"),
-        localText("directionsTitle", "Directions heading"),
+        localText("heading", "Section Heading", true),
         {
-          name: "directionItems",
-          type: "array",
-          label: "Direction items (walk / bus / car etc.)",
-          fields: [
-            localText("icon", "Icon key (walk | bus | car)"),
-            localText("label", "Label", true),
-          ],
+          name: "featuredSermon",
+          type: "relationship",
+          relationTo: "sermons" as const,
+          label: "Featured Sermon (optional — overrides latest)",
+          required: false,
+          admin: {
+            description:
+              "Pin a specific sermon here. If left blank, the most recently uploaded sermon is shown automatically.",
+          },
         },
       ],
     },

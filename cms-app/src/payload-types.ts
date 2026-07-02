@@ -78,11 +78,16 @@ export interface Config {
     'ministry-categories': MinistryCategory;
     pages: Page;
     'payload-kv': PayloadKv;
+    'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'payload-folders': {
+      documentsAndFolders: 'payload-folders' | 'media';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -95,6 +100,7 @@ export interface Config {
     'ministry-categories': MinistryCategoriesSelect<false> | MinistryCategoriesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -190,6 +196,7 @@ export interface Media {
   alt?: string | null;
   caption?: string | null;
   prefix?: string | null;
+  folder?: (number | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -227,6 +234,32 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders".
+ */
+export interface FolderInterface {
+  id: number;
+  name: string;
+  folder?: (number | null) | FolderInterface;
+  documentsAndFolders?: {
+    docs?: (
+      | {
+          relationTo?: 'payload-folders';
+          value: number | FolderInterface;
+        }
+      | {
+          relationTo?: 'media';
+          value: number | Media;
+        }
+    )[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  folderType?: 'media'[] | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -594,21 +627,6 @@ export interface Page {
             blockType: 'prayerFeature';
           }
         | {
-            sectionTitle: string;
-            sectionDesc?: string | null;
-            directionsTitle?: string | null;
-            directionItems?:
-              | {
-                  icon?: string | null;
-                  label: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'campusFocus';
-          }
-        | {
             heading: string;
             items?:
               | {
@@ -961,6 +979,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'payload-folders';
+        value: number | FolderInterface;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1034,6 +1056,7 @@ export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
   prefix?: T;
+  folder?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1246,22 +1269,6 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        campusFocus?:
-          | T
-          | {
-              sectionTitle?: T;
-              sectionDesc?: T;
-              directionsTitle?: T;
-              directionItems?:
-                | T
-                | {
-                    icon?: T;
-                    label?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
         activities?:
           | T
           | {
@@ -1423,6 +1430,18 @@ export interface PagesSelect<T extends boolean = true> {
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders_select".
+ */
+export interface PayloadFoldersSelect<T extends boolean = true> {
+  name?: T;
+  folder?: T;
+  documentsAndFolders?: T;
+  folderType?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1598,17 +1617,12 @@ export interface PageHome {
     } | null;
     ctaLabel?: string | null;
   };
-  campusFocus: {
-    sectionTitle: string;
-    sectionDesc?: string | null;
-    directionsTitle?: string | null;
-    directionItems?:
-      | {
-          icon?: string | null;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
+  sermons: {
+    heading: string;
+    /**
+     * Pin a specific sermon here. If left blank, the most recently uploaded sermon is shown automatically.
+     */
+    featuredSermon?: (number | null) | Sermon;
   };
   activities: {
     heading: string;
@@ -1952,19 +1966,11 @@ export interface PageHomeSelect<T extends boolean = true> {
         body?: T;
         ctaLabel?: T;
       };
-  campusFocus?:
+  sermons?:
     | T
     | {
-        sectionTitle?: T;
-        sectionDesc?: T;
-        directionsTitle?: T;
-        directionItems?:
-          | T
-          | {
-              icon?: T;
-              label?: T;
-              id?: T;
-            };
+        heading?: T;
+        featuredSermon?: T;
       };
   activities?:
     | T

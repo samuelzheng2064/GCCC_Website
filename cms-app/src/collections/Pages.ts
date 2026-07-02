@@ -86,26 +86,6 @@ const PrayerFeatureBlock = {
   ],
 };
 
-/** UF / campus-focus section */
-const CampusFocusBlock = {
-  slug: "campusFocus",
-  labels: { singular: "Campus Focus Section", plural: "Campus Focus Sections" },
-  fields: [
-    localText("sectionTitle", "Section Title", true),
-    localText("sectionDesc", "Section Description"),
-    localText("directionsTitle", "Directions heading"),
-    {
-      name: "directionItems",
-      type: "array" as const,
-      label: "Direction items (walk / bus / car etc.)",
-      fields: [
-        localText("icon", "Icon key (walk | bus | car)"),
-        localText("label", "Label", true),
-      ],
-    },
-  ],
-};
-
 /** Activities / recent events section */
 const ActivitiesBlock = {
   slug: "activities",
@@ -347,7 +327,6 @@ export const Pages: CollectionConfig = {
         HeroBlock,
         SundayServiceBlock,
         PrayerFeatureBlock,
-        CampusFocusBlock,
         ActivitiesBlock,
         ChurchHistoryBlock,
         RichTextBlock,
