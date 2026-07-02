@@ -9,6 +9,9 @@ export const Fellowships: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    maxPerDoc: 20,
+  },
   // Default sort by manual order field
   defaultSort: 'order',
   fields: [

@@ -8,6 +8,9 @@ export const SiteSettings: GlobalConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    max: 20,
+  },
   fields: [
     // ─── Church Identity ──────────────────────────────────────────────────────
     {

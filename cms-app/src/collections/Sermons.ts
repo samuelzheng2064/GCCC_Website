@@ -11,6 +11,9 @@ export const Sermons: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    maxPerDoc: 20,
+  },
   // Default sort newest first
   defaultSort: '-date',
   fields: [

@@ -306,6 +306,9 @@ export const Pages: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    maxPerDoc: 20,
+  },
   fields: [
     {
       name: "slug",

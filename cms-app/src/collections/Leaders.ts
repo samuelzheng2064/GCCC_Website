@@ -10,6 +10,9 @@ export const Leaders: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    maxPerDoc: 20,
+  },
   defaultSort: 'order',
   fields: [
     {

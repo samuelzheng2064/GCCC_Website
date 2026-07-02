@@ -24,6 +24,9 @@ export const GivePageGlobal: GlobalConfig = {
     group: "Pages",
   },
   access: { read: () => true },
+  versions: {
+    max: 20,
+  },
   fields: [
     localText("heading", "Page Heading"),
     localText("subheading", "Subheading"),

@@ -15,6 +15,9 @@ export const GainsvilleDewPageGlobal: GlobalConfig = {
     group: "Pages",
   },
   access: { read: () => true },
+  versions: {
+    max: 20,
+  },
   fields: [
     localText("eyebrow", "Eyebrow (e.g. Newsletter)"),
     localText("heading", "Page Heading"),

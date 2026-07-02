@@ -9,6 +9,9 @@ export const Speakers: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    maxPerDoc: 20,
+  },
   fields: [
     {
       name: 'name',

@@ -10,6 +10,9 @@ export const Activities: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    maxPerDoc: 20,
+  },
   defaultSort: '-date',
   fields: [
     {

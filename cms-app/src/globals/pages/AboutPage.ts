@@ -24,6 +24,9 @@ export const AboutPageGlobal: GlobalConfig = {
     group: "Pages",
   },
   access: { read: () => true },
+  versions: {
+    max: 20,
+  },
   fields: [
     // ── Hero ────────────────────────────────────────────────────────────────
     {
