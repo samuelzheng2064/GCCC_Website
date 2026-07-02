@@ -7,6 +7,9 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // These packages are build-time tools or native binaries that must not be
+  // bundled into the server output (they break on Cloudflare Workers).
+  serverExternalPackages: ['drizzle-kit', 'sharp', 'pg-cloudflare'],
   images: {
     localPatterns: [
       {
@@ -29,3 +32,5 @@ const nextConfig: NextConfig = {
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
+
+import('@opennextjs/cloudflare').then(m => m.initOpenNextCloudflareForDev());
